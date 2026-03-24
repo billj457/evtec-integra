@@ -17,6 +17,8 @@ connectors:
     type: CAN 8-Button
   AEM_CD5L_Dash:
     type: AEM Logging Dash
+  Kvaser_Leaf_v3:
+    type: Kvaser Leaf v3
 
   # --- Drive & Battery ---
   Tesla_SDU_Logic:
@@ -26,7 +28,7 @@ connectors:
     type: Mini Master
   Pacifica_Battery_Pack:
     type: 360V 16kWh
-  Isabellenhuette_IVTS:
+  IVTS:
     type: Current Sensor
     pinlabels: [12V, GND, CAN_H, CAN_L]
 
@@ -85,75 +87,65 @@ connectors:
   DB6_Wipers:
 
 cables:
-  CAN_Bus_System:
-    gauge: 22 AWG
-    colors: [YE, GN]
-    twisted: true
-  CAN_Bus_EV:
-    gauge: 22 AWG
-    colors: [OR, BU]
-    twisted: true
-  HVIL_Loop:
-    gauge: 18 AWG
-    color: RD
-  Chassis_Power:
-    gauge: 16 AWG # For lights/locks
-    color: RD
-  Heavy_Load:
-    gauge: 12 AWG # For Radiator fans and PTC heater
-    color: RD
-  LIN_Signal:
-    gauge: 22 AWG
-    color: PU
+  # --- Communication ---
+  CAN_PC: {gauge: 22 AWG, colors: [YE, GN], twisted: true} # VCU CAN 1
+  CAN_Drive:  {gauge: 22 AWG, colors: [OR, BU], twisted: true} # VCU CAN 2
+  CAN_Charge: {gauge: 22 AWG, colors: [WT, BK], twisted: true} # VCU CAN 3
+  isoSPI_Daisy: {gauge: 24 AWG, colors: [BU, WT], twisted: true} # BMS Chain
+  LIN_Thermal: {gauge: 22 AWG, color: PU} # Mach GW to Superbottle
 
-connections:
-  # 1. Main Power & Ignition Logic
-  - - JDI_Ghost_Key: [Out]
-    - AEM_VCU_275: [Ignition_In]
+  # --- Safety & Power ---
+  HVIL_Main:   {gauge: 18 AWG, color: RD}
+  HVIL_Charge: {gauge: 18 AWG, color: OR}
+  Logic_12V:   {gauge: 18 AWG, color: RD}
+  Logic_GND:   {gauge: 18 AWG, color: BK}
   
-  - - Compustar_Alarm: [Arm_Signal]
-    - AEM_VCU_275: [Digital_In_1]
+connections:
+  # CAN 1: PC Communication
+  - - AEM_VCU_275: [CAN1_H, CAN1_L]
+    - CAN_PC: [1, 2]
+    - [Kvaser_Leaf_v3]
 
-  # 2. PDU-8 A: Chassis Control (The "Integra" Side)
-  - - AEM_PDU8_A: [OUT_1, OUT_2, OUT_3, OUT_4, OUT_5]
-    - Chassis_Power: [1, 2, 3, 4, 5]
-    - [DB6_Lights, DB6_Locks, DB6_Windows, DB6_Wipers, DB6_Audio]
+  # CAN 2: Powertrain
+  - - AEM_VCU_275: [CAN2_H, CAN2_L]
+    - CAN_Drive: [1, 2]
+    - [Tesla_SDU_Logic, AEM_PDU8_A, AEM_PDU8_B, AEM_CD5L_Dash, Mach_LIN_GW]
 
-  # 3. PDU-8 B: Thermal & Conversion (The "Tesla" Side)
-  - - AEM_PDU8_B: [OUT_1, OUT_2] # High current channels
-    - Heavy_Load: [1, 2]
-    - [Radiator_Fan_A, Radiator_Fan_B]
+  # CAN 3: Charging (To CCU and Mach Gateway)
+  - - AEM_VCU_275: [CAN3_H, CAN3_L]
+    - CAN_Charge: [1, 2]
+    - [AEM_CCU, AEM_Keypad, AEM_CD5L_Dash, AEM_BMS_Master, IVTS]
 
-  - - AEM_PDU8_B: [OUT_3, OUT_4]
-    - Heavy_Load: [1, 2]
-    - [Tesla_Superbottle, PTC_Cabin_Heater_LV]
-
-  # 4. Mach Systems LIN Bridge
-  - - Mach_LIN_GW: [LIN_1]
-    - LIN_Signal: [1]
-    - Tesla_Superbottle: [LIN_Pin]
-
-  # 5. Extended HVIL (Safety Loop)
-  # This must pass through every HV component for the car to "Start"
-  - - HVIL_Main: [1]
-    - HVIL_Loop: [1]
+  # --- 2. DUAL HVIL LOOPS ---
+  # Loop A: Main Drive
+  - - AEM_VCU_275: [HVIL_Out_1]
+    - HVIL_Main: [1]
     - Tesla_HVJB_LV: [HVIL_In]
   - - Tesla_HVJB_LV: [HVIL_Out]
-    - HVIL_Loop: [1]
+    - HVIL_Main: [1]
     - Tesla_SDU_Logic: [HVIL_In]
   - - Tesla_SDU_Logic: [HVIL_Out]
-    - HVIL_Loop: [1]
-    - AEM_CCU: [HVIL_In]
+    - AEM_VCU_275: [HVIL_In_1]
+
+  # Loop B: Charging
   - - AEM_CCU: [HVIL_Out]
-    - HVIL_Loop: [1]
-    - HVIL_Relay: [Coil_Pos]
+    - HVIL_Charge: [1]
+    - J1772_Port: [HVIL_Loop]
+  - - J1772_Port: [HVIL_Loop]
+    - HVIL_Charge: [1]
+    - AEM_CCU: [HVIL_In]
 
-  # 6. CAN Bus Networks
-  - - AEM_VCU_275: [CAN1_H, CAN1_L]
-    - CAN_Bus_System: [1, 2]
-    - [AEM_PDU8_A, AEM_PDU8_B, AEM_Keypad, AEM_CD5L_Dash]
+  # --- 3. BMS isoSPI DAISY CHAIN ---
+  # This uses your Satellite kit to link the 6 modules
+  - - AEM_BMS_Master: [isoSPI_Out+, isoSPI_Out-]
+    - isoSPI_Daisy: [1, 2]
+    - BMS_Satellite_1: [isoSPI_In+, isoSPI_In-]
+  - - BMS_Satellite_1: [isoSPI_Out+, isoSPI_Out-]
+    - isoSPI_Daisy: [1, 2]
+    - BMS_Satellite_2: [isoSPI_In+, isoSPI_In-]
+    # Repeat for Satellites 3-6...
 
-  - - AEM_VCU_275: [CAN2_H, CAN2_L]
-    - CAN_Bus_EV: [1, 2]
-    - [Tesla_SDU_Logic, AEM_BMS_Master, Isabellenhuette_IVTS, AEM_CCU]
-    - Superbottle_12V: [Pump1_12V, Pump2_12V]
+  # --- 4. SUPERBOTTLE & LIN ---
+  - - Mach_LIN_GW: [LIN_Out]
+    - LIN_Thermal: [1]
+    - Tesla_Superbottle: [LIN_Signal]
