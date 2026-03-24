@@ -17,8 +17,11 @@ connectors:
     type: CAN 8-Button
   AEM_CD5L_Dash:
     type: AEM Logging Dash
+    
   Kvaser_Leaf_v3:
     type: Kvaser Leaf v3
+    pincount: 2
+    pinlabels: [CAN1_H, CAN1_L]
 
   # --- Drive & Battery ---
   Tesla_SDU_Logic:
@@ -28,9 +31,12 @@ connectors:
     type: Mini Master
   Pacifica_Battery_Pack:
     type: 360V 16kWh
+    
   IVTS:
-    type: Current Sensor
-    pinlabels: [12V, GND, CAN_H, CAN_L]
+    type: Isabellenhuette Current Sensor 
+    pn: IVT-S-1K-U3-I-CAN1-12/24
+    pincount: 4
+    pinlabels: [12V, GND, CAN3_H, CAN3_L]
 
   # --- Thermal & HV Components ---
   Radiator_Fan_A:
@@ -65,16 +71,36 @@ connectors:
     type: Digital Kill Switch
   HVIL_Relay:
     type: SPDT 40A
-    notes: "Safety Loop"
-  HVIL_Main:
-    notes: "Safety Loop"
-  HVIL_Charge:
-    notes: "Safety Loop"
+    notes: "HVIL Contactor Relay"
 
-  # --- Charging ---
-  AEM_CCU:
+ # --- Charging ---
+  AEM_CCU_ACInput:
     type: Combined Charging Unit (30-8405)
-  J1772_Port:
+    pincount: 5
+    pinlabels: [L1, N, PE, HVIL_IN, HVIL_OUT]
+    notes: "High Voltage AC Input from J1772 Port"
+
+  AEM_CCU_HV:
+    type: Combined Charging Unit (30-8405)
+    pincount: 4
+    pinlabels: [BATT_HV+, BATT_HV-, HVIL_IN, HVIL_OUT]
+    notes: "High Voltage DC Output to Battery"
+
+  AEM_CCU_LV:
+    type: Combined Charging Unit (30-8405)
+    pincount: 5
+    pinlabels: [1H: WAKE_PWR, 3C: OBC_WAKE, 3D: DCDC_WAKE, 4A: CAN3_H, 4B: CAN3_L, 4C: HVIL_IN, 4D: HVIL_OUT, 4G: GND]
+    notes: "Low Voltage Control Connector"
+
+  AEM_CCU_12V:
+    type: Combined Charging Unit (30-8405)
+    pincount: 2
+    pinlabels: [12V_POS, 12V_GND]
+    notes: "DC-DC Low Voltage Output"
+    
+  J1772_Port_HV:
+    type: Charge Port
+  J1772_Port_LV:
     type: Charge Port
 
   # --- Chassis ---
@@ -111,7 +137,7 @@ connections:
     - CAN_Drive: [1, 2]
     - [Tesla_SDU_Logic, AEM_PDU8_A, AEM_PDU8_B, AEM_CD5L_Dash, Mach_LIN_GW]
 
-  # CAN 3: Charging (To CCU and Mach Gateway)
+  # CAN 3: Charging
   - - AEM_VCU_275: [CAN3_H, CAN3_L]
     - CAN_Charge: [1, 2]
     - [AEM_CCU, AEM_Keypad, AEM_CD5L_Dash, AEM_BMS_Master, IVTS]
