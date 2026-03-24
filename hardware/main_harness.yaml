@@ -1,0 +1,159 @@
+# Project Integra - EV Conversion Harness
+# Vehicle: Acura Integra / Drive: Tesla Front SDU P100D / Battery: Chrysler Pacifica 16kWh
+# Control: AEM VCU 275
+
+connectors:
+  # --- Control System ---
+  AEM_VCU_275:
+    type: AEM VCU
+    pincount: 80
+  AEM_PDU8_A:
+    type: AEM PDU-8
+    notes: ""
+  AEM_PDU8_B:
+    type: AEM PDU-8
+    notes: ""
+  AEM_Keypad:
+    type: CAN 8-Button
+  AEM_CD5L_Dash:
+    type: AEM Logging Dash
+
+  # --- Drive & Battery ---
+  Tesla_SDU_Logic:
+    type: Tesla SDU (AEM Board 30-8403)
+    pincount: 23
+  AEM_BMS_Master:
+    type: Mini Master
+  Pacifica_Battery_Pack:
+    type: 360V 16kWh
+  Isabellenhuette_IVTS:
+    type: Current Sensor
+    pinlabels: [12V, GND, CAN_H, CAN_L]
+
+  # --- Thermal & HV Components ---
+  Radiator_Fan_A:
+  Radiator_Fan_B:
+  Tesla_Superbottle_Valve:
+    type: Tesla Model 3 (1068767-00-G)
+    notes: "LIN-controlled via Mach Systems GW"
+  Tesla_Superbottle_Chiller:
+    type: Tesla Model 3 (1068767-00-G)
+    notes: "LIN-controlled via Mach Systems GW"
+  Tesla_Superbottle_Pump_A:
+    type: Tesla Model 3 (1068767-00-G)
+    notes: "LIN-controlled via Mach Systems GW"
+  Tesla_Superbottle_Pump_B:
+    type: Tesla Model 3 (1068767-00-G)
+    notes: "LIN-controlled via Mach Systems GW"
+  Tesla_AC_Compressor_HV:
+    type: 6007380-00-D
+  Tesla_AC_Compressor_LV:
+    type: 6007380-00-D
+  Tesla_Battery_Heater:
+    type: 1009508-00-D
+  PTC_Cabin_Heater_HV:
+  PTC_Cabin_Heater_LV:
+  Tesla_HVJB_HV:
+  Tesla_HVJB_LV:
+
+  # --- Security & Safety ---
+  Compustar_Alarm:
+    type: CS2WQ900-AS
+  JDI_Ghost_Key:
+    type: Digital Kill Switch
+  HVIL_Relay:
+    type: SPDT 40A
+    notes: "Safety Loop"
+  HVIL_Main:
+    notes: "Safety Loop"
+  HVIL_Charge:
+    notes: "Safety Loop"
+
+  # --- Charging ---
+  AEM_CCU:
+    type: Combined Charging Unit (30-8405)
+  J1772_Port:
+    type: Charge Port
+
+  # --- Chassis ---
+  DB6_Climate:
+  DB6_Windows:
+  DB6_Locks:
+  DB6_Lights:
+  DB6_Audio:
+  DB6_12v:
+  DB6_Wipers:
+
+cables:
+  CAN_Bus_System:
+    gauge: 22 AWG
+    colors: [YE, GN]
+    twisted: true
+  CAN_Bus_EV:
+    gauge: 22 AWG
+    colors: [OR, BU]
+    twisted: true
+  HVIL_Loop:
+    gauge: 18 AWG
+    color: RD
+  Chassis_Power:
+    gauge: 16 AWG # For lights/locks
+    color: RD
+  Heavy_Load:
+    gauge: 12 AWG # For Radiator fans and PTC heater
+    color: RD
+  LIN_Signal:
+    gauge: 22 AWG
+    color: PU
+
+connections:
+  # 1. Main Power & Ignition Logic
+  - - JDI_Ghost_Key: [Out]
+    - AEM_VCU_275: [Ignition_In]
+  
+  - - Compustar_Alarm: [Arm_Signal]
+    - AEM_VCU_275: [Digital_In_1]
+
+  # 2. PDU-8 A: Chassis Control (The "Integra" Side)
+  - - AEM_PDU8_A: [OUT_1, OUT_2, OUT_3, OUT_4, OUT_5]
+    - Chassis_Power: [1, 2, 3, 4, 5]
+    - [DB6_Lights, DB6_Locks, DB6_Windows, DB6_Wipers, DB6_Audio]
+
+  # 3. PDU-8 B: Thermal & Conversion (The "Tesla" Side)
+  - - AEM_PDU8_B: [OUT_1, OUT_2] # High current channels
+    - Heavy_Load: [1, 2]
+    - [Radiator_Fan_A, Radiator_Fan_B]
+
+  - - AEM_PDU8_B: [OUT_3, OUT_4]
+    - Heavy_Load: [1, 2]
+    - [Tesla_Superbottle, PTC_Cabin_Heater_LV]
+
+  # 4. Mach Systems LIN Bridge
+  - - Mach_LIN_GW: [LIN_1]
+    - LIN_Signal: [1]
+    - Tesla_Superbottle: [LIN_Pin]
+
+  # 5. Extended HVIL (Safety Loop)
+  # This must pass through every HV component for the car to "Start"
+  - - HVIL_Main: [1]
+    - HVIL_Loop: [1]
+    - Tesla_HVJB_LV: [HVIL_In]
+  - - Tesla_HVJB_LV: [HVIL_Out]
+    - HVIL_Loop: [1]
+    - Tesla_SDU_Logic: [HVIL_In]
+  - - Tesla_SDU_Logic: [HVIL_Out]
+    - HVIL_Loop: [1]
+    - AEM_CCU: [HVIL_In]
+  - - AEM_CCU: [HVIL_Out]
+    - HVIL_Loop: [1]
+    - HVIL_Relay: [Coil_Pos]
+
+  # 6. CAN Bus Networks
+  - - AEM_VCU_275: [CAN1_H, CAN1_L]
+    - CAN_Bus_System: [1, 2]
+    - [AEM_PDU8_A, AEM_PDU8_B, AEM_Keypad, AEM_CD5L_Dash]
+
+  - - AEM_VCU_275: [CAN2_H, CAN2_L]
+    - CAN_Bus_EV: [1, 2]
+    - [Tesla_SDU_Logic, AEM_BMS_Master, Isabellenhuette_IVTS, AEM_CCU]
+    - Superbottle_12V: [Pump1_12V, Pump2_12V]
