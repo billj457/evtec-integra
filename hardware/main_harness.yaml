@@ -66,7 +66,7 @@ connectors:
     pinlabels: []
     notes: "Input/Output Connector (B)"
   
-  AEM_PDU8_A:
+  AEM_PDU8:
     type: PDU-8 (30-8300)
     pincount: 19
     pins: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 16, 18, 20, 21, 24, 25, 26]
@@ -300,7 +300,7 @@ connections:
   # CAN 2: Powertrain
   - - AEM_VCU_275: [CAN2_H, CAN2_L]
     - CAN_Drive: [1, 2]
-    - [Tesla_SDU_Logic, AEM_PDU8_A, AEM_PDU8_B, AEM_CD5L_Dash, Mach_LIN_GW]
+    - [Tesla_SDU_Logic, AEM_PDU8, MicroPDU, AEM_CD5L_Dash, Mach_LIN_GW]
 
   # CAN 3: Charging
   - - AEM_VCU_275: [CAN3_H, CAN3_L]
@@ -358,7 +358,7 @@ connections:
     - [VCU275_A: A22, VCU275_A: A23]
 
 # A/C System
-  - - AEM_PDU8_A: HS_DRIVER_A_2      # Pin 8 (10A Switched)
+  - - AEM_PDU8: HS_DRIVER_A_2      # Pin 8 (10A Switched)
     - Tesla_AC_Compressor: LOGIC_12V # Wakes the internal inverter
   - - VCU275_A: CAN2_H               # Shared Bus with SDU and PDU
     - Tesla_AC_Compressor: CAN_H
