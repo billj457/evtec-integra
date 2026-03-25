@@ -103,26 +103,31 @@ connectors:
         - MARKER_LIGHTS
         - BRAKE_LIGHTS
         - OPEN
-
-    Engine_Fuse_Box:
-      pincount:
-      pins:
-      pinlabels:
-        - ECU 15A [VCU A70]
-        - Backup 7.5A [VCU A97]
-        - Cooling Fan 20A NOT USED
-        - Rear Defroster 30A
-        - Condenser Fan 20A NOT USED
-        - Option 50A
-        - Heater Motor 40A
-        - IG 50A REPURPOSED iBooster
-        - Light 50A REPURPOSED MicroPDM_A
-        - Battery 100A
-        - Stop, Horn 20A
-        - Hazard 10A
-        - Cooling Fan Relay NOT USED
-        - Heater Motor Relay
-        - Defroster Relay
+        
+Engine_Fuse_Box:
+  pincount: 20
+  pins:
+  pinlabels:
+    - FI E/M 15A [VCU]
+    - BACK UP (RADIO) 7.5A [VCU A97]
+    - +B SMALL 15A [NOT USED]
+    - CONDENSER FAN 20A [NOT USED]
+    - COOLING FAN 20A [NOT USED]
+    - INTERIOR LIGHT 7.5A
+    - POWER WINDOW 40A
+    - RR DEFROSTER 40A
+    - HEATER MOTOR 40A
+    - IG 1 40A [REPURPOSED iBooster]
+    - DOOR LOCK 30A
+    - OPTION 40A
+    - HEAD LIGHT 40A [REPURPOSED MicroPDM]
+    - HAZARD 10A
+    - HORN, STOP 20A
+    - BATTERY 80A
+    - HEATER MOTOR RELAY
+    - COOLING FAN RELAY [NOT USED]
+    - MG. CLUTCH RELAY [NOT USED]
+    - CONDENSER FAN RELAY [NOT USED]
 
     Cabin_Fuse_Box:
       pincount:
