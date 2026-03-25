@@ -4,15 +4,128 @@
 
 connectors:
   # --- Control System ---
-  AEM_VCU_275:
-    type: AEM VCU
-    pincount: 80
+  VCU275_A:
+    type: AEM VCU275 A (103-Pin)
+    pincount: 103
+    pins: [2, 3, 4, 7, 8, 9, 13, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40, 41, 43, 44, 45, 47, 48, 49, 59, 63, 64, 67, 68, 69, 70, 79, 84, 86, 87, 92, 93, 96, 97, 99, 100, 101, 102, 103]
+    pinlabels:
+      - CAN2_H               # A2 (Inverters, PDU, Dash Port 1)
+      - HVIL_MAIN_OUT        # A3 (High Voltage Interlock Loop)
+      - HVIL_CHARGE_OUT      # A4 (Charging Loop)
+      - BMS_DISCHARGE_LS     # A7 (Low-Side BMS Trigger)
+      - BMS_CHARGE_LS        # A8 (Low-Side Charger Trigger)
+      - SENSOR_PWR           # A9 (5V Supply for Sensors)
+      - NEG_CONT_FEEDBACK    # A13 (Confirms Negative Contactor State)
+      - APPS_1               # A17 (Accelerator Pedal 1)
+      - APPS_2               # A18 (Accelerator Pedal 2)
+      - BRAKE_PRESS          # A19 (0-2000 PSI Brake Sensor)
+      - CAN2_L               # A21 (Inverters, PDU, Dash Port 1)
+      - BRAKE_GND            # A22 (Sensor Ground)
+      - DBW_GND_1            # A23 (Pedal Ground)
+      - DBW_GND_2            # A24 (Pedal Ground)
+      - SENSOR_GND_4         # A25
+      - SENSOR_GND_5         # A26
+      - SENSOR_GND_6         # A27
+      - BRAKE_5V             # A28 (Brake Sensor Supply)
+      - DBW_5V_1             # A29 (Pedal Supply)
+      - DBW_5V_2             # A30 (Pedal Supply)
+      - CAN1_H               # A40 (PC Comms / AEMCal)
+      - INV_PWR              # A41 (Inverter Logic Enable) (PDU)
+      - SENSOR_GND_7         # A43
+      - SENSOR_GND_8         # A44
+      - SENSOR_GND_9         # A45
+      - SENSOR_PWR_4         # A47
+      - SENSOR_PWR_5         # A48
+      - SENSOR_PWR_6         # A49
+      - CAN1_L               # A59 (PC Comms / AEMCal)
+      - SENSOR_GND_10        # A63
+      - SENSOR_GND_11        # A64
+      - SENSOR_GND_12        # A67
+      - SENSOR_GND_13        # A68
+      - SENSOR_PWR_7         # A69
+      - MASTER_WAKE          # A70 (From Ghost Key / Compustar)
+      - PRECHARGE_CONT_LS    # A79 (Gigavac P115CDA)
+      - POS_CONT_LS          # A84 (Main Positive Contactor)
+      - NEG_CONT_LS          # A86 (Main Negative Contactor)
+      - AC_EVAP_LS           # A87 (Cabin Solenoid Valve)
+      - CAN3_H               # A92 (Keypad, BMS-18, OBC, Dash Port 2)
+      - CAN3_L               # A93 (Keypad, BMS-18, OBC, Dash Port 2)
+      - CHASSIS_GND          # A96 (Logic Ground)
+      - BATT_PERM_12V        # A97 (Constant Power - 3A Fuse)
+      - BATT_GND_1           # A99 (Power Ground)
+      - MAIN_RELAY_PWR_1     # A100 (Switched Power)
+      - BATT_GND_2           # A101 (Power Ground)
+      - MAIN_RELAY_PWR_2     # A102 (Switched Power)
+      - BATT_GND_3           # A103 (Power Ground)
+    notes: "Main System Connector (A) - Project Integra Configuration"
+
+  VCU275_B:
+    type: AEM VCU275 B (95-Pin)
+    pincount: 95
+    pins: []
+    pinlabels: []
+    notes: "Input/Output Connector (B)"
+  
   AEM_PDU8_A:
-    type: AEM PDU-8
-    notes: ""
+    type: PDU-8 (30-8300)
+    pincount: 26
+    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 25, 26]
+    pinlabels:
+      - HS_DRIVER_A_1_A       # Pin 1 (20A)
+      - HS_DRIVER_A_1_B       # Pin 2 (20A)
+      - CAN_L                 # Pin 3
+      - CAN_H                 # Pin 4
+      - LOGIC_GND             # Pin 5
+      - FAN_2_A               # Pin 6 (20A)
+      - FAN_2_B               # Pin 7 (20A)
+      - HS_DRIVER_A_2         # Pin 8 (10A)
+      - HS_DRV_A_2_COMP       # Pin 9
+      - CONFIG_3              # Pin 10 (Open)
+      - LOGIC_GND_2           # Pin 11
+      - HS_DRIVER_A_6         # Pin 12 (10A)
+      - HS_DRV_A_6_COMP       # Pin 13
+      - HS_DRIVER_A_3         # Pin 14 (10A)
+      - HS_DRV_A_3_COMP       # Pin 15
+      - CONFIG_2              # Pin 16 (Open)
+      - HS_DRIVER_A_7         # Pin 18 (10A)
+      - HS_DRV_A_7_COMP       # Pin 19
+      - HS_DRIVER_A_4_A       # Pin 20 (20A)
+      - HS_DRIVER_A_4_B       # Pin 21 (20A)
+      - CONFIG_1              # Pin 24 (Open)
+      - HS_DRIVER_A_8_A       # Pin 25 (20A)
+      - HS_DRIVER_A_8_B       # Pin 26 (20A)
+    notes: "Pins 3/4 for CAN; 20A channels utilize dual pins for capacity."
+    
   AEM_PDU8_B:
-    type: AEM PDU-8
-    notes: ""
+    type: PDU-8 (30-8300)
+    pincount: 26
+    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 25, 26]
+    pinlabels:
+      - HS_DRIVER_B_1_A       # Pin 1 (20A)
+      - HS_DRIVER_B_1_B       # Pin 2 (20A)
+      - CAN_L                 # Pin 3
+      - CAN_H                 # Pin 4
+      - LOGIC_GND             # Pin 5
+      - HS_DRIVER_B_5_A       # Pin 6 (20A)
+      - HS_DRIVER_B_5_B       # Pin 7 (20A)
+      - HS_DRIVER_B_2         # Pin 8 (10A)
+      - HS_DRV_B_2_COMP       # Pin 9
+      - CONFIG_3              # Pin 10 (Open)
+      - LOGIC_GND_2           # Pin 11
+      - HS_DRIVER_B_6         # Pin 12 (10A)
+      - HS_DRV_B_6_COMP       # Pin 13
+      - HS_DRIVER_B_3         # Pin 14 (10A)
+      - HS_DRV_B_3_COMP       # Pin 15
+      - CONFIG_2              # Pin 16 (Open)
+      - HS_DRIVER_B_7         # Pin 18 (10A)
+      - HS_DRV_B_7_COMP       # Pin 19
+      - HS_DRIVER_B_4_A       # Pin 20 (20A)
+      - HS_DRIVER_B_4_B       # Pin 21 (20A)
+      - CONFIG_1_GND          # Pin 24 (Jumpered to Pin 11 for ID 2)
+      - HS_DRIVER_B_8_A       # Pin 25 (20A)
+      - HS_DRIVER_B_8_B       # Pin 26 (20A)
+    notes: "Unit ID 2; Pin 24 must be grounded to Pin 11 for proper CAN addressing."
+    
   AEM_Keypad:
     type: CAN 8-Button
   AEM_CD5L_Dash:
@@ -31,6 +144,16 @@ connectors:
     type: Mini Master
   Pacifica_Battery_Pack:
     type: 360V 16kWh
+    
+  Rywire_DBW_Pedal:
+    type: 6-Pin Bosch
+    pincount: 6
+    pinlabels: [DBW_5V_1, APPS_2, DBW_5V_2, DBW_GND_1, APPS_1, DBW_GND_2]
+
+  AEM_Brake_Pressure_Sensor:
+    type: AEM 2000PSI Brake Pressure Switch
+    pincount: 3
+    pinlabels: [BRAKE_5V, BRAKE_GND, BRAKE_PRESS]
     
   IVTS:
     type: Isabellenhuette Current Sensor 
@@ -55,8 +178,17 @@ connectors:
     notes: "LIN-controlled via Mach Systems GW"
   Tesla_AC_Compressor_HV:
     type: 6007380-00-D
-  Tesla_AC_Compressor_LV:
-    type: 6007380-00-D
+    
+  Tesla_AC_Compressor:
+    type: 6007380-00-D (ES34C)
+    pincount: 2 # (Representing the logic connector for now)
+    pinlabels:
+      - 12V_LOGIC_PWR       # From PDU-8 (Switched)
+      - GROUND              # To Chassis
+      - CAN_H
+      - CAN_L
+    notes: "Requires both HV (360V) and LV (12V) to operate."
+    
   Tesla_Battery_Heater:
     type: 1009508-00-D
   PTC_Cabin_Heater_HV:
@@ -67,8 +199,18 @@ connectors:
   # --- Security & Safety ---
   Compustar_Alarm:
     type: CS2WQ900-AS
+    
   JDI_Ghost_Key:
     type: Digital Kill Switch
+    pincount: 6
+    pinlabels:
+      - KEY_ON_2 #brown -> yellow chassis
+      - MOTOR_START #yellow - > black/white
+      - ACC  #blue -> white/Black
+      - GK_GND  #black
+      - GK_12V  #red
+      - KEY_ON_1  #white -> black/yellow
+      
   HVIL_Relay:
     type: SPDT 40A
     notes: "HVIL Contactor Relay"
@@ -88,8 +230,9 @@ connectors:
 
   AEM_CCU_LV:
     type: Combined Charging Unit (30-8405)
-    pincount: 5
-    pinlabels: [1H: WAKE_PWR, 3C: OBC_WAKE, 3D: DCDC_WAKE, 4A: CAN3_H, 4B: CAN3_L, 4C: HVIL_IN, 4D: HVIL_OUT, 4G: GND]
+    pincount: 8
+    pins: [1H, 3C, 3D, 4A, 4B, 4C, 4D, 4G]
+    pinlabels: [WAKE_PWR, OBC_WAKE, DCDC_WAKE, CAN3_H, CAN3_L, HV_IN, HV_OUT, GND]
     notes: "Low Voltage Control Connector"
 
   AEM_CCU_12V:
@@ -140,7 +283,7 @@ connections:
   # CAN 3: Charging
   - - AEM_VCU_275: [CAN3_H, CAN3_L]
     - CAN_Charge: [1, 2]
-    - [AEM_CCU, AEM_Keypad, AEM_CD5L_Dash, AEM_BMS_Master, IVTS]
+    - [AEM_CCU_LV, AEM_Keypad, AEM_CD5L_Dash, AEM_BMS_Master, IVTS]
 
   # --- 2. DUAL HVIL LOOPS ---
   # Loop A: Main Drive
@@ -161,6 +304,14 @@ connections:
     - HVIL_Charge: [1]
     - AEM_CCU: [HVIL_In]
 
+  # Security
+  - - Compustar_6200: STATUS_OUT      # Constant Ground when disarmed
+    - Relay_VCU_Wake: COIL_NEG        # Triggers the relay
+  - - Relay_VCU_Wake: CONTACT_OUT
+    - VCU275_A: MASTER_WAKE            # Provides Constant 12V to Pin A70 (via 1N4001 Diode)
+  - - JDI_Ghost_Key: KEY_ON_1         # Also feeds this same A70 Pin (via 1N4001 Diode)
+    - VCU275_A: MASTER_WAKE
+
   # --- 3. BMS isoSPI DAISY CHAIN ---
   # This uses your Satellite kit to link the 6 modules
   - - AEM_BMS_Master: [isoSPI_Out+, isoSPI_Out-]
@@ -175,3 +326,19 @@ connections:
   - - Mach_LIN_GW: [LIN_Out]
     - LIN_Thermal: [1]
     - Tesla_Superbottle: [LIN_Signal]
+
+ # --- Accelerator Pedal (APPS) to VCU ---
+  - - Rywire_DBW_Pedal: [APPS_1, APPS_2]
+    - [VCU275_A: A17, VCU275_A: A18]
+  - - Rywire_DBW_Pedal: [DBW_5V_1, DBW_5V_2]
+    - [VCU275_A: A28, VCU275_Conn_A: A29]
+  - - Rywire_DBW_Pedal: [DBW_GND_1, DBW_GND_2]
+    - [VCU275_A: A22, VCU275_A: A23]
+
+# A/C System
+  - - AEM_PDU8_A: HS_DRIVER_A_2      # Pin 8 (10A Switched)
+    - Tesla_AC_Compressor: LOGIC_12V # Wakes the internal inverter
+  - - VCU275_A: CAN2_H               # Shared Bus with SDU and PDU
+    - Tesla_AC_Compressor: CAN_H
+  - - VCU275_A: CAN2_L
+    - Tesla_AC_Compressor: CAN_L
