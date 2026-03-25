@@ -101,14 +101,14 @@ connectors:
     pincount: 26
     pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 25, 26]
     pinlabels:
-      - HS_DRIVER_B_1_A       # Pin 1 (20A) FAN_1
-      - HS_DRIVER_B_1_B       # Pin 2 (20A) FAN_1
+      - HS_DRIVER_B_1_A       # Pin 1 (20A)
+      - HS_DRIVER_B_1_B       # Pin 2 (20A)
       - CAN_L                 # Pin 3
       - CAN_H                 # Pin 4
       - LOGIC_GND             # Pin 5
-      - HS_DRIVER_B_5_A       # Pin 6 (20A) FAN_2
-      - HS_DRIVER_B_5_B       # Pin 7 (20A) FAN_2
-      - HS_DRIVER_B_2         # Pin 8 (10A) A/C Compressor
+      - HS_DRIVER_B_5_A       # Pin 6 (20A)
+      - HS_DRIVER_B_5_B       # Pin 7 (20A)
+      - HS_DRIVER_B_2         # Pin 8 (10A)
       - HS_DRV_B_2_COMP       # Pin 9
       - CONFIG_3              # Pin 10 (Open)
       - LOGIC_GND_2           # Pin 11
