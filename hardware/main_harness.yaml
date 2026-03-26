@@ -104,30 +104,29 @@ connectors:
         - BRAKE_LIGHTS
         - OPEN
         
-Engine_Fuse_Box:
-  pincount: 20
-  pins:
-  pinlabels:
-    - FI E/M 15A [VCU]
-    - BACK UP (RADIO) 7.5A [VCU A97]
-    - +B SMALL 15A [NOT USED]
-    - CONDENSER FAN 20A [NOT USED]
-    - COOLING FAN 20A [NOT USED]
-    - INTERIOR LIGHT 7.5A
-    - POWER WINDOW 40A
-    - RR DEFROSTER 40A
-    - HEATER MOTOR 40A
-    - IG 1 40A [REPURPOSED iBooster]
-    - DOOR LOCK 30A
-    - OPTION 40A
-    - HEAD LIGHT 40A [REPURPOSED MicroPDM]
-    - HAZARD 10A
-    - HORN, STOP 20A
-    - BATTERY 80A
-    - HEATER MOTOR RELAY
-    - COOLING FAN RELAY [NOT USED]
-    - MG. CLUTCH RELAY [NOT USED]
-    - CONDENSER FAN RELAY [NOT USED]
+    Engine_Fuse_Box:
+      pincount: 20
+      pinlabels:
+        - "FI E/M"               # 15A [VCU A100 & A102]
+        - "BACK UP (RADIO)"      # 7.5A
+        - "+B SMALL"             # 15A [VCU A97]
+        - "CONDENSER FAN"        # 20A [NOT USED]
+        - "COOLING FAN"          # 20A [NOT USED]
+        - "INTERIOR LIGHT"       # 7.5A
+        - "POWER WINDOW"         # 40A
+        - "RR DEFROSTER"         # 40A
+        - "HEATER MOTOR"         # 40A
+        - "IG 1"                 # 40A [REPURPOSED iBooster]
+        - "DOOR LOCK"            # 30A
+        - "OPTION"               # 40A
+        - "HEAD LIGHT"           # 40A [REPURPOSED MicroPDM]
+        - "HAZARD"               # 10A
+        - "HORN, STOP"           # 20A
+        - "BATTERY"              # 80A
+        - "HEATER MOTOR RELAY"
+        - "COOLING FAN RELAY"    # [NOT USED]
+        - "MG. CLUTCH RELAY"     # [NOT USED]
+        - "CONDENSER FAN RELAY"  # [NOT USED]
 
     Cabin_Fuse_Box:
       pincount:
@@ -295,6 +294,8 @@ cables:
   HVIL_Charge: {gauge: 18 AWG, color: OR}
   Logic_12V:   {gauge: 18 AWG, color: RD}
   Logic_GND:   {gauge: 18 AWG, color: BK}
+  Heavy_12V:   {gauge: 10 AWG, color: RD}
+  Hwavy_GND:   {gauge: 10 AWG, color: BK}
   
 connections:
   # CAN 1: PC Communication
@@ -369,3 +370,8 @@ connections:
     - Tesla_AC_Compressor: CAN_H
   - - VCU275_A: CAN2_L
     - Tesla_AC_Compressor: CAN_L
+
+# Chassis
+  - - Engine_Fuse_Box: "FI E/M"
+    - Heavy_12V: [1]
+    - VCU275_A:
