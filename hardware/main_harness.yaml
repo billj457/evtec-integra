@@ -107,25 +107,25 @@ connectors:
     Engine_Fuse_Box:
       pincount: 20
       pinlabels:
-        - "FI E/M"               # 15A [VCU A100 & A102]
-        - "BACK UP (RADIO)"      # 7.5A
-        - "+B SMALL"             # 15A [VCU A97]
-        - "CONDENSER FAN"        # 20A [NOT USED]
-        - "COOLING FAN"          # 20A [NOT USED]
-        - "INTERIOR LIGHT"       # 7.5A
-        - "POWER WINDOW"         # 40A
-        - "RR DEFROSTER"         # 40A
-        - "HEATER MOTOR"         # 40A
-        - "IG 1"                 # 40A [REPURPOSED iBooster]
-        - "DOOR LOCK"            # 30A
+        - "FI E/M"               # 15A FUSE 44 [VCU A100 & A102]
+        - "BACK UP (RADIO)"      # 7.5A FUSE 47
+        - "+B SMALL"             # 15A FUSE 51 [VCU A97]
+        - "CONDENSER FAN"        # 20A FUSE 56 [NOT USED]
+        - "COOLING FAN"          # 20A FUSE 57 [NOT USED]
+        - "INTERIOR LIGHT"       # 7.5A FUSE 43
+        - "POWER WINDOW"         # 40A FUSE 46
+        - "RR DEFROSTER"         # 40A FUSE 50
+        - "HEATER MOTOR"         # 40A FUSE 55
+        - "IG 1"                 # 40A FUSE 42 [REPURPOSED iBooster]
+        - "DOOR LOCK"            # 30A FUSE 54
         - "OPTION"               # 40A
-        - "HEAD LIGHT"           # 40A [REPURPOSED MicroPDM]
-        - "HAZARD"               # 10A
-        - "HORN, STOP"           # 20A
-        - "BATTERY"              # 80A
+        - "HEAD LIGHT"           # 40A FUSE 48 [REPURPOSED MicroPDM]
+        - "HAZARD"               # 10A FUSE 53
+        - "HORN, STOP"           # 20A FUSE 52
+        - "BATTERY"              # 80A FUSE 41
         - "HEATER MOTOR RELAY"
         - "COOLING FAN RELAY"    # [NOT USED]
-        - "MG. CLUTCH RELAY"     # [NOT USED]
+        - "MG. CLUTCH RELAY"     # FUSE 56? [NOT USED]
         - "CONDENSER FAN RELAY"  # [NOT USED]
 
     Cabin_Fuse_Box:
