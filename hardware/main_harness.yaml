@@ -84,7 +84,7 @@ connectors:
       - HS_DRIVER_6           # Pin 12 (10A) SDU Logic Board
       - HS_DRIVER_3           # Pin 14 (10A) Coolant Diverter
       - CONFIG_2              # Pin 16 (Open)
-      - HS_DRIVER_7           # Pin 18 (10A) LOW_BEAMS
+      - HS_DRIVER_7           # Pin 18 (10A) Tesla HVJB
       - HS_DRIVER_4_A         # Pin 20 (20A) WATER_PUMP_1
       - HS_DRIVER_4_B         # Pin 21 (20A) WATER_PUMP_1
       - CONFIG_1              # Pin 24 (Open)
@@ -98,17 +98,17 @@ connectors:
       pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
       pinlabels:
         - LOGIC_GND            # Pin 1: Common Ground
-        - DIGITAL_OUT_6        # Pin 2: OPEN
+        - DCDC_WAKE            # Pin 2: CCU_DCDC_WAKE CCU Pin 3D (2.5A is plenty)
         - BATT_CONSTANT        # Pin 3: 12V Constant (Memory/Logic)
-        - CAN_L                # Pin 4: CAN2_L
-        - CAN_H                # Pin 5: CAN2_H
+        - CAN2_L               # Pin 4: CAN2_L
+        - CAN2_H               # Pin 5: CAN2_H
         - BATT_SWITCHED        # Pin 6: 12V Ignition Wake 
-        - DIGITAL_OUT_7        # Pin 7: OPEN
-        - DIGITAL_OUT_5        # Pin 8: NETWORKING
-        - DIGITAL_OUT_4        # Pin 9: BRAKE_LIGHTS
-        - DIGITAL_OUT_3        # Pin 10: REVERSE_LIGHTS
-        - DIGITAL_OUT_2        # Pin 11: TURN_SIGNAL_RIGHT
-        - DIGITAL_OUT_1        # Pin 12: TURN_SIGNAL_LEFT
+        - OBC_LOGIC_WAKE       # Pin 7: CCU_WAKE_PWR + CCU_OBC_WAKE CCU Pins 1H & 3C
+        - NETWORKING           # Pin 8
+        - BRAKE_LIGHTS         # Pin 9 via 1N5400 Diode on factory wire
+        - REVERSE_LIGHTS       # Pin 10 via 1N5400 Diode on factory wire
+        - TURN_SIGNAL_RIGHT    # Pin 11 via 1N5400 Diode on factory wire
+        - TURN_SIGNAL_LEFT     # Pin 12 via 1N5400 Diode on factory wire
       notes: "Lighting & Auxiliary PDM. Powered via 50A Repurposed Fuse."
         
     Engine_Fuse_Box:
@@ -157,7 +157,7 @@ connectors:
     pinlabels:
       - CAN_H #White 
       - CAN_L #Blue
-      - Switched +12V #Red 
+      - Switched12V #Red 
       - Ground #Black
       
   AEM_CD5L_Dash:
@@ -235,6 +235,18 @@ connectors:
   PTC_Cabin_Heater_LV:
   Tesla_HVJB_HV:
   Tesla_HVJB_LV:
+  1 - blank
+2 - blank
+3 - blank
+4 - OR 12v (orange)
+5 - RD PWM in
+6 - BL STAT out (PWM)
+7 - blank
+8 - blank
+9 - blank
+10 - BK Gnd
+11 - YL-BL HVIL
+12 - YL-RD HVIL
 
   # --- Security & Safety ---
   Compustar_Alarm:
