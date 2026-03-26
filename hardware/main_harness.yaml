@@ -71,25 +71,25 @@ connectors:
     pincount: 19
     pins: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 16, 18, 20, 21, 24, 25, 26]
     pinlabels:
-      - HS_DRIVER_1_A         # Pin 1 (20A) FAN_1
-      - HS_DRIVER_1_B         # Pin 2 (20A) FAN_1
+      - FAN_1         # Pin 1 (20A) 
+      - FAN_1         # Pin 2 (20A) 
       - CAN_L                 # Pin 3
       - CAN_H                 # Pin 4
       - LOGIC_GND             # Pin 5
-      - HS_DRIVER_5_A         # Pin 6 (20A) FAN_2
-      - HS_DRIVER_5_B         # Pin 7 (20A) FAN_2
-      - HS_DRIVER_2           # Pin 8 (10A) A/C Compressor
+      - FAN_2         # Pin 6 (20A) 
+      - FAN_2         # Pin 7 (20A) 
+      - AC_COMP           # Pin 8 (10A) 
       - CONFIG_3              # Pin 10 (Open)
       - LOGIC_GND_2           # Pin 11
-      - HS_DRIVER_6           # Pin 12 (10A) SDU Logic Board
-      - HS_DRIVER_3           # Pin 14 (10A) Coolant Diverter
+      - SDU_LOGIC           # Pin 12 (10A) 
+      - WATER_VALVE           # Pin 14 (10A) 
       - CONFIG_2              # Pin 16 (Open)
-      - HS_DRIVER_7           # Pin 18 (10A) Tesla HVJB
-      - HS_DRIVER_4_A         # Pin 20 (20A) WATER_PUMP_1
-      - HS_DRIVER_4_B         # Pin 21 (20A) WATER_PUMP_1
+      - HVJB           # Pin 18 (10A) 
+      - WATER_PUMP_1         # Pin 20 (20A) 
+      - WATER_PUMP_1         # Pin 21 (20A) 
       - CONFIG_1              # Pin 24 (Open)
-      - HS_DRIVER_8_A         # Pin 25 (20A) WATER_PUMP_2
-      - HS_DRIVER_8_B         # Pin 26 (20A) WATER_PUMP_2
+      - WATER_PUMP_2         # Pin 25 (20A) 
+      - WATER_PUMP_2         # Pin 26 (20A) 
     notes: ""
 
     MicroPDM:
