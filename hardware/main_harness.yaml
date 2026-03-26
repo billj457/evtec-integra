@@ -104,7 +104,7 @@ connectors:
         - CAN_H                # Pin 5: CAN2_H
         - BATT_SWITCHED        # Pin 6: 12V Ignition Wake 
         - DIGITAL_OUT_7        # Pin 7: OPEN
-        - DIGITAL_OUT_5        # Pin 8: OPEN
+        - DIGITAL_OUT_5        # Pin 8: NETWORKING
         - DIGITAL_OUT_4        # Pin 9: BRAKE_LIGHTS
         - DIGITAL_OUT_3        # Pin 10: REVERSE_LIGHTS
         - DIGITAL_OUT_2        # Pin 11: TURN_SIGNAL_RIGHT
