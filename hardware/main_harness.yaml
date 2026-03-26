@@ -92,17 +92,24 @@ connectors:
       - HS_DRIVER_A_8_B       # Pin 26 (20A) WATER_PUMP_2
     notes: ""
 
-    MicroPDU:
-      type: MicroPDU
-      pincount: 
+    MicroPDM:
+      type: MicroPDM (12-Pin) High Side
+      pincount: 12
+      pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
       pinlabels:
-        - HIGH_BEAMS
-        - TURN_SIGNAL_LEFT
-        - TURN_SIGNAL_RIGHT
-        - REVERSE_LIGHTS
-        - MARKER_LIGHTS
-        - BRAKE_LIGHTS
-        - OPEN
+        - LOGIC_GND            # Pin 1: Common Ground
+        - DIGITAL_OUT_6        # Pin 2: OPEN
+        - BATT_CONSTANT        # Pin 3: 12V Constant (Memory/Logic)
+        - CAN_L                # Pin 4: CAN2_L
+        - CAN_H                # Pin 5: CAN2_H
+        - BATT_SWITCHED        # Pin 6: 12V Ignition Wake 
+        - DIGITAL_OUT_7        # Pin 7: OPEN
+        - DIGITAL_OUT_5        # Pin 8: OPEN
+        - DIGITAL_OUT_4        # Pin 9: BRAKE_LIGHTS
+        - DIGITAL_OUT_3        # Pin 10: REVERSE_LIGHTS
+        - DIGITAL_OUT_2        # Pin 11: TURN_SIGNAL_RIGHT
+        - DIGITAL_OUT_1        # Pin 12: TURN_SIGNAL_LEFT
+      notes: "Lighting & Auxiliary PDM. Powered via 50A Repurposed Fuse."
         
     Engine_Fuse_Box:
       pincount: 20
@@ -119,13 +126,13 @@ connectors:
         - "IG 1"                 # 40A FUSE 42 [REPURPOSED iBooster]
         - "DOOR LOCK"            # 30A FUSE 54
         - "OPTION"               # 40A
-        - "HEAD LIGHT"           # 40A FUSE 48 [REPURPOSED MicroPDM]
+        - "HEAD LIGHT"           # 40A FUSE 48
         - "HAZARD"               # 10A FUSE 53
         - "HORN, STOP"           # 20A FUSE 52
         - "BATTERY"              # 80A FUSE 41
         - "HEATER MOTOR RELAY"
         - "COOLING FAN RELAY"    # [NOT USED]
-        - "MG. CLUTCH RELAY"     # FUSE 56? [NOT USED]
+        - "MG. CLUTCH RELAY"     # [NOT USED]
         - "CONDENSER FAN RELAY"  # [NOT USED]
 
     Cabin_Fuse_Box:
@@ -146,6 +153,13 @@ connectors:
 
   AEM_Keypad:
     type: CAN 8-Button
+    pinscount: 4
+    pinlabels:
+      - CAN_H #White 
+      - CAN_L #Blue
+      - Switched +12V #Red 
+      - Ground #Black
+      
   AEM_CD5L_Dash:
     type: AEM Logging Dash
     
