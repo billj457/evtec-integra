@@ -7,7 +7,7 @@ connectors:
   VCU275_A:
     type: AEM VCU275 A (103-Pin)
     pincount: 103
-    pins: [2, 3, 4, 7, 8, 9, 13, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40, 41, 43, 44, 45, 47, 48, 49, 59, 63, 64, 67, 68, 69, 70, 79, 84, 86, 87, 92, 93, 96, 97, 99, 100, 101, 102, 103]
+    pins: [2, 3, 4, 7, 8, 9, 13, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40, 41, 43, 44, 45, 47, 48, 49, 59, 63, 64, 67, 68, 69, 70, 71, 79, 84, 86, 87, 92, 93, 96, 97, 99, 100, 101, 102, 103]
     pinlabels:
       - CAN2_H               # A2 (Inverters, PDU, Dash Port 1)
       - HVIL_MAIN_OUT        # A3 (High Voltage Interlock Loop)
@@ -44,6 +44,7 @@ connectors:
       - SENSOR_GND_13        # A68
       - SENSOR_PWR_7         # A69
       - MASTER_WAKE          # A70 (From Ghost Key / Compustar)
+      - BRAKE_SWITCH_1       # A71 (DB6 Brake Switch)
       - PRECHARGE_CONT_LS    # A79 (Gigavac P115CDA)
       - POS_CONT_LS          # A84 (Main Positive Contactor)
       - NEG_CONT_LS          # A86 (Main Negative Contactor)
@@ -62,68 +63,99 @@ connectors:
   VCU275_B:
     type: AEM VCU275 B (95-Pin)
     pincount: 95
-    pins: []
-    pinlabels: []
+    pins: [1, 2, 3, 7, 12, 13, 14, 16, 17, 18, 19, 20, 31, 32, 37, 39, 41, 42, 43, 45, 58, 59, 61, 64, 69, 73, 75, 81]
+    pinlabels:
+      - SENSOR_PWR_B1        # B1 (5V Supply - AC Pressure/Regen)
+      - SENSOR_PWR_B2        # B2
+      - SENSOR_PWR_B3        # B3
+      - HVIL_CHARGE_IN       # B7 (Interlock Loop Return - Charging)
+      - SENSOR_GND_B12       # B12
+      - SENSOR_GND_B13       # B13
+      - SENSOR_GND_B14       # B14
+      - TRANS_BRAKE_PRESS    # B16 (Analog - Regen Pressure Sensor)
+      - HEATER_SW_IN         # B17 (From Integra Heat Switch)
+      - AC_REQ_IN            # B18 (From Integra A/C Button)
+      - BLOWER_FAN_SYNC      # B19 (Confirms Fan is spinning)
+      - IMD_FAULT            # B20 (Digital - Insulation Monitor)
+      - COOLANT_TEMP         # B31 (Analog - SDU/Battery NTC)
+      - AMBIENT_TEMP         # B32 (Analog - Exterior Air Temp)
+      - START_SWITCH         # B37 (Analog - Key Start Position)
+      - HVIL_MAIN_IN         # B39 (Interlock Loop Return - Main)
+      - AC_PRESS_SENSE       # B41 (Analog - A/C Pressure Sensor)
+      - REGEN_POT_1          # B42 (Analog - Manual Regen Knob/Slider)
+      - NEUTRAL_SWITCH       # B43 (Analog - Stock Shifter 'N')
+      - PARK_SWITCH          # B45 (Analog - Stock Shifter 'P')
+      - BRAKE_VAC_PRESS      # B58 (Analog - iBooster Vacuum/Pressure)
+      - REGEN_POT_2          # B59 (Analog - Redundancy for Regen)
+      - AC_EVAP_TEMP         # B61 (Analog - NTC for Evaporator Core)
+      - OBC_CONT_LS          # B64 (Low-Side Driver - Charging Contactor)
+      - MPRD_LS              # B69 (Main Power Relay Driver)
+      - PACK_HEAT_LS         # B73 (Low-Side Driver - Battery Heater)
+      - DCDC_CONT_LS         # B75 (Low-Side Driver - DCDC Contactor)
+      - SENSOR_GND_B81       # B81
     notes: "Input/Output Connector (B)"
   
   AEM_PDU:
     type: PDU-8 (30-8300)
     pincount: 19
-    pins: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 16, 18, 20, 21, 24, 25, 26]
+    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 21, 24, 25, 26]
     pinlabels:
-      - FAN_1         # Pin 1 (20A) 
-      - FAN_1         # Pin 2 (20A) 
+      - FAN_1                 # Pin 1 (20A) HS_DRIVER_1
+      - FAN_1                 # Pin 2 (20A) HS_DRIVER_1
       - CAN_L                 # Pin 3
       - CAN_H                 # Pin 4
       - LOGIC_GND             # Pin 5
-      - FAN_2         # Pin 6 (20A) 
-      - FAN_2         # Pin 7 (20A) 
-      - AC_COMP           # Pin 8 (10A) 
+      - FAN_2                 # Pin 6 (20A) HS_DRIVER_5
+      - FAN_2                 # Pin 7 (20A) HS_DRIVER_5
+      - AC_COMP               # Pin 8 (10A) HS_DRIVER_2
+      - AC_COMP               # Pin 9 (10A) HS_DRIVER_2
       - CONFIG_3              # Pin 10 (Open)
       - LOGIC_GND_2           # Pin 11
-      - SDU_LOGIC           # Pin 12 (10A) 
-      - WATER_VALVE           # Pin 14 (10A) 
+      - SDU_LOGIC             # Pin 12 (10A) HS_DRIVER_6
+      - SDU_LOGIC             # Pin 13 (10A) HS_DRIVER_6
+      - WATER_VALVE           # Pin 14 (10A) HS_DRIVER_3
+      - WATER_VALVE           # Pin 15 (10A) HS_DRIVER_3
       - CONFIG_2              # Pin 16 (Open)
-      - HVJB           # Pin 18 (10A) 
-      - WATER_PUMP_1         # Pin 20 (20A) 
-      - WATER_PUMP_1         # Pin 21 (20A) 
+      - HVJB                  # Pin 18 (10A) HS_DRIVER_7
+      - HVJB                  # Pin 19 (10A) HS_DRIVER_7
+      - WATER_PUMP_1          # Pin 20 (20A) HS_DRIVER_4
+      - WATER_PUMP_1          # Pin 21 (20A) HS_DRIVER_4
       - CONFIG_1              # Pin 24 (Open)
-      - WATER_PUMP_2         # Pin 25 (20A) 
-      - WATER_PUMP_2         # Pin 26 (20A) 
+      - WATER_PUMP_2          # Pin 25 (20A) HS_DRIVER_8
+      - WATER_PUMP_2          # Pin 26 (20A) HS_DRIVER_8
     notes: ""
 
     MicroPDM:
       type: MicroPDM (12-Pin) High Side
       pincount: 12
-      pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
       pinlabels:
         - LOGIC_GND            # Pin 1: Common Ground
-        - DCDC_WAKE            # Pin 2: CCU_DCDC_WAKE CCU Pin 3D (2.5A is plenty)
+        - CCU_WAKE             # Pin 2: CCU_WAKE_PWR CCU Pin 1H
         - BATT_CONSTANT        # Pin 3: 12V Constant (Memory/Logic)
         - CAN2_L               # Pin 4: CAN2_L
         - CAN2_H               # Pin 5: CAN2_H
         - BATT_SWITCHED        # Pin 6: 12V Ignition Wake 
-        - OBC_LOGIC_WAKE       # Pin 7: CCU_WAKE_PWR + CCU_OBC_WAKE CCU Pins 1H & 3C
-        - NETWORKING           # Pin 8
-        - BRAKE_LIGHTS         # Pin 9 via 1N5400 Diode on factory wire
+        - OBC_WAKE             # Pin 7: CCU_OBC_WAKE CCU Pin 3C
+        - DCDC_WAKE            # Pin 8: CCU_DCDC_WAKE CCU Pin 3D
+        - NETWORKING           # Pin 9
         - REVERSE_LIGHTS       # Pin 10 via 1N5400 Diode on factory wire
-        - TURN_SIGNAL_RIGHT    # Pin 11 via 1N5400 Diode on factory wire
-        - TURN_SIGNAL_LEFT     # Pin 12 via 1N5400 Diode on factory wire
+        - OPEN                 # Pin 11 via 1N5400 Diode on factory wire
+        - OPEN                 # Pin 12 via 1N5400 Diode on factory wire
       notes: "Lighting & Auxiliary PDM. Powered via 50A Repurposed Fuse."
         
     Engine_Fuse_Box:
       pincount: 20
       pinlabels:
-        - "FI E/M"               # 15A FUSE 44 [VCU A100 & A102]
+        - "FI E/M"               # 15A FUSE 44 [VCUA 97 (Contant 12V) Relay for A100 & A102]
         - "BACK UP (RADIO)"      # 7.5A FUSE 47
-        - "+B SMALL"             # 15A FUSE 51 [VCU A97]
+        - "+B SMALL"             # 15A FUSE 51
         - "CONDENSER FAN"        # 20A FUSE 56 [NOT USED]
         - "COOLING FAN"          # 20A FUSE 57 [NOT USED]
         - "INTERIOR LIGHT"       # 7.5A FUSE 43
         - "POWER WINDOW"         # 40A FUSE 46
         - "RR DEFROSTER"         # 40A FUSE 50
         - "HEATER MOTOR"         # 40A FUSE 55
-        - "IG 1"                 # 40A FUSE 42 [REPURPOSED iBooster]
+        - "IG 1"                 # 40A FUSE 42
         - "DOOR LOCK"            # 30A FUSE 54
         - "OPTION"               # 40A
         - "HEAD LIGHT"           # 40A FUSE 48
@@ -170,10 +202,72 @@ connectors:
 
   # --- Drive & Battery ---
   Tesla_SDU_Logic:
-    type: Tesla SDU (AEM Board 30-8403)
-    pincount: 23
-  AEM_BMS_Master:
-    type: Mini Master
+    type: AEM 30-8403 (20-Pin)
+    pincount: 20
+    pins: [1, 2, 8, 9, 10, 13, 16, 17, 18, 19, 20]
+    pinlabels:
+      - CAN2_L               # Pin 1
+      - CAN2_H               # Pin 2
+      - HVIL_OUT             # Pin 8 (To Interlock Loop)
+      - HVIL_IN              # Pin 9 (From Interlock Loop)
+      - SDU_PWR_1            # Pin 10 (From PDU HS_6)
+      - SDU_PWR_2            # Pin 13 (From PDU HS_6)
+      - SERIAL_RX            # Pin 16 (Programming Port)
+      - SERIAL_TX            # Pin 17 (Programming Port)
+      - SERIAL_GND           # Pin 18 (Programming Port)
+      - LOGIC_GND            # Pin 19 (Main Ground)
+      - PROG_ENABLE          # Pin 20 (Programming Wake)
+    notes: "SDU Logic Board. Receives 12V from PDU HS_6 (10A)."
+    
+  BMS_Mini_Master:
+    type: AEM 30-3710 (12-Pin)
+    pinlabels:
+      - PERM_12V             # Pin 1
+      - LOGIC_GND            # Pin 2
+      - CAN3_H               # Pin 3 (Management Bus)
+      - CAN3_L               # Pin 4 (Management Bus)
+      - ISOSPI_OUT_P         # Pin 5 (To Sat 1)
+      - ISOSPI_OUT_M         # Pin 6 (To Sat 1)
+      - J1772_PROX           # Pin 7
+      - J1772_CP             # Pin 8
+      - BMS_WAKE             # Pin 9 (From MicroPDM 7)
+    notes: "BMS Brain. Communicates cell data to VCU via CAN3."
+    
+  BMS_Satellite_Template:
+    type: AEM 30-3705 Unsealed (30-Pin Total)
+    pincount: 30
+    # Split into Connector A (15-pin) and Connector B (15-pin)
+    pinlabels:
+      # --- Connector A (Left) ---
+      - TEMP_1               # A1 (NTC Thermistor)
+      - TEMP_2               # A2 (NTC Thermistor)
+      - TEMP_3               # A3 (NTC Thermistor)
+      - CELL_TAP_1           # A4 (Cell 1 Positive)
+      - CELL_TAP_2           # A5
+      - CELL_TAP_3           # A6
+      - CELL_TAP_4           # A7
+      - CELL_TAP_5           # A8
+      - CELL_TAP_6           # A9
+      - CELL_TAP_7           # A10
+      - CELL_TAP_8           # A11
+      - ISOSPI_OUT_M         # A14 (To Next Sat IMI)
+      - ISOSPI_OUT_P         # A15 (To Next Sat IPI)
+      # --- Connector B (Right) ---
+      - CELL_TAP_0           # B1 (Module Negative / Cell 0)
+      - CELL_TAP_9           # B4 (Cell 9 Positive)
+      - CELL_TAP_10          # B5
+      - CELL_TAP_11          # B6
+      - CELL_TAP_12          # B7
+      - CELL_TAP_13          # B8
+      - CELL_TAP_14          # B9
+      - CELL_TAP_15          # B10
+      - CELL_TAP_16          # B11 (Main Module Positive)
+      - CELL_TAP_17_JMP      # B12 (BRIDGE TO B11)
+      - CELL_TAP_18_JMP      # B13 (BRIDGE TO B11)
+      - ISOSPI_IN_M          # B14 (From Master or Prev Sat IMO)
+      - ISOSPI_IN_P          # B15 (From Master or Prev Sat IPO)
+    notes: "Pacifica 16S Configuration. Pins B12/B13 must be jumpered to B11."
+    
   Pacifica_Battery_Pack:
     type: 360V 16kWh
     
@@ -194,8 +288,10 @@ connectors:
     pinlabels: [12V, GND, CAN3_H, CAN3_L]
 
   # --- Thermal & HV Components ---
-  Radiator_Fan_A:
-  Radiator_Fan_B:
+  FAN_1:
+    type: Honda Integra Radiator Fan
+    pincount: 
+  FAN_2:
   
   Tesla_M3_5Way_Valve:
     type: Coolant Diverter Actuator
