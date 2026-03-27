@@ -23,26 +23,12 @@ connectors:
       - BRAKE_GND            # A22 (Sensor Ground)
       - DBW_GND_1            # A23 (Pedal Ground)
       - DBW_GND_2            # A24 (Pedal Ground)
-      - SENSOR_GND_4         # A25
-      - SENSOR_GND_5         # A26
-      - SENSOR_GND_6         # A27
       - BRAKE_5V             # A28 (Brake Sensor Supply)
       - DBW_5V_1             # A29 (Pedal Supply)
       - DBW_5V_2             # A30 (Pedal Supply)
       - CAN1_H               # A40 (PC Comms / AEMCal)
       - INV_PWR              # A41 (Inverter Logic Enable) (PDU)
-      - SENSOR_GND_7         # A43
-      - SENSOR_GND_8         # A44
-      - SENSOR_GND_9         # A45
-      - SENSOR_PWR_4         # A47
-      - SENSOR_PWR_5         # A48
-      - SENSOR_PWR_6         # A49
       - CAN1_L               # A59 (PC Comms / AEMCal)
-      - SENSOR_GND_10        # A63
-      - SENSOR_GND_11        # A64
-      - SENSOR_GND_12        # A67
-      - SENSOR_GND_13        # A68
-      - SENSOR_PWR_7         # A69
       - MASTER_WAKE          # A70 (From Ghost Key / Compustar)
       - BRAKE_SWITCH_1       # A71 (DB6 Brake Switch)
       - PRECHARGE_CONT_LS    # A79 (Gigavac P115CDA)
@@ -65,14 +51,7 @@ connectors:
     pincount: 95
     pins: [1, 2, 3, 7, 12, 13, 14, 16, 17, 18, 19, 20, 31, 32, 37, 39, 41, 42, 43, 45, 58, 59, 61, 64, 69, 73, 75, 81]
     pinlabels:
-      - SENSOR_PWR_B1        # B1 (5V Supply - AC Pressure/Regen)
-      - SENSOR_PWR_B2        # B2
-      - SENSOR_PWR_B3        # B3
       - HVIL_CHARGE_IN       # B7 (Interlock Loop Return - Charging)
-      - SENSOR_GND_B12       # B12
-      - SENSOR_GND_B13       # B13
-      - SENSOR_GND_B14       # B14
-      - TRANS_BRAKE_PRESS    # B16 (Analog - Regen Pressure Sensor)
       - HEATER_SW_IN         # B17 (From Integra Heat Switch)
       - AC_REQ_IN            # B18 (From Integra A/C Button)
       - BLOWER_FAN_SYNC      # B19 (Confirms Fan is spinning)
@@ -137,9 +116,9 @@ connectors:
         - BATT_SWITCHED        # Pin 6: 12V Ignition Wake 
         - OBC_WAKE             # Pin 7: CCU_OBC_WAKE CCU Pin 3C
         - DCDC_WAKE            # Pin 8: CCU_DCDC_WAKE CCU Pin 3D
-        - NETWORKING           # Pin 9
-        - REVERSE_LIGHTS       # Pin 10 via 1N5400 Diode on factory wire
-        - OPEN                 # Pin 11 via 1N5400 Diode on factory wire
+        - IBOOSTER_WAKE        # Pin 9: Bosch iBooster
+        - NETWORKING           # Pin 10:Teltonika RUT956
+        - REVERSE_LIGHTS       # Pin 11 via 1N5400 Diode on factory wire
         - OPEN                 # Pin 12 via 1N5400 Diode on factory wire
       notes: "Lighting & Auxiliary PDM. Powered via 50A Repurposed Fuse."
         
