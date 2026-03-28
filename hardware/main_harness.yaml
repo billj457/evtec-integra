@@ -124,6 +124,7 @@ connectors:
         
     Engine_Fuse_Box:
       pincount: 20
+      pins: [44, 47, 51, 56, 57, 43, 46, 50, 55, 42, 54, x, 48, 53, 52, 41, x, ]
       pinlabels:
         - "FI E/M"               # 15A FUSE 44 [VCUA 97 (Contant 12V) Relay for A100 & A102]
         - "BACK UP (RADIO)"      # 7.5A FUSE 47
@@ -142,9 +143,6 @@ connectors:
         - "HORN, STOP"           # 20A FUSE 52
         - "BATTERY"              # 80A FUSE 41
         - "HEATER MOTOR RELAY"
-        - "COOLING FAN RELAY"    # [NOT USED]
-        - "MG. CLUTCH RELAY"     # [NOT USED]
-        - "CONDENSER FAN RELAY"  # [NOT USED]
 
     Cabin_Fuse_Box:
       pincount:
