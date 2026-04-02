@@ -1,1 +1,19 @@
-Id	Description	Qty	Unit	Designators
+Id	Description	Qty	Unit	Designators	P/N
+1	Cable, 1 x 18 AWG	0	m	HVIL_Charge_1, HVIL_Charge_2, HVIL_Charge_3, HVIL_Main_1, HVIL_Main_2, HVIL_Main_3	
+2	Cable, 2 x 22 AWG	0	m	CAN_Charge_1, CAN_Charge_2, CAN_Charge_3, CAN_Charge_4, CAN_Charge_5, CAN_Drive_1, CAN_Drive_2, CAN_Drive_3, CAN_Drive_4, CAN_Drive_5, CAN_Drive_6, CAN_PC_1, CAN_PC_2	
+3	Connector, AEM 30-3710 (12-Pin), 9 pins	1		BMS_Mini_Master	
+4	Connector, AEM 30-8403 (20-Pin), 20 pins	1		Tesla_SDU_Logic	
+5	Connector, AEM Logging Dash, 6 pins	1		AEM_CD5L_Dash	
+6	Connector, AEM VCU275 A (103-Pin), 103 pins	1		VCU275_A	
+7	Connector, AEM VCU275 B (95-Pin), 95 pins	1		VCU275_B	
+8	Connector, CAN 8-Button, 4 pins	1		AEM_Keypad	
+9	Connector, Charge Port, 6 pins	1		J1772_Port_LV	
+10	Connector, Combined Charging Unit (30-8405), 8 pins	1		AEM_CCU_LV	
+11	Connector, Isabellenhuette Current Sensor, 4 pins	1		IVTS	IVT-S-1K-U3-I-CAN1-12/24
+12	Connector, Kvaser Leaf v3, 2 pins	1		Kvaser_Leaf_v3	
+13	Connector, Mach Systems Gateway, 5 pins	1		Mach_LIN_GW	
+14	Connector, MeatPi WICAN, 4 pins	1		MeatPi_WICAN	
+15	Connector, MicroPDM (12-Pin) High Side, 12 pins	1		MicroPDM	
+16	Connector, PDU-8 (30-8300), 19 pins	1		AEM_PDU	
+17	Connector, Tesla Model 3 High Voltage Junction Box, 12 pins	1		Tesla_HVJB_LV	
+18	Connector, Wheel Speed Sensor (Generic), 3 pins	1		Wheel_Speed_CAN	

@@ -7,7 +7,7 @@ connectors:
   VCU275_A:
     type: AEM VCU275 A (103-Pin)
     pincount: 103
-    pins: [2, 3, 4, 7, 8, 9, 13, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40, 41, 43, 44, 45, 47, 48, 49, 59, 63, 64, 67, 68, 69, 70, 71, 79, 84, 86, 87, 92, 93, 96, 97, 99, 100, 101, 102, 103]
+    pins: [2, 3, 4, 7, 8, 9, 13, 17, 18, 19, 21, 22, 23, 24, 28, 29, 30, 40, 41, 59, 70, 71, 79, 84, 86, 87, 92, 93, 96, 97, 99, 100, 101, 102, 103]
     pinlabels:
       - CAN2_H               # A2 (Inverters, PDU, Dash Port 1)
       - HVIL_MAIN_OUT        # A3 (High Voltage Interlock Loop)
@@ -74,6 +74,11 @@ connectors:
       - SENSOR_GND_B81       # B81
     notes: "Input/Output Connector (B)"
   
+  Mach_LIN_GW:
+    type: Mach Systems Gateway
+    pincount: 5
+    pinlabels: [CAN_H, CAN_L, LIN, 12V_PWR, GND]
+
   AEM_PDU:
     type: PDU-8 (30-8300)
     pincount: 19
@@ -104,7 +109,7 @@ connectors:
       - PUMP_2_RTN            # Pin 26 (20A) HS_DRIVER_8
     notes: "AEM PDU-8 Power Distribution Unit"
 
-  AEM_MicroPDM:
+  MicroPDM:
     type: MicroPDM (12-Pin) High Side
     pincount: 12
     pinlabels:
@@ -120,7 +125,6 @@ connectors:
       - NETWORKING            # Pin 10: Teltonika RUT956
       - REVERSE_LIGHTS        # Pin 11 via 1N5400 Diode on factory wire
       - OPEN_12PPM            # Pin 12 via 1N5400 Diode on factory wire
-    notes: "Lighting & Auxiliary PDM. Powered via 50A Repurposed Fuse."
 
   AEM_Keypad:
     type: CAN 8-Button
@@ -133,11 +137,23 @@ connectors:
       
   AEM_CD5L_Dash:
     type: AEM Logging Dash
+    pincount: 6
+    pinlabels: [CAN2_H, CAN2_L, CAN3_H, CAN3_L, 12V_PWR, GND]
     
   Kvaser_Leaf_v3:
     type: Kvaser Leaf v3
     pincount: 2
     pinlabels: [CAN1_H, CAN1_L]
+
+  MeatPi_WICAN:
+    type: MeatPi WICAN
+    pincount: 4
+    pinlabels: [CAN_H, CAN_L, 12V_PWR, GND]
+  
+  Wheel_Speed_CAN:
+    type: Wheel Speed Sensor (Generic)
+    pincount: 3
+    pinlabels: [CAN_H, CAN_L, GND]
 
   # --- Drive & Battery ---
   Tesla_SDU_Logic:
@@ -160,6 +176,7 @@ connectors:
     
   BMS_Mini_Master:
     type: AEM 30-3710 (12-Pin)
+    pincount: 9
     pinlabels:
       - PERM_12V             # Pin 1
       - LOGIC_GND            # Pin 2
@@ -209,6 +226,8 @@ connectors:
     
   Pacifica_Battery_Pack:
     type: 360V 16kWh
+    pincount: 1
+    
     
   Rywire_DBW_Pedal:
     type: 6-Pin Bosch
@@ -248,19 +267,26 @@ connectors:
     
   Tesla_Superbottle_Chiller:
     type: Tesla Model 3 (1068767-00-G)
+    pincount: 1
+    pinlabels: [LIN_CTRL] # To Mach Systems GW LIN Pin
     notes: "LIN-controlled via Mach Systems GW"
   Tesla_Superbottle_Pump_A:
     type: Tesla Model 3 (1068767-00-G)
+    pincount: 1
+    pinlabels: [LIN_CTRL] # To Mach Systems GW LIN Pin
     notes: "LIN-controlled via Mach Systems GW"
   Tesla_Superbottle_Pump_B:
     type: Tesla Model 3 (1068767-00-G)
+    pincount: 1
+    pinlabels: [LIN_CTRL] # To Mach Systems GW LIN Pin
     notes: "LIN-controlled via Mach Systems GW"
   Tesla_AC_Compressor_HV:
     type: 6007380-00-D
+    pincount: 1
     
   Tesla_AC_Compressor:
     type: 6007380-00-D (ES34C)
-    pincount: 2 # (Representing the logic connector for now)
+    pincount: 4 # (Representing the logic connector for now)
     pinlabels:
       - 12V_LOGIC_PWR       # From PDU-8 (Switched)
       - GROUND              # To Chassis
@@ -270,12 +296,20 @@ connectors:
     
   Tesla_Battery_Heater:
     type: 1009508-00-D
+    pincount: 3
+    pinlabels: [12V_PWR, GND, HEATER_CTRL]
   PTC_Cabin_Heater_HV:
     type: PTC Heater Core
+    pincount: 2
+    pinlabels: [HV_PWR, GND]
   PTC_Cabin_Heater_LV:
     type: PTC Heater Core
+    pincount: 2
+    pinlabels: [12V_PWR, GND]
   Tesla_HVJB_HV:
     type: Tesla Model 3 High Voltage Junction Box
+    pincount: 2
+    pinlabels: [HV_IN, HV_OUT]
 
   Tesla_HVJB_LV:
     type: Tesla Model 3 High Voltage Junction Box
@@ -286,12 +320,14 @@ connectors:
       - "RD PWM in" # Pin 5
       - "BL STAT out (PWM)" # Pin 6
       - "BK Gnd" # Pin 10
-      - "YL-BL HVIL" # Pin 11
-      - "YL-RD HVIL" # Pin 12
+      - "HVIL_IN" # Pin 11
+      - "HVIL_OUT" # Pin 12
 
   # --- Security & Safety ---
   Compustar_Alarm:
     type: CS2WQ900-AS
+    pincount: 2
+    pinlabels: [12V_WAKE, GND]
     
   JDI_Ghost_Key:
     type: Digital Kill Switch
@@ -306,6 +342,8 @@ connectors:
       
   HVIL_Relay:
     type: SPDT 40A
+    pincount: 2
+    pinlabels: [HVIL_IN, HVIL_OUT]
     notes: "HVIL Contactor Relay"
 
  # --- Charging ---
@@ -336,24 +374,102 @@ connectors:
     
   J1772_Port_HV:
     type: Charge Port
+    pincount: 2
+    pinlabels: [HV_IN, HV_OUT]
   J1772_Port_LV:
     type: Charge Port
+    pincount: 6
+    pinlabels: [SIGNAL, GND, 12V_POS, 12V_GND, HVIL_IN, HVIL_OUT]
 
 
 cables:
   # --- Communication ---
-  CAN_PC: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
-  CAN_Drive:  {gauge: 22 AWG, colors: [OR, BU]} # VCU CAN 2
-  CAN_Charge: {gauge: 22 AWG, colors: [WT, BK]} # VCU CAN 3
-  isoSPI_Daisy: {gauge: 24 AWG, colors: [BU, WT]} # BMS Chain
+  CAN_PC_1: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
+  CAN_PC_2: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
+  CAN_Drive_1:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_2:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_3:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_4:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_5:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_6:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Charge_1: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_2: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_3: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_4: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_5: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  isoSPI_Daisy: {gauge: 24 AWG, colors: [BU, WH]} # BMS Chain
   LIN_Thermal: {gauge: 22 AWG, colors: [PU]} # Mach GW to Superbottle
 
   # --- Safety & Power ---
-  HVIL_Main:   {gauge: 18 AWG, colors: [RD]}
-  HVIL_Charge: {gauge: 18 AWG, colors: [OR]}
+  HVIL_Main_1:   {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_2:   {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_3:   {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_4:   {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_5:   {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_6:   {gauge: 18 AWG, colors: [OG]}
+  HVIL_Charge_1: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Charge_2: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Charge_3: {gauge: 18 AWG, colors: [OG]}
   Logic_12V:   {gauge: 18 AWG, colors: [RD]}
   Logic_GND:   {gauge: 18 AWG, colors: [BK]}
   Heavy_12V:   {gauge: 10 AWG, colors: [RD]}
   Heavy_GND:   {gauge: 10 AWG, colors: [BK]}
   
 connections:
+
+  # CAN 1: PC & Data Logging
+  - - VCU275_A: [CAN1_H, CAN1_L]
+    - CAN_PC_1: [1, 2]
+    - MeatPi_WICAN: [CAN_H, CAN_L] 
+    - CAN_PC_2: [1, 2]
+    - Kvaser_Leaf_v3: [CAN1_H, CAN1_L]
+
+  # CAN 2: Powertrain Daisy Chain
+  - - VCU275_A: [CAN2_H, CAN2_L]
+    - CAN_Drive_1: [1, 2]
+    - Mach_LIN_GW: [CAN_H, CAN_L]
+    - CAN_Drive_2: [1, 2]
+    - AEM_PDU: [CAN_H, CAN_L]
+    - CAN_Drive_3: [1, 2]
+    - MicroPDM: [CAN2_H, CAN2_L]
+    - CAN_Drive_4: [1, 2]
+    - Wheel_Speed_CAN: [CAN_H, CAN_L]
+    - CAN_Drive_5: [1, 2] 
+    - Tesla_SDU_Logic: [CAN2_H, CAN2_L]
+    - CAN_Drive_6: [1, 2] 
+    - AEM_CD5L_Dash: [CAN2_H, CAN2_L]
+
+  # CAN 3: Charging & BMS
+  - - VCU275_A: [CAN3_H, CAN3_L]
+    - CAN_Charge_1: [1, 2]
+    - AEM_CCU_LV: [CAN3_H, CAN3_L]
+    - CAN_Charge_2: [1, 2]
+    - AEM_Keypad: [CAN_H, CAN_L]
+    - CAN_Charge_3: [1, 2]
+    - AEM_CD5L_Dash: [CAN3_H, CAN3_L]
+    - CAN_Charge_4: [1, 2]
+    - BMS_Mini_Master: [CAN3_H, CAN3_L]
+    - CAN_Charge_5: [1, 2]
+    - IVTS: [CAN3_H, CAN3_L]
+
+  # HVIL Main Loop
+  - - VCU275_A: [HVIL_MAIN_OUT]
+    - HVIL_Main_1: [1]
+    - Tesla_HVJB_LV: [HVIL_IN]
+  - - Tesla_HVJB_LV: [HVIL_OUT]
+    - HVIL_Main_2: [1]
+    - Tesla_SDU_Logic: [HVIL_IN]
+  - - Tesla_SDU_Logic: [HVIL_OUT]
+    - HVIL_Main_3: [1]
+    - VCU275_B: [HVIL_MAIN_IN]
+
+  # HVIL Charge Loop
+  - - VCU275_A: [HVIL_CHARGE_OUT]
+    - HVIL_Charge_1: [1]
+    - AEM_CCU_LV: [HVIL_IN]
+  - - AEM_CCU_LV: [HVIL_OUT]
+    - HVIL_Charge_2: [1]
+    - J1772_Port_LV: [HVIL_IN]
+  - - J1772_Port_LV: [HVIL_OUT]
+    - HVIL_Charge_3: [1]
+    - VCU275_B: [HVIL_CHARGE_IN]
