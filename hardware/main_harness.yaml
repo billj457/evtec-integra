@@ -393,38 +393,26 @@ cables:
   
 connections:
   # CAN 1: PC Communication
-  - - AEM_VCU_275: [CAN1_H, CAN1_L]
+  - - VCU275_A: [CAN1_H, CAN1_L]
     - CAN_PC: [1, 2]
     - Kvaser_Leaf_v3: [CAN1_H, CAN1_L]
 
   # CAN 2: Powertrain
-  - - AEM_VCU_275: [CAN2_H, CAN2_L]
+  - - VCU275_A: [CAN2_H, CAN2_L]
     - CAN_Drive: [1, 2]
     - [Tesla_SDU_Logic, AEM_PDU8, MicroPDU, AEM_CD5L_Dash, Mach_LIN_GW]
 
   # CAN 3: Charging
-  - - AEM_VCU_275: [CAN3_H, CAN3_L]
+  - - VCU275_A: [CAN3_H, CAN3_L]
     - CAN_Charge: [1, 2]
     - [AEM_CCU_LV, AEM_Keypad, AEM_CD5L_Dash, AEM_BMS_Master, IVTS]
 
   # --- 2. DUAL HVIL LOOPS ---
   # Loop A: Main Drive
-  - - AEM_VCU_275: HVIL_Out_1
-    - HVIL_Main: 1
-    - Tesla_HVJB_LV: HVIL_In
-  - - Tesla_HVJB_LV: HVIL_Out
-    - HVIL_Main: 1
-    - Tesla_SDU_Logic: HVIL_In
-  - - Tesla_SDU_Logic: HVIL_Out
-    - AEM_VCU_275: HVIL_In_1
+
 
   # Loop B: Charging
-  - - AEM_CCU: HVIL_Out
-    - HVIL_Charge: 1
-    - J1772_Port: HVIL_Loop
-  - - J1772_Port: HVIL_Loop
-    - HVIL_Charge: 1
-    - AEM_CCU: HVIL_In
+
 
   # Security
 
