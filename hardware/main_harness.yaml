@@ -395,7 +395,7 @@ connections:
   # CAN 1: PC Communication
   - - AEM_VCU_275: [CAN1_H, CAN1_L]
     - CAN_PC: [1, 2]
-    - [Kvaser_Leaf_v3]
+    - Kvaser_Leaf_v3: [CAN1_H, CAN1_L]
 
   # CAN 2: Powertrain
   - - AEM_VCU_275: [CAN2_H, CAN2_L]
@@ -409,22 +409,22 @@ connections:
 
   # --- 2. DUAL HVIL LOOPS ---
   # Loop A: Main Drive
-  - - AEM_VCU_275: [HVIL_Out_1]
-    - HVIL_Main: [1]
-    - Tesla_HVJB_LV: [HVIL_In]
-  - - Tesla_HVJB_LV: [HVIL_Out]
-    - HVIL_Main: [1]
-    - Tesla_SDU_Logic: [HVIL_In]
-  - - Tesla_SDU_Logic: [HVIL_Out]
-    - AEM_VCU_275: [HVIL_In_1]
+  - - AEM_VCU_275: HVIL_Out_1
+    - HVIL_Main: 1
+    - Tesla_HVJB_LV: HVIL_In
+  - - Tesla_HVJB_LV: HVIL_Out
+    - HVIL_Main: 1
+    - Tesla_SDU_Logic: HVIL_In
+  - - Tesla_SDU_Logic: HVIL_Out
+    - AEM_VCU_275: HVIL_In_1
 
   # Loop B: Charging
-  - - AEM_CCU: [HVIL_Out]
-    - HVIL_Charge: [1]
-    - J1772_Port: [HVIL_Loop]
-  - - J1772_Port: [HVIL_Loop]
-    - HVIL_Charge: [1]
-    - AEM_CCU: [HVIL_In]
+  - - AEM_CCU: HVIL_Out
+    - HVIL_Charge: 1
+    - J1772_Port: HVIL_Loop
+  - - J1772_Port: HVIL_Loop
+    - HVIL_Charge: 1
+    - AEM_CCU: HVIL_In
 
   # Security
   - - Compustar_6200: STATUS_OUT      # Constant Ground when disarmed
@@ -451,11 +451,11 @@ connections:
 
  # --- Accelerator Pedal (APPS) to VCU ---
   - - Rywire_DBW_Pedal: [APPS_1, APPS_2]
-    - [VCU275_A: A17, VCU275_A: A18]
+    - VCU275_A: [A17, A18]
   - - Rywire_DBW_Pedal: [DBW_5V_1, DBW_5V_2]
-    - [VCU275_A: A28, VCU275_Conn_A: A29]
+    - VCU275_A: [A28, A29]
   - - Rywire_DBW_Pedal: [DBW_GND_1, DBW_GND_2]
-    - [VCU275_A: A22, VCU275_A: A23]
+    - VCU275_A: [A22, A23]
 
 # A/C System
   - - AEM_PDU8: HS_DRIVER_A_2      # Pin 8 (10A Switched)
