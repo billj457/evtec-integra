@@ -269,6 +269,7 @@ connectors:
     type: Honda Integra Radiator Fan
     pincount: 
   FAN_2:
+    type: Honda Integra Radiator Fan
   
   Tesla_M3_5Way_Valve:
     type: Coolant Diverter Actuator
@@ -305,8 +306,11 @@ connectors:
   Tesla_Battery_Heater:
     type: 1009508-00-D
   PTC_Cabin_Heater_HV:
+    type: PTC Heater Core
   PTC_Cabin_Heater_LV:
+    type: PTC Heater Core
   Tesla_HVJB_HV:
+    type: Tesla Model 3 High Voltage Junction Box
 
   Tesla_HVJB_LV:
     type: Tesla Model 3 High Voltage Junction Box
@@ -370,14 +374,6 @@ connectors:
   J1772_Port_LV:
     type: Charge Port
 
-  # --- Chassis ---
-  DB6_Climate:
-  DB6_Windows:
-  DB6_Locks:
-  DB6_Lights:
-  DB6_Audio:
-  DB6_12v:
-  DB6_Wipers:
 
 cables:
   # --- Communication ---
@@ -472,4 +468,4 @@ connections:
 # Chassis
   - - Engine_Fuse_Box: "FI E/M"
     - Heavy_12V: [1]
-    - VCU275_A:
+    - VCU275_A: A100
