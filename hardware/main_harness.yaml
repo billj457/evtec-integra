@@ -148,17 +148,17 @@ connectors:
       pincount:
       pins:
       pinlabels:
-        - [3] Interior Light 7.5A Integrated ctrl unit, ceiling light, power antenna motor
-        - [4] Rear Right Power Window 20A
-        - [5] Front Left Power Window 20A
-        - [6] Power Door Lock 20A
-        - [7] Rear Left Power Window 20A
-        - [8] Front Right Power Window 20A
-        - [13] Rear Defrost Relay, Heater Motor Relay, Cooling Fan Relay, Power Mirrors 7.5A
-        - [14] Wiper/Washer Relay 20A Integrated ctrl unit
-        - [15] Back-Up Light Gauges, Clock, Back-up Lights 10A
-        - [19] Tail light, Instrument Light, License Light 10A
-        - [23] Radio, Cigarette Lighter 15A
+        - [3] # Interior Light 7.5A Integrated ctrl unit, ceiling light, power antenna motor
+        - [4] # Rear Right Power Window 20A
+        - [5] # Front Left Power Window 20A
+        - [6] # Power Door Lock 20A
+        - [7] # Rear Left Power Window 20A
+        - [8] # Front Right Power Window 20A
+        - [13] # Rear Defrost Relay, Heater Motor Relay, Cooling Fan Relay, Power Mirrors 7.5A
+        - [14] # Wiper/Washer Relay 20A Integrated ctrl unit
+        - [15] # Back-Up Light Gauges, Clock, Back-up Lights 10A
+        - [19] # Tail light, Instrument Light, License Light 10A
+        - [23] # Radio, Cigarette Lighter 15A
 
   AEM_Keypad:
     type: CAN 8-Button
@@ -307,19 +307,18 @@ connectors:
   PTC_Cabin_Heater_HV:
   PTC_Cabin_Heater_LV:
   Tesla_HVJB_HV:
+
   Tesla_HVJB_LV:
-  1 - blank
-2 - blank
-3 - blank
-4 - OR 12v (orange)
-5 - RD PWM in
-6 - BL STAT out (PWM)
-7 - blank
-8 - blank
-9 - blank
-10 - BK Gnd
-11 - YL-BL HVIL
-12 - YL-RD HVIL
+    type: Tesla Model 3 High Voltage Junction Box
+    pincount: 12
+    pins: [4,5,6,10,11,12]
+    pinlabels:
+      - "OR 12v (orange)" # Pin 4: 12V Supply for Interlock Loop
+      - "RD PWM in" # Pin 5
+      - "BL STAT out (PWM)" # Pin 6
+      - "BK Gnd" # Pin 10
+      - "YL-BL HVIL" # Pin 11
+      - "YL-RD HVIL" # Pin 12
 
   # --- Security & Safety ---
   Compustar_Alarm:
