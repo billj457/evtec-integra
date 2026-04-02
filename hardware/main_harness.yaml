@@ -79,90 +79,52 @@ connectors:
     pincount: 19
     pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 21, 24, 25, 26]
     pinlabels:
-      - FAN_1                 # Pin 1 (20A) HS_DRIVER_1
-      - FAN_1                 # Pin 2 (20A) HS_DRIVER_1
+      - FAN_1_HS              # Pin 1 (20A) HS_DRIVER_1
+      - FAN_1_HS_RTN          # Pin 2 (20A) HS_DRIVER_1
       - CAN_L                 # Pin 3
       - CAN_H                 # Pin 4
       - LOGIC_GND             # Pin 5
-      - FAN_2                 # Pin 6 (20A) HS_DRIVER_5
-      - FAN_2                 # Pin 7 (20A) HS_DRIVER_5
-      - AC_COMP               # Pin 8 (10A) HS_DRIVER_2
-      - AC_COMP               # Pin 9 (10A) HS_DRIVER_2
+      - FAN_2_HS              # Pin 6 (20A) HS_DRIVER_5
+      - FAN_2_HS_RTN          # Pin 7 (20A) HS_DRIVER_5
+      - AC_COMP_HS            # Pin 8 (10A) HS_DRIVER_2
+      - AC_COMP_RTN           # Pin 9 (10A) HS_DRIVER_2
       - CONFIG_3              # Pin 10 (Open)
       - LOGIC_GND_2           # Pin 11
-      - SDU_LOGIC             # Pin 12 (10A) HS_DRIVER_6
-      - SDU_LOGIC             # Pin 13 (10A) HS_DRIVER_6
-      - WATER_VALVE           # Pin 14 (10A) HS_DRIVER_3
-      - WATER_VALVE           # Pin 15 (10A) HS_DRIVER_3
+      - SDU_LOGIC_HS          # Pin 12 (10A) HS_DRIVER_6
+      - SDU_LOGIC_RTN         # Pin 13 (10A) HS_DRIVER_6
+      - WATER_VALVE_HS        # Pin 14 (10A) HS_DRIVER_3
+      - WATER_VALVE_RTN       # Pin 15 (10A) HS_DRIVER_3
       - CONFIG_2              # Pin 16 (Open)
-      - HVJB                  # Pin 18 (10A) HS_DRIVER_7
-      - HVJB                  # Pin 19 (10A) HS_DRIVER_7
-      - WATER_PUMP_1          # Pin 20 (20A) HS_DRIVER_4
-      - WATER_PUMP_1          # Pin 21 (20A) HS_DRIVER_4
+      - HVJB_HS               # Pin 18 (10A) HS_DRIVER_7
+      - HVJB_RTN              # Pin 19 (10A) HS_DRIVER_7
+      - PUMP_1_HS             # Pin 20 (20A) HS_DRIVER_4
+      - PUMP_1_RTN            # Pin 21 (20A) HS_DRIVER_4
       - CONFIG_1              # Pin 24 (Open)
-      - WATER_PUMP_2          # Pin 25 (20A) HS_DRIVER_8
-      - WATER_PUMP_2          # Pin 26 (20A) HS_DRIVER_8
-    notes: ""
+      - PUMP_2_HS             # Pin 25 (20A) HS_DRIVER_8
+      - PUMP_2_RTN            # Pin 26 (20A) HS_DRIVER_8
+    notes: "AEM PDU-8 Power Distribution Unit"
 
-    MicroPDM:
-      type: MicroPDM (12-Pin) High Side
-      pincount: 12
-      pinlabels:
-        - LOGIC_GND            # Pin 1: Common Ground
-        - CCU_WAKE             # Pin 2: CCU_WAKE_PWR CCU Pin 1H
-        - BATT_CONSTANT        # Pin 3: 12V Constant (Memory/Logic)
-        - CAN2_L               # Pin 4: CAN2_L
-        - CAN2_H               # Pin 5: CAN2_H
-        - BATT_SWITCHED        # Pin 6: 12V Ignition Wake 
-        - OBC_WAKE             # Pin 7: CCU_OBC_WAKE CCU Pin 3C
-        - DCDC_WAKE            # Pin 8: CCU_DCDC_WAKE CCU Pin 3D
-        - IBOOSTER_WAKE        # Pin 9: Bosch iBooster
-        - NETWORKING           # Pin 10:Teltonika RUT956
-        - REVERSE_LIGHTS       # Pin 11 via 1N5400 Diode on factory wire
-        - OPEN                 # Pin 12 via 1N5400 Diode on factory wire
-      notes: "Lighting & Auxiliary PDM. Powered via 50A Repurposed Fuse."
-        
-    Engine_Fuse_Box:
-      pincount: 20
-      pins: [44, 47, 51, 56, 57, 43, 46, 50, 55, 42, 54, x, 48, 53, 52, 41, x, ]
-      pinlabels:
-        - "FI E/M"               # 15A FUSE 44 [VCUA 97 (Contant 12V) Relay for A100 & A102]
-        - "BACK UP (RADIO)"      # 7.5A FUSE 47
-        - "+B SMALL"             # 15A FUSE 51
-        - "CONDENSER FAN"        # 20A FUSE 56 [NOT USED]
-        - "COOLING FAN"          # 20A FUSE 57 [NOT USED]
-        - "INTERIOR LIGHT"       # 7.5A FUSE 43
-        - "POWER WINDOW"         # 40A FUSE 46
-        - "RR DEFROSTER"         # 40A FUSE 50
-        - "HEATER MOTOR"         # 40A FUSE 55
-        - "IG 1"                 # 40A FUSE 42
-        - "DOOR LOCK"            # 30A FUSE 54
-        - "OPTION"               # 40A
-        - "HEAD LIGHT"           # 40A FUSE 48
-        - "HAZARD"               # 10A FUSE 53
-        - "HORN, STOP"           # 20A FUSE 52
-        - "BATTERY"              # 80A FUSE 41
-        - "HEATER MOTOR RELAY"
-
-    Cabin_Fuse_Box:
-      pincount:
-      pins:
-      pinlabels:
-        - [3] # Interior Light 7.5A Integrated ctrl unit, ceiling light, power antenna motor
-        - [4] # Rear Right Power Window 20A
-        - [5] # Front Left Power Window 20A
-        - [6] # Power Door Lock 20A
-        - [7] # Rear Left Power Window 20A
-        - [8] # Front Right Power Window 20A
-        - [13] # Rear Defrost Relay, Heater Motor Relay, Cooling Fan Relay, Power Mirrors 7.5A
-        - [14] # Wiper/Washer Relay 20A Integrated ctrl unit
-        - [15] # Back-Up Light Gauges, Clock, Back-up Lights 10A
-        - [19] # Tail light, Instrument Light, License Light 10A
-        - [23] # Radio, Cigarette Lighter 15A
+  AEM_MicroPDM:
+    type: MicroPDM (12-Pin) High Side
+    pincount: 12
+    pinlabels:
+      - LOGIC_GND             # Pin 1: Common Ground
+      - CCU_WAKE              # Pin 2: CCU_WAKE_PWR CCU Pin 1H
+      - BATT_CONSTANT         # Pin 3: 12V Constant (Memory/Logic)
+      - CAN2_L                # Pin 4: CAN2_L
+      - CAN2_H                # Pin 5: CAN2_H
+      - BATT_SWITCHED         # Pin 6: 12V Ignition Wake 
+      - OBC_WAKE              # Pin 7: CCU_OBC_WAKE CCU Pin 3C
+      - DCDC_WAKE             # Pin 8: CCU_DCDC_WAKE CCU Pin 3D
+      - IBOOSTER_WAKE         # Pin 9: Bosch iBooster
+      - NETWORKING            # Pin 10: Teltonika RUT956
+      - REVERSE_LIGHTS        # Pin 11 via 1N5400 Diode on factory wire
+      - OPEN_12PPM            # Pin 12 via 1N5400 Diode on factory wire
+    notes: "Lighting & Auxiliary PDM. Powered via 50A Repurposed Fuse."
 
   AEM_Keypad:
     type: CAN 8-Button
-    pinscount: 4
+    pincount: 4
     pinlabels:
       - CAN_H #White 
       - CAN_L #Blue
@@ -267,9 +229,12 @@ connectors:
   # --- Thermal & HV Components ---
   FAN_1:
     type: Honda Integra Radiator Fan
-    pincount: 
+    pincount: 2
+    pinlabels: [12V_PWR, GND]
   FAN_2:
     type: Honda Integra Radiator Fan
+    pincount: 2
+    pinlabels: [12V_PWR, GND]
   
   Tesla_M3_5Way_Valve:
     type: Coolant Diverter Actuator
@@ -377,78 +342,18 @@ connectors:
 
 cables:
   # --- Communication ---
-  CAN_PC: {gauge: 22 AWG, colors: [YE, GN], twisted: true} # VCU CAN 1
-  CAN_Drive:  {gauge: 22 AWG, colors: [OR, BU], twisted: true} # VCU CAN 2
-  CAN_Charge: {gauge: 22 AWG, colors: [WT, BK], twisted: true} # VCU CAN 3
-  isoSPI_Daisy: {gauge: 24 AWG, colors: [BU, WT], twisted: true} # BMS Chain
-  LIN_Thermal: {gauge: 22 AWG, color: PU} # Mach GW to Superbottle
+  CAN_PC: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
+  CAN_Drive:  {gauge: 22 AWG, colors: [OR, BU]} # VCU CAN 2
+  CAN_Charge: {gauge: 22 AWG, colors: [WT, BK]} # VCU CAN 3
+  isoSPI_Daisy: {gauge: 24 AWG, colors: [BU, WT]} # BMS Chain
+  LIN_Thermal: {gauge: 22 AWG, colors: [PU]} # Mach GW to Superbottle
 
   # --- Safety & Power ---
-  HVIL_Main:   {gauge: 18 AWG, color: RD}
-  HVIL_Charge: {gauge: 18 AWG, color: OR}
-  Logic_12V:   {gauge: 18 AWG, color: RD}
-  Logic_GND:   {gauge: 18 AWG, color: BK}
-  Heavy_12V:   {gauge: 10 AWG, color: RD}
-  Hwavy_GND:   {gauge: 10 AWG, color: BK}
+  HVIL_Main:   {gauge: 18 AWG, colors: [RD]}
+  HVIL_Charge: {gauge: 18 AWG, colors: [OR]}
+  Logic_12V:   {gauge: 18 AWG, colors: [RD]}
+  Logic_GND:   {gauge: 18 AWG, colors: [BK]}
+  Heavy_12V:   {gauge: 10 AWG, colors: [RD]}
+  Heavy_GND:   {gauge: 10 AWG, colors: [BK]}
   
 connections:
-  # CAN 1: PC Communication
-  - - VCU275_A: [CAN1_H, CAN1_L]
-    - CAN_PC: [1, 2]
-    - Kvaser_Leaf_v3: [CAN1_H, CAN1_L]
-
-  # CAN 2: Powertrain
-  - - VCU275_A: [CAN2_H, CAN2_L]
-    - CAN_Drive: [1, 2]
-    - [Tesla_SDU_Logic, AEM_PDU8, MicroPDU, AEM_CD5L_Dash, Mach_LIN_GW]
-
-  # CAN 3: Charging
-  - - VCU275_A: [CAN3_H, CAN3_L]
-    - CAN_Charge: [1, 2]
-    - [AEM_CCU_LV, AEM_Keypad, AEM_CD5L_Dash, AEM_BMS_Master, IVTS]
-
-  # --- 2. DUAL HVIL LOOPS ---
-  # Loop A: Main Drive
-
-
-  # Loop B: Charging
-
-
-  # Security
-
-
-  # --- 3. BMS isoSPI DAISY CHAIN ---
-  # This uses your Satellite kit to link the 6 modules
-  - - AEM_BMS_Master: [isoSPI_Out+, isoSPI_Out-]
-    - isoSPI_Daisy: [1, 2]
-    - BMS_Satellite_1: [isoSPI_In+, isoSPI_In-]
-  - - BMS_Satellite_1: [isoSPI_Out+, isoSPI_Out-]
-    - isoSPI_Daisy: [1, 2]
-    - BMS_Satellite_2: [isoSPI_In+, isoSPI_In-]
-    # Repeat for Satellites 3-6...
-
-  # --- 4. SUPERBOTTLE & LIN ---
-  - - Mach_LIN_GW: [LIN_Out]
-    - LIN_Thermal: [1]
-    - Tesla_Superbottle: [LIN_Signal]
-
- # --- Accelerator Pedal (APPS) to VCU ---
-  - - Rywire_DBW_Pedal: [APPS_1, APPS_2]
-    - VCU275_A: [A17, A18]
-  - - Rywire_DBW_Pedal: [DBW_5V_1, DBW_5V_2]
-    - VCU275_A: [A28, A29]
-  - - Rywire_DBW_Pedal: [DBW_GND_1, DBW_GND_2]
-    - VCU275_A: [A22, A23]
-
-# A/C System
-  - - AEM_PDU8: HS_DRIVER_A_2      # Pin 8 (10A Switched)
-    - Tesla_AC_Compressor: LOGIC_12V # Wakes the internal inverter
-  - - VCU275_A: CAN2_H               # Shared Bus with SDU and PDU
-    - Tesla_AC_Compressor: CAN_H
-  - - VCU275_A: CAN2_L
-    - Tesla_AC_Compressor: CAN_L
-
-# Chassis
-  - - Engine_Fuse_Box: "FI E/M"
-    - Heavy_12V: [1]
-    - VCU275_A: A100
