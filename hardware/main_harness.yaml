@@ -427,12 +427,7 @@ connections:
     - AEM_CCU: HVIL_In
 
   # Security
-  - - Compustar_6200: STATUS_OUT      # Constant Ground when disarmed
-    - Relay_VCU_Wake: COIL_NEG        # Triggers the relay
-  - - Relay_VCU_Wake: CONTACT_OUT
-    - VCU275_A: MASTER_WAKE            # Provides Constant 12V to Pin A70 (via 1N4001 Diode)
-  - - JDI_Ghost_Key: KEY_ON_1         # Also feeds this same A70 Pin (via 1N4001 Diode)
-    - VCU275_A: MASTER_WAKE
+
 
   # --- 3. BMS isoSPI DAISY CHAIN ---
   # This uses your Satellite kit to link the 6 modules
