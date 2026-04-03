@@ -428,8 +428,8 @@ cables:
   HVIL_Charge_1: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_2: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_3: {gauge: 18 AWG, colors: [OG]}
-  HV_35_SDU: {gauge: 4 AWG, colors: [OG, OG]} 
-  HV_35_HVJB: {gauge: 4 AWG, colors: [OG, OG]} 
+  HV_35_SDU: {gauge: 4 AWG, colors: [OGRD, OGBK]} 
+  HV_35_HVJB: {gauge: 4 AWG, colors: [OGRD, OGBK]} 
   HV_12_A: {gauge: 10 AWG, colors: [OG, OG]}
   HV_12_B: {gauge: 10 AWG, colors: [OG, OG]}
   HV_12_C: {gauge: 10 AWG, colors: [OG, OG]}
