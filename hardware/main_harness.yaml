@@ -44,7 +44,6 @@ connectors:
       - BATT_GND_2           # A101 (Power Ground)
       - MAIN_RELAY_PWR_2     # A102 (Switched Power)
       - BATT_GND_3           # A103 (Power Ground)
-    notes: "Main System Connector (A) - Project Integra Configuration"
 
   VCU275_B:
     type: AEM VCU275 B (95-Pin)
@@ -72,14 +71,14 @@ connectors:
       - PACK_HEAT_LS         # B73 (Low-Side Driver - Battery Heater)
       - DCDC_CONT_LS         # B75 (Low-Side Driver - DCDC Contactor)
       - SENSOR_GND_B81       # B81
-    notes: "Input/Output Connector (B)"
   
-  Mach_LIN_GW:
+  LIN_GW:
     type: Mach Systems Gateway
     pincount: 5
-    pinlabels: [CAN_H, CAN_L, LIN, 12V_PWR, GND]
+    pins: [7, 8, 9, 10, 11]
+    pinlabels: [12V_PWR, GND, CAN_H, CAN_L, LIN]
 
-  AEM_PDU:
+  PDU:
     type: PDU-8 (30-8300)
     pincount: 19
     pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 21, 24, 25, 26]
@@ -107,9 +106,8 @@ connectors:
       - CONFIG_1              # Pin 24 (Open)
       - PUMP_2_HS             # Pin 25 (20A) HS_DRIVER_8
       - PUMP_2_RTN            # Pin 26 (20A) HS_DRIVER_8
-    notes: "AEM PDU-8 Power Distribution Unit"
 
-  MicroPDM:
+  PDM:
     type: MicroPDM (12-Pin) High Side
     pincount: 12
     pinlabels:
@@ -126,29 +124,26 @@ connectors:
       - REVERSE_LIGHTS        # Pin 11 via 1N5400 Diode on factory wire
       - OPEN_12PPM            # Pin 12 via 1N5400 Diode on factory wire
 
-  AEM_Keypad:
+  Keypad:
     type: CAN 8-Button
     pincount: 4
-    pinlabels:
-      - CAN_H #White 
-      - CAN_L #Blue
-      - Switched12V #Red 
-      - Ground #Black
+    pinlabels: [CAN_H, CAN_L, Switched12V, Ground]
       
-  AEM_CD5L_Dash:
-    type: AEM Logging Dash
+  Dash:
+    type: AEM CD5L Logging Dash
     pincount: 6
     pinlabels: [CAN2_H, CAN2_L, CAN3_H, CAN3_L, 12V_PWR, GND]
     
   Kvaser_Leaf_v3:
     type: Kvaser Leaf v3
-    pincount: 2
-    pinlabels: [CAN1_H, CAN1_L]
+    pincount: 4
+    pins: [2, 3, 5, 7]
+    pinlabels: [CAN1_L, GND, SHIELD, CAN1_H]
 
   MeatPi_WICAN:
     type: MeatPi WICAN
     pincount: 4
-    pinlabels: [CAN_H, CAN_L, 12V_PWR, GND]
+    pinlabels: [12V_PWR, GND, CAN_L, CAN_H]
   
   Wheel_Speed_CAN:
     type: Wheel Speed Sensor (Generic)
@@ -156,7 +151,12 @@ connectors:
     pinlabels: [CAN_H, CAN_L, GND]
 
   # --- Drive & Battery ---
-  Tesla_SDU_Logic:
+  SDU_HV:
+    type: Tesla Model S/X SDU (1038227-00-C)
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  SDU_Logic:
     type: AEM 30-8403 (20-Pin)
     pincount: 20
     pins: [1, 2, 8, 9, 10, 13, 16, 17, 18, 19, 20]
@@ -172,9 +172,8 @@ connectors:
       - SERIAL_GND           # Pin 18 (Programming Port)
       - LOGIC_GND            # Pin 19 (Main Ground)
       - PROG_ENABLE          # Pin 20 (Programming Wake)
-    notes: "SDU Logic Board. Receives 12V from PDU HS_6 (10A)."
     
-  BMS_Mini_Master:
+  BMS_Master:
     type: AEM 30-3710 (12-Pin)
     pincount: 9
     pinlabels:
@@ -187,7 +186,6 @@ connectors:
       - J1772_PROX           # Pin 7
       - J1772_CP             # Pin 8
       - BMS_WAKE             # Pin 9 (From MicroPDM 7)
-    notes: "BMS Brain. Communicates cell data to VCU via CAN3."
     
   BMS_Satellite_Template:
     type: AEM 30-3705 Unsealed (30-Pin Total)
@@ -222,19 +220,24 @@ connectors:
       - CELL_TAP_18_JMP      # B13 (BRIDGE TO B11)
       - ISOSPI_IN_M          # B14 (From Master or Prev Sat IMO)
       - ISOSPI_IN_P          # B15 (From Master or Prev Sat IPO)
-    notes: "Pacifica 16S Configuration. Pins B12/B13 must be jumpered to B11."
+    notes: "Pins B12/B13 must be jumpered to B11."
     
-  Pacifica_Battery_Pack:
+  Battery_Pack_HV_SDU:
     type: 360V 16kWh
-    pincount: 1
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  Battery_Pack_HV_HVJB:
+    type: 360V 16kWh
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
     
-    
-  Rywire_DBW_Pedal:
+  DBW_Pedal:
     type: 6-Pin Bosch
     pincount: 6
     pinlabels: [DBW_5V_1, APPS_2, DBW_5V_2, DBW_GND_1, APPS_1, DBW_GND_2]
 
-  AEM_Brake_Pressure_Sensor:
+  Brake_Pressure_Sensor:
     type: AEM 2000PSI Brake Pressure Switch
     pincount: 3
     pinlabels: [BRAKE_5V, BRAKE_GND, BRAKE_PRESS]
@@ -250,68 +253,84 @@ connectors:
     type: Honda Integra Radiator Fan
     pincount: 2
     pinlabels: [12V_PWR, GND]
+
   FAN_2:
     type: Honda Integra Radiator Fan
     pincount: 2
     pinlabels: [12V_PWR, GND]
   
-  Tesla_M3_5Way_Valve:
+  Coolant_Valve:
     type: Coolant Diverter Actuator
-    pincount: 4
-    pinlabels:
-      - 12V_PWR            # From PDU-8 B (10A)
-      - GND                # Chassis
-      - VCU_PWM_CTRL       # To VCU Pin A88
-      - POS_FEEDBACK       # To VCU Pin B_XX (Analog)
-    notes: "Managed by VCU to switch between Series, Parallel, and Bypass thermal modes."
-    
-  Tesla_Superbottle_Chiller:
-    type: Tesla Model 3 (1068767-00-G)
-    pincount: 1
-    pinlabels: [LIN_CTRL] # To Mach Systems GW LIN Pin
-    notes: "LIN-controlled via Mach Systems GW"
-  Tesla_Superbottle_Pump_A:
-    type: Tesla Model 3 (1068767-00-G)
-    pincount: 1
-    pinlabels: [LIN_CTRL] # To Mach Systems GW LIN Pin
-    notes: "LIN-controlled via Mach Systems GW"
-  Tesla_Superbottle_Pump_B:
-    type: Tesla Model 3 (1068767-00-G)
-    pincount: 1
-    pinlabels: [LIN_CTRL] # To Mach Systems GW LIN Pin
-    notes: "LIN-controlled via Mach Systems GW"
-  Tesla_AC_Compressor_HV:
-    type: 6007380-00-D
-    pincount: 1
-    
-  Tesla_AC_Compressor:
-    type: 6007380-00-D (ES34C)
-    pincount: 4 # (Representing the logic connector for now)
-    pinlabels:
-      - 12V_LOGIC_PWR       # From PDU-8 (Switched)
-      - GROUND              # To Chassis
-      - CAN_H
-      - CAN_L
-    notes: "Requires both HV (360V) and LV (12V) to operate."
-    
-  Tesla_Battery_Heater:
-    type: 1009508-00-D
     pincount: 3
-    pinlabels: [12V_PWR, GND, HEATER_CTRL]
-  PTC_Cabin_Heater_HV:
+    pins: [1, 2, 4]
+    pinlabels: [12V_PWR, GND, LIN_CTRL] 
+    
+  Coolant_Chiller:
+    type: Tesla Model 3 (1068767-00-G)
+    pincount: 3
+    pins: [1, 2, 4]
+    pinlabels: [12V_PWR, GND, LIN_CTRL] 
+
+  Coolant_Pump_A:
+    type: Tesla Model 3 (1068767-00-G)
+    pincount: 3
+    pins: [1, 2, 3]
+    pinlabels: [12V_PWR, GND, LIN_CTRL] 
+
+  Coolant_Pump_B:
+    type: Tesla Model 3 (1068767-00-G)
+    pincount: 3
+    pins: [1, 2, 3]
+    pinlabels: [12V_PWR, GND, LIN_CTRL] 
+
+  AC_Compressor_HV:
+    type: 6007380-00-D
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+    
+  AC_Compressor_LV:
+    type: 6007380-00-D (ES34C)
+    pincount: 6
+    pins: [1, 2, 3, 5, 6, 7]
+    pinlabels:
+      - GND
+      - On/Off #low side input from PDU
+      - Diagnostics
+      - Power feedback
+      - PWM in
+      - 12V_PWR
+    
+  Battery_Heater_HV:
+    type: 1009508-00-D
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  Cabin_Heater_HV:
     type: PTC Heater Core
     pincount: 2
-    pinlabels: [HV_PWR, GND]
-  PTC_Cabin_Heater_LV:
+    pinlabels: [HV_POS, HV_NEG]
+
+  Cabin_Heater_LV:
     type: PTC Heater Core
     pincount: 2
     pinlabels: [12V_PWR, GND]
-  Tesla_HVJB_HV:
-    type: Tesla Model 3 High Voltage Junction Box
-    pincount: 2
-    pinlabels: [HV_IN, HV_OUT]
 
-  Tesla_HVJB_LV:
+  HVJB_HV:
+    type: Tesla Model 3 High Voltage Junction Box
+    pincount: 10
+    pinlabels:
+      - HV_IN_POS
+      - HV_IN_NEG
+      - HV_A_POS
+      - HV_A_NEG
+      - HV_B_POS
+      - HV_B_NEG
+      - HV_C_POS
+      - HV_C_NEG
+      - HV_D_POS
+      - HV_D_NEG
+
+  HVJB_LV:
     type: Tesla Model 3 High Voltage Junction Box
     pincount: 12
     pins: [4,5,6,10,11,12]
@@ -324,7 +343,7 @@ connectors:
       - "HVIL_OUT" # Pin 12
 
   # --- Security & Safety ---
-  Compustar_Alarm:
+  Alarm:
     type: CS2WQ900-AS
     pincount: 2
     pinlabels: [12V_WAKE, GND]
@@ -347,26 +366,25 @@ connectors:
     notes: "HVIL Contactor Relay"
 
  # --- Charging ---
-  AEM_CCU_ACInput:
+  CCU_ACInput:
     type: Combined Charging Unit (30-8405)
     pincount: 5
     pinlabels: [L1, N, PE, HVIL_IN, HVIL_OUT]
     notes: "High Voltage AC Input from J1772 Port"
 
-  AEM_CCU_HV:
+  CCU_HV:
     type: Combined Charging Unit (30-8405)
     pincount: 4
-    pinlabels: [BATT_HV+, BATT_HV-, HVIL_IN, HVIL_OUT]
-    notes: "High Voltage DC Output to Battery"
+    pinlabels: [HV_POS, HV_NEG, HVIL_IN, HVIL_OUT]
 
-  AEM_CCU_LV:
+  CCU_LV:
     type: Combined Charging Unit (30-8405)
     pincount: 8
     pins: [1H, 3C, 3D, 4A, 4B, 4C, 4D, 4G]
     pinlabels: [WAKE_PWR, OBC_WAKE, DCDC_WAKE, CAN3_H, CAN3_L, HVIL_IN, HVIL_OUT, GND]
     notes: "Low Voltage Control Connector"
 
-  AEM_CCU_12V:
+  CCU_12V:
     type: Combined Charging Unit (30-8405)
     pincount: 2
     pinlabels: [12V_POS, 12V_GND]
@@ -398,22 +416,29 @@ cables:
   CAN_Charge_4: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
   CAN_Charge_5: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
   isoSPI_Daisy: {gauge: 24 AWG, colors: [BU, WH]} # BMS Chain
-  LIN_Thermal: {gauge: 22 AWG, colors: [PU]} # Mach GW to Superbottle
+  LIN_Thermal:  {gauge: 22 AWG, colors: [PU]} # Mach GW to Superbottle
 
   # --- Safety & Power ---
-  HVIL_Main_1:   {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_2:   {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_3:   {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_4:   {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_5:   {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_6:   {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_1: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_2: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_3: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_4: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_5: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_6: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_1: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_2: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_3: {gauge: 18 AWG, colors: [OG]}
-  Logic_12V:   {gauge: 18 AWG, colors: [RD]}
-  Logic_GND:   {gauge: 18 AWG, colors: [BK]}
-  Heavy_12V:   {gauge: 10 AWG, colors: [RD]}
-  Heavy_GND:   {gauge: 10 AWG, colors: [BK]}
+  HV_35_SDU: {gauge: 4 AWG, colors: [OG, OG]} 
+  HV_35_HVJB: {gauge: 4 AWG, colors: [OG, OG]} 
+  HV_12_A: {gauge: 10 AWG, colors: [OG, OG]}
+  HV_12_B: {gauge: 10 AWG, colors: [OG, OG]}
+  HV_12_C: {gauge: 10 AWG, colors: [OG, OG]}
+  HV_12_D: {gauge: 10 AWG, colors: [OG, OG]}
+
+  Logic_12V: {gauge: 18 AWG, colors: [RD]}
+  Logic_GND: {gauge: 18 AWG, colors: [BK]}
+  Heavy_12V: {gauge: 10 AWG, colors: [RD]}
+  Heavy_GND: {gauge: 10 AWG, colors: [BK]}
   
 connections:
 
@@ -427,49 +452,75 @@ connections:
   # CAN 2: Powertrain Daisy Chain
   - - VCU275_A: [CAN2_H, CAN2_L]
     - CAN_Drive_1: [1, 2]
-    - Mach_LIN_GW: [CAN_H, CAN_L]
+    - LIN_GW: [CAN_H, CAN_L]
     - CAN_Drive_2: [1, 2]
-    - AEM_PDU: [CAN_H, CAN_L]
+    - PDU: [CAN_H, CAN_L]
     - CAN_Drive_3: [1, 2]
-    - MicroPDM: [CAN2_H, CAN2_L]
+    - PDM: [CAN2_H, CAN2_L]
     - CAN_Drive_4: [1, 2]
     - Wheel_Speed_CAN: [CAN_H, CAN_L]
     - CAN_Drive_5: [1, 2] 
-    - Tesla_SDU_Logic: [CAN2_H, CAN2_L]
+    - SDU_Logic: [CAN2_H, CAN2_L]
     - CAN_Drive_6: [1, 2] 
-    - AEM_CD5L_Dash: [CAN2_H, CAN2_L]
+    - Dash: [CAN2_H, CAN2_L]
 
   # CAN 3: Charging & BMS
   - - VCU275_A: [CAN3_H, CAN3_L]
     - CAN_Charge_1: [1, 2]
-    - AEM_CCU_LV: [CAN3_H, CAN3_L]
+    - CCU_LV: [CAN3_H, CAN3_L]
     - CAN_Charge_2: [1, 2]
-    - AEM_Keypad: [CAN_H, CAN_L]
+    - Keypad: [CAN_H, CAN_L]
     - CAN_Charge_3: [1, 2]
-    - AEM_CD5L_Dash: [CAN3_H, CAN3_L]
+    - Dash: [CAN3_H, CAN3_L]
     - CAN_Charge_4: [1, 2]
-    - BMS_Mini_Master: [CAN3_H, CAN3_L]
+    - BMS_Master: [CAN3_H, CAN3_L]
     - CAN_Charge_5: [1, 2]
     - IVTS: [CAN3_H, CAN3_L]
 
   # HVIL Main Loop
   - - VCU275_A: [HVIL_MAIN_OUT]
     - HVIL_Main_1: [1]
-    - Tesla_HVJB_LV: [HVIL_IN]
-  - - Tesla_HVJB_LV: [HVIL_OUT]
+    - HVJB_LV: [HVIL_IN]
+  - - HVJB_LV: [HVIL_OUT]
     - HVIL_Main_2: [1]
-    - Tesla_SDU_Logic: [HVIL_IN]
-  - - Tesla_SDU_Logic: [HVIL_OUT]
+    - SDU_Logic: [HVIL_IN]
+  - - SDU_Logic: [HVIL_OUT]
     - HVIL_Main_3: [1]
     - VCU275_B: [HVIL_MAIN_IN]
 
   # HVIL Charge Loop
   - - VCU275_A: [HVIL_CHARGE_OUT]
     - HVIL_Charge_1: [1]
-    - AEM_CCU_LV: [HVIL_IN]
-  - - AEM_CCU_LV: [HVIL_OUT]
+    - CCU_LV: [HVIL_IN]
+  - - CCU_LV: [HVIL_OUT]
     - HVIL_Charge_2: [1]
     - J1772_Port_LV: [HVIL_IN]
   - - J1772_Port_LV: [HVIL_OUT]
     - HVIL_Charge_3: [1]
     - VCU275_B: [HVIL_CHARGE_IN]
+
+  # High Voltage Connections (Main & Charging)
+  - - Battery_Pack_HV_SDU: [HV_POS, HV_NEG]
+    - HV_35_SDU: [1, 2]
+    - SDU_HV: [HV_POS, HV_NEG]
+
+  - - Battery_Pack_HV_HVJB: [HV_POS, HV_NEG]
+    - HV_35_HVJB: [1, 2]
+    - HVJB_HV: [HV_IN_POS, HV_IN_NEG]
+
+  - - HVJB_HV: [HV_A_POS, HV_A_NEG]
+    - HV_12_A: [1, 2]
+    - AC_Compressor_HV: [HV_POS, HV_NEG]
+
+  - - HVJB_HV: [HV_B_POS, HV_B_NEG]
+    - HV_12_B: [1, 2]
+    - CCU_HV: [HV_POS, HV_NEG]
+    
+  - - HVJB_HV: [HV_C_POS, HV_C_NEG]
+    - HV_12_C: [1, 2]
+    - Cabin_Heater_HV: [HV_POS, HV_NEG]
+    
+  - - HVJB_HV: [HV_D_POS, HV_D_NEG]
+    - HV_12_D: [1, 2]
+    - Battery_Heater_HV: [HV_POS, HV_NEG]
+    
