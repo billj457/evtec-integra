@@ -1,8 +1,8 @@
 Id	Description	Qty	Unit	Designators	P/N
 1	Cable, 1 x 18 AWG	0	m	HVIL_Charge_1, HVIL_Charge_2, HVIL_Charge_3, HVIL_Main_1, HVIL_Main_2, HVIL_Main_3	
-2	Cable, 2 x 10 AWG	0	m	HV_12_A, HV_12_B, HV_12_C, HV_12_D	
+2	Cable, 2 x 10 AWG shielded	0	m	HV_HVJB_BN, HV_HVJB_BU, HV_HVJB_GY, HV_HVJB_OG	
 3	Cable, 2 x 22 AWG	0	m	CAN_Charge_1, CAN_Charge_2, CAN_Charge_3, CAN_Charge_4, CAN_Charge_5, CAN_Drive_1, CAN_Drive_2, CAN_Drive_3, CAN_Drive_4, CAN_Drive_5, CAN_Drive_6, CAN_PC_1, CAN_PC_2	
-4	Cable, 2 x 4 AWG	0	m	HV_35_HVJB, HV_35_SDU	
+4	Cable, 2 x 4 AWG shielded	0	m	HV_HVJB, HV_SDU	
 5	Connector, 1009508-00-D, 2 pins	1		Battery_Heater_HV	
 6	Connector, 360V 16kWh, 2 pins	2		Battery_Pack_HV_HVJB, Battery_Pack_HV_SDU	
 7	Connector, 6007380-00-D, 2 pins	1		AC_Compressor_HV	
@@ -13,7 +13,7 @@ Id	Description	Qty	Unit	Designators	P/N
 12	Connector, AEM VCU275 B (95-Pin), 95 pins	1		VCU275_B	
 13	Connector, CAN 8-Button, 4 pins	1		Keypad	
 14	Connector, Charge Port, 6 pins	1		J1772_Port_LV	
-15	Connector, Combined Charging Unit (30-8405), 4 pins	1		CCU_HV	
+15	Connector, Combined Charging Unit (30-8405), 2 pins	1		CCU_HV	
 16	Connector, Combined Charging Unit (30-8405), 8 pins	1		CCU_LV	
 17	Connector, Isabellenhuette Current Sensor, 4 pins	1		IVTS	IVT-S-1K-U3-I-CAN1-12/24
 18	Connector, Kvaser Leaf v3, 4 pins	1		Kvaser_Leaf_v3	

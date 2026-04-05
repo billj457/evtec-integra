@@ -321,14 +321,14 @@ connectors:
     pinlabels:
       - HV_IN_POS
       - HV_IN_NEG
-      - HV_A_POS
-      - HV_A_NEG
-      - HV_B_POS
-      - HV_B_NEG
-      - HV_C_POS
-      - HV_C_NEG
-      - HV_D_POS
-      - HV_D_NEG
+      - HV_OG_POS
+      - HV_OG_NEG
+      - HV_BN_POS
+      - HV_BN_NEG
+      - HV_BU_POS
+      - HV_BU_NEG
+      - HV_GY_POS
+      - HV_GY_NEG
 
   HVJB_LV:
     type: Tesla Model 3 High Voltage Junction Box
@@ -374,8 +374,8 @@ connectors:
 
   CCU_HV:
     type: Combined Charging Unit (30-8405)
-    pincount: 4
-    pinlabels: [HV_POS, HV_NEG, HVIL_IN, HVIL_OUT]
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
 
   CCU_LV:
     type: Combined Charging Unit (30-8405)
@@ -428,12 +428,13 @@ cables:
   HVIL_Charge_1: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_2: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_3: {gauge: 18 AWG, colors: [OG]}
-  HV_35_SDU: {gauge: 4 AWG, colors: [OG, OG]} 
-  HV_35_HVJB: {gauge: 4 AWG, colors: [OG, OG]} 
-  HV_12_A: {gauge: 10 AWG, colors: [OG, OG]}
-  HV_12_B: {gauge: 10 AWG, colors: [OG, OG]}
-  HV_12_C: {gauge: 10 AWG, colors: [OG, OG]}
-  HV_12_D: {gauge: 10 AWG, colors: [OG, OG]}
+
+  HV_SDU: {gauge: 4 AWG, colors: [OG, OG], shield: true} 
+  HV_HVJB: {gauge: 4 AWG, colors: [OG, OG], shield: true} 
+  HV_HVJB_BN: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+  HV_HVJB_OG: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+  HV_HVJB_BU: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+  HV_HVJB_GY: {gauge: 10 AWG, colors: [OG, OG], shield: true}
 
   Logic_12V: {gauge: 18 AWG, colors: [RD]}
   Logic_GND: {gauge: 18 AWG, colors: [BK]}
@@ -501,26 +502,26 @@ connections:
 
   # High Voltage Connections (Main & Charging)
   - - Battery_Pack_HV_SDU: [HV_POS, HV_NEG]
-    - HV_35_SDU: [1, 2]
+    - HV_SDU: [1, 2]
     - SDU_HV: [HV_POS, HV_NEG]
 
   - - Battery_Pack_HV_HVJB: [HV_POS, HV_NEG]
-    - HV_35_HVJB: [1, 2]
+    - HV_HVJB: [1, 2]
     - HVJB_HV: [HV_IN_POS, HV_IN_NEG]
 
-  - - HVJB_HV: [HV_A_POS, HV_A_NEG]
-    - HV_12_A: [1, 2]
+  - - HVJB_HV: [HV_OG_POS, HV_OG_NEG]
+    - HV_HVJB_OG: [1, 2]
     - AC_Compressor_HV: [HV_POS, HV_NEG]
 
-  - - HVJB_HV: [HV_B_POS, HV_B_NEG]
-    - HV_12_B: [1, 2]
+  - - HVJB_HV: [HV_BN_POS, HV_BN_NEG]
+    - HV_HVJB_BN: [1, 2]
     - CCU_HV: [HV_POS, HV_NEG]
     
-  - - HVJB_HV: [HV_C_POS, HV_C_NEG]
-    - HV_12_C: [1, 2]
+  - - HVJB_HV: [HV_BU_POS, HV_BU_NEG]
+    - HV_HVJB_BU: [1, 2]
     - Cabin_Heater_HV: [HV_POS, HV_NEG]
     
-  - - HVJB_HV: [HV_D_POS, HV_D_NEG]
-    - HV_12_D: [1, 2]
+  - - HVJB_HV: [HV_GY_POS, HV_GY_NEG]
+    - HV_HVJB_GY: [1, 2]
     - Battery_Heater_HV: [HV_POS, HV_NEG]
     
