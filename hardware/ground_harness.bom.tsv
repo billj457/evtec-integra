@@ -1,0 +1,9 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 2 x 18 AWG	0	m	Logic_GND
+2	Cable, 5 x 18 AWG	0	m	LV_HVJB
+3	Connector, AEM VCU275 B (95-Pin), 95 pins	1		VCU275_B
+4	Connector, Combined Charging Unit (30-8405), 8 pins	1		CCU_LV
+5	Connector, Ground Point, 1 pins	1		Chassis
+6	Connector, MicroPDM (12-Pin) High Side, 12 pins	1		PDM
+7	Connector, PDU-8 (30-8300), 26 pins	1		PDU
+8	Connector, Tesla Model 3 High Voltage Junction Box, 12 pins	1		HVJB_LV

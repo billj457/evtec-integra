@@ -1,4 +1,4 @@
-# Project Integra - EV Conversion Harness
+# Project Integra - EV Conversion Ground Harness
 # Vehicle: Acura Integra / Drive: Tesla Front SDU P100D / Battery: Chrysler Pacifica 16kWh
 # Control: AEM VCU 275
 
@@ -362,57 +362,23 @@ cables:
   Logic_12V: {gauge: 18 AWG, colors: [RD]}
   Logic_GND: {gauge: 18 AWG, colors: [BK, BK]}
 
-  PDU_16_FAN1: {gauge: 16 AWG, colors: [RD, RD]}
-  PDU_16_FAN2: {gauge: 16 AWG, colors: [RD, RD]}
-  PDU_16_AC: {gauge: 16 AWG, colors: [RD, RD]}
-  PDU_16_SDU: {gauge: 16 AWG, colors: [RD, RD]}
-  PDU_16_PUMP1: {gauge: 16 AWG, colors: [RD, RD]}
-  PDU_16_PUMP2: {gauge: 16 AWG, colors: [RD, RD]}
 
   
 connections:
+  # CCU Ground
+  - - CCU_LV: [GND]
+    - Logic_GND: [1]
+    - VCU275_B: [SENSOR_GND]
 
-  # HVJB_LV Control 
-  - - VCU275_B: [HVJB_PWM, HVJB_STATUS]
-    - LV_HVJB: [3, 4]
-    - HVJB_LV: [PWM, STATUS]
+  - - VCU275_B: [SENSOR_GND]
+    - LV_HVJB: [5]
+    - HVJB_LV: [GND]
 
-  # PDU High-Side Outputs
-  - - PDU: [FAN_1_HS1, FAN_1_HS2]
-    - PDU_16_FAN1: [1, 2]
-    - FAN_1: [12V_PWR, 12V_PWR]
+  - - PDU: [LOGIC_GND, LOGIC_GND_2]
+    - Logic_GND: [1, 2]
+    - Chassis: [GND, GND]
 
-  - - PDU: [FAN_2_HS1, FAN_2_HS2]
-    - PDU_16_FAN2: [1, 2 ] 
-    - FAN_2: [12V_PWR, 12V_PWR]
-
-  - - PDU: [AC_COMP_HS1, AC_COMP_HS2]
-    - PDU_16_AC: [1, 2]
-    - AC_Compressor_LV: [12V_PWR, 12V_PWR]
-
-  - - PDU: [SDU_LOGIC_HS1, SDU_LOGIC_HS2]
-    - PDU_16_SDU: [1, 2]
-    - SDU_Logic: [SDU_PWR_1, SDU_PWR_2]
-
-  - - PDU: [WATER_VALVE_HS1, WATER_VALVE_HS2]
-    - LV_WATERVALVE: [1, 2]
-    - Coolant_Valve: [12V_PWR, 12V_PWR]
-
-  - - PDU: [HVJB_HS1, HVJB_HS2]
-    - LV_HVJB: [1, 2]
-    - HVJB_LV: [12V_PWR, 12V_PWR]
-
-  - - PDU: [PUMP_1_HS1, PUMP_1_HS2]
-    - PDU_16_PUMP1: [1, 2]
-    - Coolant_Pump_A: [12V_PWR, 12V_PWR]
-
-  - - PDU: [PUMP_2_HS1, PUMP_2_HS2]
-    - PDU_16_PUMP2: [1, 2]
-    - Coolant_Pump_B: [12V_PWR, 12V_PWR]
-
-  # MicroPDM Outputs
-  - - PDM: [CCU_WAKE, OBC_WAKE, DCDC_WAKE]
-    - LV_CCU: [1, 2, 3]
-    - CCU_LV: [WAKE_PWR, OBC_WAKE, DCDC_WAKE]
-
+  - - PDM: [LOGIC_GND]
+    - Logic_GND: [1]
+    - Chassis: [GND]
     

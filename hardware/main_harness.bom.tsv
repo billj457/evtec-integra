@@ -1,6 +1,6 @@
 Id	Description	Qty	Unit	Designators
 1	Cable, 2 x 16 AWG	0	m	PDU_16_AC, PDU_16_FAN1, PDU_16_FAN2, PDU_16_PUMP1, PDU_16_PUMP2, PDU_16_SDU
-2	Cable, 2 x 18 AWG	0	m	LV_WATERVALVE, Logic_GND
+2	Cable, 2 x 18 AWG	0	m	LV_WATERVALVE
 3	Cable, 4 x 18 AWG	0	m	LV_CCU
 4	Cable, 5 x 18 AWG	0	m	LV_HVJB
 5	Connector, 6007380-00-D (ES34C), 6 pins	1		AC_Compressor_LV
@@ -8,9 +8,8 @@ Id	Description	Qty	Unit	Designators
 7	Connector, AEM VCU275 B (95-Pin), 95 pins	1		VCU275_B
 8	Connector, Combined Charging Unit (30-8405), 8 pins	1		CCU_LV
 9	Connector, Coolant Diverter Actuator, 3 pins	1		Coolant_Valve
-10	Connector, Ground Point, 1 pins	1		Chassis
-11	Connector, Honda Integra Radiator Fan, 2 pins	2		FAN_1, FAN_2
-12	Connector, MicroPDM (12-Pin) High Side, 12 pins	1		PDM
-13	Connector, PDU-8 (30-8300), 26 pins	1		PDU
-14	Connector, Tesla Model 3 (1068767-00-G), 3 pins	2		Coolant_Pump_A, Coolant_Pump_B
-15	Connector, Tesla Model 3 High Voltage Junction Box, 12 pins	1		HVJB_LV
+10	Connector, Honda Integra Radiator Fan, 2 pins	2		FAN_1, FAN_2
+11	Connector, MicroPDM (12-Pin) High Side, 12 pins	1		PDM
+12	Connector, PDU-8 (30-8300), 26 pins	1		PDU
+13	Connector, Tesla Model 3 (1068767-00-G), 3 pins	2		Coolant_Pump_A, Coolant_Pump_B
+14	Connector, Tesla Model 3 High Voltage Junction Box, 12 pins	1		HVJB_LV
