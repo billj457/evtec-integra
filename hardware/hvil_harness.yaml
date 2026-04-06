@@ -1,0 +1,83 @@
+# Project Integra - EV Conversion HVIL Harness
+# Vehicle: Acura Integra / Drive: Tesla Front SDU P100D / Battery: Chrysler Pacifica 16kWh
+# Control: AEM VCU 275
+
+connectors:
+  VCU275_A:
+    type: AEM VCU275 A (103-Pin)
+    pincount: 103
+    pins: [3, 4]
+    pinlabels:
+      - HVIL_MAIN_OUT        # A3 (High Voltage Interlock Loop)
+      - HVIL_CHARGE_OUT      # A4 (Charging Loop)
+
+  VCU275_B:
+    type: AEM VCU275 B (95-Pin)
+    pincount: 95
+    pins: [7, 39]
+    pinlabels:
+      - HVIL_CHARGE_IN       # B7 (Interlock Loop Return - Charging)
+      - HVIL_MAIN_IN         # B39 (Interlock Loop Return - Main)
+
+  SDU_Logic:
+    type: AEM 30-8403 (20-Pin)
+    pincount: 20
+    pins: [8, 9]
+    pinlabels:
+      - HVIL_OUT             # Pin 8 (To Interlock Loop)
+      - HVIL_IN              # Pin 9 (From Interlock Loop)
+
+  HVJB_LV:
+    type: Tesla Model 3 High Voltage Junction Box
+    pincount: 12
+    pins: [11,12]
+    pinlabels:
+      - "HVIL_IN" # Pin 11
+      - "HVIL_OUT" # Pin 12
+  
+  CCU_LV:
+    type: Combined Charging Unit (30-8405)
+    pincount: 8
+    pins: [4C, 4D]
+    pinlabels: [HVIL_IN, HVIL_OUT]
+
+  J1772_Port_LV:
+    type: Charge Port
+    pincount: 6
+    pins: [5, 6]
+    pinlabels: [HVIL_IN, HVIL_OUT]
+
+
+cables:
+  HVIL_Main_1: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_2: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_3: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_4: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_5: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Main_6: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Charge_1: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Charge_2: {gauge: 18 AWG, colors: [OG]}
+  HVIL_Charge_3: {gauge: 18 AWG, colors: [OG]}
+
+connections:
+  # HVIL Main Loop
+  - - VCU275_A: [HVIL_MAIN_OUT]
+    - HVIL_Main_1: [1]
+    - HVJB_LV: [HVIL_IN]
+  - - HVJB_LV: [HVIL_OUT]
+    - HVIL_Main_2: [1]
+    - SDU_Logic: [HVIL_IN]
+  - - SDU_Logic: [HVIL_OUT]
+    - HVIL_Main_3: [1]
+    - VCU275_B: [HVIL_MAIN_IN]
+
+  # HVIL Charge Loop
+  - - VCU275_A: [HVIL_CHARGE_OUT]
+    - HVIL_Charge_1: [1]
+    - CCU_LV: [HVIL_IN]
+  - - CCU_LV: [HVIL_OUT]
+    - HVIL_Charge_2: [1]
+    - J1772_Port_LV: [HVIL_IN]
+  - - J1772_Port_LV: [HVIL_OUT]
+    - HVIL_Charge_3: [1]
+    - VCU275_B: [HVIL_CHARGE_IN]

@@ -1,0 +1,15 @@
+Id	Description	Qty	Unit	Designators	P/N
+1	Cable, 2 x 22 AWG	0	m	CAN_Charge_1, CAN_Charge_2, CAN_Charge_3, CAN_Charge_4, CAN_Charge_5, CAN_Drive_1, CAN_Drive_2, CAN_Drive_3, CAN_Drive_4, CAN_Drive_5, CAN_Drive_6, CAN_PC_1, CAN_PC_2	
+2	Connector, AEM 30-3710 (12-Pin), 9 pins	1		BMS_Master	
+3	Connector, AEM 30-8403 (20-Pin), 20 pins	1		SDU_Logic	
+4	Connector, AEM CD5L Logging Dash, 6 pins	1		Dash	
+5	Connector, AEM VCU275 A (103-Pin), 103 pins	1		VCU275_A	
+6	Connector, CAN 8-Button, 4 pins	1		Keypad	
+7	Connector, Combined Charging Unit (30-8405), 8 pins	1		CCU_LV	
+8	Connector, Isabellenhuette Current Sensor, 4 pins	1		IVTS	IVT-S-1K-U3-I-CAN1-12/24
+9	Connector, Kvaser Leaf v3, 4 pins	1		Kvaser_Leaf_v3	
+10	Connector, Mach Systems Gateway, 5 pins	1		LIN_GW	
+11	Connector, MeatPi WICAN, 4 pins	1		MeatPi_WICAN	
+12	Connector, MicroPDM (12-Pin) High Side, 12 pins	1		PDM	
+13	Connector, PDU-8 (30-8300), 26 pins	1		PDU	
+14	Connector, Wheel Speed Sensor (Generic), 3 pins	1		Wheel_Speed_CAN	

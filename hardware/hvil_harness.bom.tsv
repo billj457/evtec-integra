@@ -1,0 +1,8 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 1 x 18 AWG	0	m	HVIL_Charge_1, HVIL_Charge_2, HVIL_Charge_3, HVIL_Main_1, HVIL_Main_2, HVIL_Main_3
+2	Connector, AEM 30-8403 (20-Pin), 20 pins	1		SDU_Logic
+3	Connector, AEM VCU275 A (103-Pin), 103 pins	1		VCU275_A
+4	Connector, AEM VCU275 B (95-Pin), 95 pins	1		VCU275_B
+5	Connector, Charge Port, 6 pins	1		J1772_Port_LV
+6	Connector, Combined Charging Unit (30-8405), 8 pins	1		CCU_LV
+7	Connector, Tesla Model 3 High Voltage Junction Box, 12 pins	1		HVJB_LV

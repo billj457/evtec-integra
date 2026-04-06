@@ -351,33 +351,9 @@ connectors:
     pinlabels: [GND]
 
 cables:
-  # --- Communication ---
-  CAN_PC_1: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
-  CAN_PC_2: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
-  CAN_Drive_1:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
-  CAN_Drive_2:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
-  CAN_Drive_3:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
-  CAN_Drive_4:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
-  CAN_Drive_5:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
-  CAN_Drive_6:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
-  CAN_Charge_1: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
-  CAN_Charge_2: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
-  CAN_Charge_3: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
-  CAN_Charge_4: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
-  CAN_Charge_5: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  
   isoSPI_Daisy: {gauge: 24 AWG, colors: [BU, WH]} # BMS Chain
   LIN_Thermal:  {gauge: 22 AWG, colors: [PU]} # Mach GW to Superbottle
-
-  # --- Safety & Power ---
-  HVIL_Main_1: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_2: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_3: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_4: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_5: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Main_6: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Charge_1: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Charge_2: {gauge: 18 AWG, colors: [OG]}
-  HVIL_Charge_3: {gauge: 18 AWG, colors: [OG]}
 
   LV_HVJB: {gauge: 18 AWG, colors: [RD, RD, BU, YE, BK]}
   LV_WATERVALVE: {gauge: 18 AWG, colors: [RD, RD]}
@@ -396,68 +372,11 @@ cables:
   Heavy_GND: {gauge: 10 AWG, colors: [BK]}
   
 connections:
-  # CAN 1: PC & Data Logging
-  - - VCU275_A: [CAN1_H, CAN1_L]
-    - CAN_PC_1: [1, 2]
-    - MeatPi_WICAN: [CAN_H, CAN_L] 
-    - CAN_PC_2: [1, 2]
-    - Kvaser_Leaf_v3: [CAN1_H, CAN1_L]
-
-  # CAN 2: Powertrain Daisy Chain
-  - - VCU275_A: [CAN2_H, CAN2_L]
-    - CAN_Drive_1: [1, 2]
-    - LIN_GW: [CAN_H, CAN_L]
-    - CAN_Drive_2: [1, 2]
-    - PDU: [CAN_H, CAN_L]
-    - CAN_Drive_3: [1, 2]
-    - PDM: [CAN2_H, CAN2_L]
-    - CAN_Drive_4: [1, 2]
-    - Wheel_Speed_CAN: [CAN_H, CAN_L]
-    - CAN_Drive_5: [1, 2] 
-    - SDU_Logic: [CAN2_H, CAN2_L]
-    - CAN_Drive_6: [1, 2] 
-    - Dash: [CAN2_H, CAN2_L]
-
-  # CAN 3: Charging & BMS
-  - - VCU275_A: [CAN3_H, CAN3_L]
-    - CAN_Charge_1: [1, 2]
-    - CCU_LV: [CAN3_H, CAN3_L]
-    - CAN_Charge_2: [1, 2]
-    - Keypad: [CAN_H, CAN_L]
-    - CAN_Charge_3: [1, 2]
-    - Dash: [CAN3_H, CAN3_L]
-    - CAN_Charge_4: [1, 2]
-    - BMS_Master: [CAN3_H, CAN3_L]
-    - CAN_Charge_5: [1, 2]
-    - IVTS: [CAN3_H, CAN3_L]
-
-  # HVIL Main Loop
-  - - VCU275_A: [HVIL_MAIN_OUT]
-    - HVIL_Main_1: [1]
-    - HVJB_LV: [HVIL_IN]
-  - - HVJB_LV: [HVIL_OUT]
-    - HVIL_Main_2: [1]
-    - SDU_Logic: [HVIL_IN]
-  - - SDU_Logic: [HVIL_OUT]
-    - HVIL_Main_3: [1]
-    - VCU275_B: [HVIL_MAIN_IN]
-
-  # HVIL Charge Loop
-  - - VCU275_A: [HVIL_CHARGE_OUT]
-    - HVIL_Charge_1: [1]
-    - CCU_LV: [HVIL_IN]
-  - - CCU_LV: [HVIL_OUT]
-    - HVIL_Charge_2: [1]
-    - J1772_Port_LV: [HVIL_IN]
-  - - J1772_Port_LV: [HVIL_OUT]
-    - HVIL_Charge_3: [1]
-    - VCU275_B: [HVIL_CHARGE_IN]
 
   # CCU Ground
   - - CCU_LV: [GND]
     - Logic_GND: [1]
     - VCU275_B: [SENSOR_GND]
-
 
   # HVJB_LV Control 
   - - VCU275_B: [HVJB_PWM, HVJB_STATUS, SENSOR_GND]

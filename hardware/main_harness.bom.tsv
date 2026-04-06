@@ -1,28 +1,16 @@
-Id	Description	Qty	Unit	Designators	P/N
-1	Cable, 1 x 18 AWG	0	m	HVIL_Charge_1, HVIL_Charge_2, HVIL_Charge_3, HVIL_Main_1, HVIL_Main_2, HVIL_Main_3	
-2	Cable, 2 x 16 AWG	0	m	PDU_16_AC, PDU_16_FAN1, PDU_16_FAN2, PDU_16_PUMP1, PDU_16_PUMP2, PDU_16_SDU	
-3	Cable, 2 x 18 AWG	0	m	LV_WATERVALVE, Logic_GND	
-4	Cable, 2 x 22 AWG	0	m	CAN_Charge_1, CAN_Charge_2, CAN_Charge_3, CAN_Charge_4, CAN_Charge_5, CAN_Drive_1, CAN_Drive_2, CAN_Drive_3, CAN_Drive_4, CAN_Drive_5, CAN_Drive_6, CAN_PC_1, CAN_PC_2	
-5	Cable, 4 x 18 AWG	0	m	LV_CCU	
-6	Cable, 5 x 18 AWG	0	m	LV_HVJB	
-7	Connector, 6007380-00-D (ES34C), 6 pins	1		AC_Compressor_LV	
-8	Connector, AEM 30-3710 (12-Pin), 9 pins	1		BMS_Master	
-9	Connector, AEM 30-8403 (20-Pin), 20 pins	1		SDU_Logic	
-10	Connector, AEM CD5L Logging Dash, 6 pins	1		Dash	
-11	Connector, AEM VCU275 A (103-Pin), 103 pins	1		VCU275_A	
-12	Connector, AEM VCU275 B (95-Pin), 95 pins	1		VCU275_B	
-13	Connector, CAN 8-Button, 4 pins	1		Keypad	
-14	Connector, Charge Port, 6 pins	1		J1772_Port_LV	
-15	Connector, Combined Charging Unit (30-8405), 8 pins	1		CCU_LV	
-16	Connector, Coolant Diverter Actuator, 3 pins	1		Coolant_Valve	
-17	Connector, Ground Point, 1 pins	1		Chassis	
-18	Connector, Honda Integra Radiator Fan, 2 pins	2		FAN_1, FAN_2	
-19	Connector, Isabellenhuette Current Sensor, 4 pins	1		IVTS	IVT-S-1K-U3-I-CAN1-12/24
-20	Connector, Kvaser Leaf v3, 4 pins	1		Kvaser_Leaf_v3	
-21	Connector, Mach Systems Gateway, 5 pins	1		LIN_GW	
-22	Connector, MeatPi WICAN, 4 pins	1		MeatPi_WICAN	
-23	Connector, MicroPDM (12-Pin) High Side, 12 pins	1		PDM	
-24	Connector, PDU-8 (30-8300), 26 pins	1		PDU	
-25	Connector, Tesla Model 3 (1068767-00-G), 3 pins	2		Coolant_Pump_A, Coolant_Pump_B	
-26	Connector, Tesla Model 3 High Voltage Junction Box, 12 pins	1		HVJB_LV	
-27	Connector, Wheel Speed Sensor (Generic), 3 pins	1		Wheel_Speed_CAN	
+Id	Description	Qty	Unit	Designators
+1	Cable, 2 x 16 AWG	0	m	PDU_16_AC, PDU_16_FAN1, PDU_16_FAN2, PDU_16_PUMP1, PDU_16_PUMP2, PDU_16_SDU
+2	Cable, 2 x 18 AWG	0	m	LV_WATERVALVE, Logic_GND
+3	Cable, 4 x 18 AWG	0	m	LV_CCU
+4	Cable, 5 x 18 AWG	0	m	LV_HVJB
+5	Connector, 6007380-00-D (ES34C), 6 pins	1		AC_Compressor_LV
+6	Connector, AEM 30-8403 (20-Pin), 20 pins	1		SDU_Logic
+7	Connector, AEM VCU275 B (95-Pin), 95 pins	1		VCU275_B
+8	Connector, Combined Charging Unit (30-8405), 8 pins	1		CCU_LV
+9	Connector, Coolant Diverter Actuator, 3 pins	1		Coolant_Valve
+10	Connector, Ground Point, 1 pins	1		Chassis
+11	Connector, Honda Integra Radiator Fan, 2 pins	2		FAN_1, FAN_2
+12	Connector, MicroPDM (12-Pin) High Side, 12 pins	1		PDM
+13	Connector, PDU-8 (30-8300), 26 pins	1		PDU
+14	Connector, Tesla Model 3 (1068767-00-G), 3 pins	2		Coolant_Pump_A, Coolant_Pump_B
+15	Connector, Tesla Model 3 High Voltage Junction Box, 12 pins	1		HVJB_LV

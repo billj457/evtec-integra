@@ -1,0 +1,149 @@
+# Project Integra - EV Conversion CAN Harness
+# Vehicle: Acura Integra / Drive: Tesla Front SDU P100D / Battery: Chrysler Pacifica 16kWh
+# Control: AEM VCU 275
+
+connectors:
+  VCU275_A:
+    type: AEM VCU275 A (103-Pin)
+    pincount: 103
+    pins: [2, 21, 40, 59, 92, 93]
+    pinlabels:
+      - CAN2_H               # A2 (Inverters, PDU, Dash Port 1)
+      - CAN2_L               # A21 (Inverters, PDU, Dash Port 1)
+      - CAN1_H               # A40 (PC Comms / AEMCal)
+      - CAN1_L               # A59 (PC Comms / AEMCal)
+      - CAN3_H               # A92 (Keypad, BMS-18, OBC, Dash Port 2)
+      - CAN3_L               # A93 (Keypad, BMS-18, OBC, Dash Port 2)
+  
+  LIN_GW:
+    type: Mach Systems Gateway
+    pincount: 5
+    pins: [9, 10]
+    pinlabels: [CAN_H, CAN_L]
+
+  PDU:
+    type: PDU-8 (30-8300)
+    pincount: 26
+    pins: [3, 4]
+    pinlabels:
+      - CAN_L                 # Pin 3
+      - CAN_H                 # Pin 4
+
+  PDM:
+    type: MicroPDM (12-Pin) High Side
+    pincount: 12
+    pins: [4, 5]
+    pinlabels:
+      - CAN2_L                # Pin 4: CAN2_L
+      - CAN2_H                # Pin 5: CAN2_H
+
+  Keypad:
+    type: CAN 8-Button
+    pincount: 4
+    pinlabels: [CAN_H, CAN_L]
+      
+  Dash:
+    type: AEM CD5L Logging Dash
+    pincount: 6
+    pins: [1, 2, 3, 4]
+    pinlabels: [CAN2_H, CAN2_L, CAN3_H, CAN3_L]
+    
+  Kvaser_Leaf_v3:
+    type: Kvaser Leaf v3
+    pincount: 4
+    pins: [2, 7]
+    pinlabels: [CAN1_L, CAN1_H]
+
+  MeatPi_WICAN:
+    type: MeatPi WICAN
+    pincount: 4
+    pinlabels: [CAN_L, CAN_H]
+  
+  Wheel_Speed_CAN:
+    type: Wheel Speed Sensor (Generic)
+    pincount: 3
+    pinlabels: [CAN_H, CAN_L]
+
+  # --- Drive & Battery ---
+  SDU_Logic:
+    type: AEM 30-8403 (20-Pin)
+    pincount: 20
+    pins: [1, 2]
+    pinlabels:
+      - CAN2_L               # Pin 1
+      - CAN2_H               # Pin 2
+    
+  BMS_Master:
+    type: AEM 30-3710 (12-Pin)
+    pincount: 9
+    pins: [3, 4]
+    pinlabels:
+      - CAN3_H               # Pin 3 (Management Bus)
+      - CAN3_L               # Pin 4 (Management Bus)
+  IVTS:
+    type: Isabellenhuette Current Sensor 
+    pn: IVT-S-1K-U3-I-CAN1-12/24
+    pincount: 4
+    pins: [1, 2]
+    pinlabels: [CAN3_H, CAN3_L]
+
+  CCU_LV:
+    type: Combined Charging Unit (30-8405)
+    pincount: 8
+    pins: [4A, 4B]
+    pinlabels: [CAN3_H, CAN3_L, HVIL_IN, HVIL_OUT, GND]
+    
+
+
+cables:
+
+  # --- Communication ---
+  CAN_PC_1: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
+  CAN_PC_2: {gauge: 22 AWG, colors: [YE, GN]} # VCU CAN 1
+  CAN_Drive_1:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_2:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_3:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_4:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_5:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Drive_6:  {gauge: 22 AWG, colors: [OG, BU]} # VCU CAN 2
+  CAN_Charge_1: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_2: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_3: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_4: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+  CAN_Charge_5: {gauge: 22 AWG, colors: [WH, BK]} # VCU CAN 3
+
+connections:
+  # CAN 1: PC & Data Logging
+  - - VCU275_A: [CAN1_H, CAN1_L]
+    - CAN_PC_1: [1, 2]
+    - MeatPi_WICAN: [CAN_H, CAN_L] 
+    - CAN_PC_2: [1, 2]
+    - Kvaser_Leaf_v3: [CAN1_H, CAN1_L]
+
+  # CAN 2: Powertrain Daisy Chain
+  - - VCU275_A: [CAN2_H, CAN2_L]
+    - CAN_Drive_1: [1, 2]
+    - LIN_GW: [CAN_H, CAN_L]
+    - CAN_Drive_2: [1, 2]
+    - PDU: [CAN_H, CAN_L]
+    - CAN_Drive_3: [1, 2]
+    - PDM: [CAN2_H, CAN2_L]
+    - CAN_Drive_4: [1, 2]
+    - Wheel_Speed_CAN: [CAN_H, CAN_L]
+    - CAN_Drive_5: [1, 2] 
+    - SDU_Logic: [CAN2_H, CAN2_L]
+    - CAN_Drive_6: [1, 2] 
+    - Dash: [CAN2_H, CAN2_L]
+
+  # CAN 3: Charging & BMS
+  - - VCU275_A: [CAN3_H, CAN3_L]
+    - CAN_Charge_1: [1, 2]
+    - CCU_LV: [CAN3_H, CAN3_L]
+    - CAN_Charge_2: [1, 2]
+    - Keypad: [CAN_H, CAN_L]
+    - CAN_Charge_3: [1, 2]
+    - Dash: [CAN3_H, CAN3_L]
+    - CAN_Charge_4: [1, 2]
+    - BMS_Master: [CAN3_H, CAN3_L]
+    - CAN_Charge_5: [1, 2]
+    - IVTS: [CAN3_H, CAN3_L]
