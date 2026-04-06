@@ -9,4 +9,6 @@ Documenting a 1996 JDM Honda Integra DB6 Sedan EV Restomod
 <img src="https://raw.githubusercontent.com/billj457/evtec-integra/refs/heads/main/hardware/hvil_harness.png" />
 <h2>CAN Harness:</h2>
 <img src="https://raw.githubusercontent.com/billj457/evtec-integra/refs/heads/main/hardware/can_harness.png" />
+<h2>Ground Harness:</h2>
+<img src="https://raw.githubusercontent.com/billj457/evtec-integra/refs/heads/main/hardware/ground_harness.png" />
 
