@@ -48,7 +48,7 @@ connectors:
   VCU275_B:
     type: AEM VCU275 B (95-Pin)
     pincount: 95
-    pins: [1, 2, 3, 7, 12, 13, 14, 16, 17, 18, 19, 20, 31, 32, 37, 39, 41, 42, 43, 45, 58, 59, 61, 64, 69, 73, 75, 81]
+    pins: [7, 17, 18, 19, 20, 31, 32, 37, 39, 41, 42, 43, 45, 58, 59, 61, 64, 69, 73, 75, 81]
     pinlabels:
       - HVIL_CHARGE_IN       # B7 (Interlock Loop Return - Charging)
       - HEATER_SW_IN         # B17 (From Integra Heat Switch)
@@ -61,16 +61,16 @@ connectors:
       - HVIL_MAIN_IN         # B39 (Interlock Loop Return - Main)
       - AC_PRESS_SENSE       # B41 (Analog - A/C Pressure Sensor)
       - REGEN_POT_1          # B42 (Analog - Manual Regen Knob/Slider)
-      - NEUTRAL_SWITCH       # B43 (Analog - Stock Shifter 'N')
+      - HVJB_STATUS          # B43 (Analog - Stock Shifter 'N')
       - PARK_SWITCH          # B45 (Analog - Stock Shifter 'P')
       - BRAKE_VAC_PRESS      # B58 (Analog - iBooster Vacuum/Pressure)
       - REGEN_POT_2          # B59 (Analog - Redundancy for Regen)
       - AC_EVAP_TEMP         # B61 (Analog - NTC for Evaporator Core)
       - OBC_CONT_LS          # B64 (Low-Side Driver - Charging Contactor)
       - MPRD_LS              # B69 (Main Power Relay Driver)
-      - PACK_HEAT_LS         # B73 (Low-Side Driver - Battery Heater)
+      - HVJB_PWM             # B73 (Low-Side Driver - Battery Heater)
       - DCDC_CONT_LS         # B75 (Low-Side Driver - DCDC Contactor)
-      - SENSOR_GND_B81       # B81
+      - SENSOR_GND             # B81
   
   LIN_GW:
     type: Mach Systems Gateway
@@ -80,32 +80,32 @@ connectors:
 
   PDU:
     type: PDU-8 (30-8300)
-    pincount: 19
-    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 21, 24, 25, 26]
+    pincount: 26
+    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 25, 26]
     pinlabels:
-      - FAN_1_HS              # Pin 1 (20A) HS_DRIVER_1
-      - FAN_1_HS_RTN          # Pin 2 (20A) HS_DRIVER_1
+      - FAN_1_HS1             # Pin 1 (20A) HS_DRIVER_1
+      - FAN_1_HS2             # Pin 2 (20A) HS_DRIVER_1
       - CAN_L                 # Pin 3
       - CAN_H                 # Pin 4
       - LOGIC_GND             # Pin 5
-      - FAN_2_HS              # Pin 6 (20A) HS_DRIVER_5
-      - FAN_2_HS_RTN          # Pin 7 (20A) HS_DRIVER_5
-      - AC_COMP_HS            # Pin 8 (10A) HS_DRIVER_2
-      - AC_COMP_RTN           # Pin 9 (10A) HS_DRIVER_2
+      - FAN_2_HS1             # Pin 6 (20A) HS_DRIVER_5
+      - FAN_2_HS2             # Pin 7 (20A) HS_DRIVER_5
+      - AC_COMP_HS1           # Pin 8 (10A) HS_DRIVER_2
+      - AC_COMP_HS2           # Pin 9 (10A) HS_DRIVER_2
       - CONFIG_3              # Pin 10 (Open)
       - LOGIC_GND_2           # Pin 11
-      - SDU_LOGIC_HS          # Pin 12 (10A) HS_DRIVER_6
-      - SDU_LOGIC_RTN         # Pin 13 (10A) HS_DRIVER_6
-      - WATER_VALVE_HS        # Pin 14 (10A) HS_DRIVER_3
-      - WATER_VALVE_RTN       # Pin 15 (10A) HS_DRIVER_3
+      - SDU_LOGIC_HS1         # Pin 12 (10A) HS_DRIVER_6
+      - SDU_LOGIC_HS2         # Pin 13 (10A) HS_DRIVER_6
+      - WATER_VALVE_HS1       # Pin 14 (10A) HS_DRIVER_3
+      - WATER_VALVE_HS2       # Pin 15 (10A) HS_DRIVER_3
       - CONFIG_2              # Pin 16 (Open)
-      - HVJB_HS               # Pin 18 (10A) HS_DRIVER_7
-      - HVJB_RTN              # Pin 19 (10A) HS_DRIVER_7
-      - PUMP_1_HS             # Pin 20 (20A) HS_DRIVER_4
-      - PUMP_1_RTN            # Pin 21 (20A) HS_DRIVER_4
+      - HVJB_HS1              # Pin 18 (10A) HS_DRIVER_7
+      - HVJB_HS2              # Pin 19 (10A) HS_DRIVER_7
+      - PUMP_1_HS1            # Pin 20 (20A) HS_DRIVER_4
+      - PUMP_1_HS2            # Pin 21 (20A) HS_DRIVER_4
       - CONFIG_1              # Pin 24 (Open)
-      - PUMP_2_HS             # Pin 25 (20A) HS_DRIVER_8
-      - PUMP_2_RTN            # Pin 26 (20A) HS_DRIVER_8
+      - PUMP_2_HS1            # Pin 25 (20A) HS_DRIVER_8
+      - PUMP_2_HS2            # Pin 26 (20A) HS_DRIVER_8
 
   PDM:
     type: MicroPDM (12-Pin) High Side
@@ -151,11 +151,6 @@ connectors:
     pinlabels: [CAN_H, CAN_L, GND]
 
   # --- Drive & Battery ---
-  SDU_HV:
-    type: Tesla Model S/X SDU (1038227-00-C)
-    pincount: 2
-    pinlabels: [HV_POS, HV_NEG]
-
   SDU_Logic:
     type: AEM 30-8403 (20-Pin)
     pincount: 20
@@ -222,16 +217,6 @@ connectors:
       - ISOSPI_IN_P          # B15 (From Master or Prev Sat IPO)
     notes: "Pins B12/B13 must be jumpered to B11."
     
-  Battery_Pack_HV_SDU:
-    type: 360V 16kWh
-    pincount: 2
-    pinlabels: [HV_POS, HV_NEG]
-
-  Battery_Pack_HV_HVJB:
-    type: 360V 16kWh
-    pincount: 2
-    pinlabels: [HV_POS, HV_NEG]
-    
   DBW_Pedal:
     type: 6-Pin Bosch
     pincount: 6
@@ -283,11 +268,6 @@ connectors:
     pins: [1, 2, 3]
     pinlabels: [12V_PWR, GND, LIN_CTRL] 
 
-  AC_Compressor_HV:
-    type: 6007380-00-D
-    pincount: 2
-    pinlabels: [HV_POS, HV_NEG]
-    
   AC_Compressor_LV:
     type: 6007380-00-D (ES34C)
     pincount: 6
@@ -300,45 +280,20 @@ connectors:
       - PWM in
       - 12V_PWR
     
-  Battery_Heater_HV:
-    type: 1009508-00-D
-    pincount: 2
-    pinlabels: [HV_POS, HV_NEG]
-
-  Cabin_Heater_HV:
-    type: PTC Heater Core
-    pincount: 2
-    pinlabels: [HV_POS, HV_NEG]
-
   Cabin_Heater_LV:
     type: PTC Heater Core
     pincount: 2
     pinlabels: [12V_PWR, GND]
-
-  HVJB_HV:
-    type: Tesla Model 3 High Voltage Junction Box
-    pincount: 10
-    pinlabels:
-      - HV_IN_POS
-      - HV_IN_NEG
-      - HV_OG_POS
-      - HV_OG_NEG
-      - HV_BN_POS
-      - HV_BN_NEG
-      - HV_BU_POS
-      - HV_BU_NEG
-      - HV_GY_POS
-      - HV_GY_NEG
 
   HVJB_LV:
     type: Tesla Model 3 High Voltage Junction Box
     pincount: 12
     pins: [4,5,6,10,11,12]
     pinlabels:
-      - "OR 12v (orange)" # Pin 4: 12V Supply for Interlock Loop
-      - "RD PWM in" # Pin 5
-      - "BL STAT out (PWM)" # Pin 6
-      - "BK Gnd" # Pin 10
+      - "12V_PWR" # Pin 4
+      - "PWM" # Pin 5
+      - "STATUS" # Pin 6
+      - "GND" # Pin 10
       - "HVIL_IN" # Pin 11
       - "HVIL_OUT" # Pin 12
 
@@ -372,11 +327,6 @@ connectors:
     pinlabels: [L1, N, PE, HVIL_IN, HVIL_OUT]
     notes: "High Voltage AC Input from J1772 Port"
 
-  CCU_HV:
-    type: Combined Charging Unit (30-8405)
-    pincount: 2
-    pinlabels: [HV_POS, HV_NEG]
-
   CCU_LV:
     type: Combined Charging Unit (30-8405)
     pincount: 8
@@ -390,15 +340,15 @@ connectors:
     pinlabels: [12V_POS, 12V_GND]
     notes: "DC-DC Low Voltage Output"
     
-  J1772_Port_HV:
-    type: Charge Port
-    pincount: 2
-    pinlabels: [HV_IN, HV_OUT]
   J1772_Port_LV:
     type: Charge Port
     pincount: 6
     pinlabels: [SIGNAL, GND, 12V_POS, 12V_GND, HVIL_IN, HVIL_OUT]
 
+  Chassis:
+    type: Ground Point
+    pincount: 1
+    pinlabels: [GND]
 
 cables:
   # --- Communication ---
@@ -429,20 +379,23 @@ cables:
   HVIL_Charge_2: {gauge: 18 AWG, colors: [OG]}
   HVIL_Charge_3: {gauge: 18 AWG, colors: [OG]}
 
-  HV_SDU: {gauge: 4 AWG, colors: [OG, OG], shield: true} 
-  HV_HVJB: {gauge: 4 AWG, colors: [OG, OG], shield: true} 
-  HV_HVJB_BN: {gauge: 10 AWG, colors: [OG, OG], shield: true}
-  HV_HVJB_OG: {gauge: 10 AWG, colors: [OG, OG], shield: true}
-  HV_HVJB_BU: {gauge: 10 AWG, colors: [OG, OG], shield: true}
-  HV_HVJB_GY: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+  LV_HVJB: {gauge: 18 AWG, colors: [RD, RD, BU, YE, BK]}
+  LV_WATERVALVE: {gauge: 18 AWG, colors: [RD, RD]}
+  LV_CCU: {gauge: 18 AWG, colors: [RD, RD, RD, BK]}
 
   Logic_12V: {gauge: 18 AWG, colors: [RD]}
-  Logic_GND: {gauge: 18 AWG, colors: [BK]}
-  Heavy_12V: {gauge: 10 AWG, colors: [RD]}
+  Logic_GND: {gauge: 18 AWG, colors: [BK, BK]}
+
+  PDU_16_FAN1: {gauge: 16 AWG, colors: [RD, RD]}
+  PDU_16_FAN2: {gauge: 16 AWG, colors: [RD, RD]}
+  PDU_16_AC: {gauge: 16 AWG, colors: [RD, RD]}
+  PDU_16_SDU: {gauge: 16 AWG, colors: [RD, RD]}
+  PDU_16_PUMP1: {gauge: 16 AWG, colors: [RD, RD]}
+  PDU_16_PUMP2: {gauge: 16 AWG, colors: [RD, RD]}
+
   Heavy_GND: {gauge: 10 AWG, colors: [BK]}
   
 connections:
-
   # CAN 1: PC & Data Logging
   - - VCU275_A: [CAN1_H, CAN1_L]
     - CAN_PC_1: [1, 2]
@@ -500,28 +453,60 @@ connections:
     - HVIL_Charge_3: [1]
     - VCU275_B: [HVIL_CHARGE_IN]
 
-  # High Voltage Connections (Main & Charging)
-  - - Battery_Pack_HV_SDU: [HV_POS, HV_NEG]
-    - HV_SDU: [1, 2]
-    - SDU_HV: [HV_POS, HV_NEG]
+  # CCU Ground
+  - - CCU_LV: [GND]
+    - Logic_GND: [1]
+    - VCU275_B: [SENSOR_GND]
 
-  - - Battery_Pack_HV_HVJB: [HV_POS, HV_NEG]
-    - HV_HVJB: [1, 2]
-    - HVJB_HV: [HV_IN_POS, HV_IN_NEG]
 
-  - - HVJB_HV: [HV_OG_POS, HV_OG_NEG]
-    - HV_HVJB_OG: [1, 2]
-    - AC_Compressor_HV: [HV_POS, HV_NEG]
+  # HVJB_LV Control 
+  - - VCU275_B: [HVJB_PWM, HVJB_STATUS, SENSOR_GND]
+    - LV_HVJB: [3, 4, 5]
+    - HVJB_LV: [PWM, STATUS, GND]
 
-  - - HVJB_HV: [HV_BN_POS, HV_BN_NEG]
-    - HV_HVJB_BN: [1, 2]
-    - CCU_HV: [HV_POS, HV_NEG]
-    
-  - - HVJB_HV: [HV_BU_POS, HV_BU_NEG]
-    - HV_HVJB_BU: [1, 2]
-    - Cabin_Heater_HV: [HV_POS, HV_NEG]
-    
-  - - HVJB_HV: [HV_GY_POS, HV_GY_NEG]
-    - HV_HVJB_GY: [1, 2]
-    - Battery_Heater_HV: [HV_POS, HV_NEG]
+  # PDU High-Side Outputs
+  - - PDU: [FAN_1_HS1, FAN_1_HS2]
+    - PDU_16_FAN1: [1, 2]
+    - FAN_1: [12V_PWR, 12V_PWR]
+
+  - - PDU: [FAN_2_HS1, FAN_2_HS2]
+    - PDU_16_FAN2: [1, 2 ] 
+    - FAN_2: [12V_PWR, 12V_PWR]
+
+  - - PDU: [AC_COMP_HS1, AC_COMP_HS2]
+    - PDU_16_AC: [1, 2]
+    - AC_Compressor_LV: [12V_PWR, 12V_PWR]
+
+  - - PDU: [SDU_LOGIC_HS1, SDU_LOGIC_HS2]
+    - PDU_16_SDU: [1, 2]
+    - SDU_Logic: [SDU_PWR_1, SDU_PWR_2]
+
+  - - PDU: [WATER_VALVE_HS1, WATER_VALVE_HS2]
+    - LV_WATERVALVE: [1, 2]
+    - Coolant_Valve: [12V_PWR, 12V_PWR]
+
+  - - PDU: [HVJB_HS1, HVJB_HS2]
+    - LV_HVJB: [1, 2]
+    - HVJB_LV: [12V_PWR, 12V_PWR]
+
+  - - PDU: [PUMP_1_HS1, PUMP_1_HS2]
+    - PDU_16_PUMP1: [1, 2]
+    - Coolant_Pump_A: [12V_PWR, 12V_PWR]
+
+  - - PDU: [PUMP_2_HS1, PUMP_2_HS2]
+    - PDU_16_PUMP2: [1, 2]
+    - Coolant_Pump_B: [12V_PWR, 12V_PWR]
+
+  - - PDU: [LOGIC_GND, LOGIC_GND_2]
+    - Logic_GND: [1, 2]
+    - Chassis: [GND, GND]
+
+  # MicroPDM Outputs
+  - - PDM: [CCU_WAKE, OBC_WAKE, DCDC_WAKE]
+    - LV_CCU: [1, 2, 3]
+    - CCU_LV: [WAKE_PWR, OBC_WAKE, DCDC_WAKE]
+
+  - - PDM: [LOGIC_GND]
+    - Logic_GND: [1]
+    - Chassis: [GND]
     

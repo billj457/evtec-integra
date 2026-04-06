@@ -1,0 +1,10 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 2 x 10 AWG shielded	0	m	HV_HVJB_BN, HV_HVJB_BU, HV_HVJB_GY, HV_HVJB_OG
+2	Cable, 2 x 4 AWG shielded	0	m	HV_HVJB, HV_SDU
+3	Connector, 1009508-00-D, 2 pins	1		Battery_Heater_HV
+4	Connector, 360V 16kWh, 2 pins	2		Battery_Pack_HV_HVJB, Battery_Pack_HV_SDU
+5	Connector, 6007380-00-D, 2 pins	1		AC_Compressor_HV
+6	Connector, Combined Charging Unit (30-8405), 2 pins	1		CCU_HV
+7	Connector, PTC Heater Core, 2 pins	1		Cabin_Heater_HV
+8	Connector, Tesla Model 3 High Voltage Junction Box, 10 pins	1		HVJB_HV
+9	Connector, Tesla Model S/X SDU (1038227-00-C), 2 pins	1		SDU_HV

@@ -1,0 +1,96 @@
+# Project Integra - EV Conversion HV Harness
+# Vehicle: Acura Integra / Drive: Tesla Front SDU P100D / Battery: Chrysler Pacifica 16kWh
+# Control: AEM VCU 275
+
+connectors:
+
+  SDU_HV:
+    type: Tesla Model S/X SDU (1038227-00-C)
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  Battery_Pack_HV_SDU:
+    type: 360V 16kWh
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  Battery_Pack_HV_HVJB:
+    type: 360V 16kWh
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+    
+  AC_Compressor_HV:
+    type: 6007380-00-D
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+    
+  Battery_Heater_HV:
+    type: 1009508-00-D
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  Cabin_Heater_HV:
+    type: PTC Heater Core
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  HVJB_HV:
+    type: Tesla Model 3 High Voltage Junction Box
+    pincount: 10
+    pinlabels:
+      - HV_IN_POS
+      - HV_IN_NEG
+      - HV_OG_POS
+      - HV_OG_NEG
+      - HV_BN_POS
+      - HV_BN_NEG
+      - HV_BU_POS
+      - HV_BU_NEG
+      - HV_GY_POS
+      - HV_GY_NEG
+
+  CCU_HV:
+    type: Combined Charging Unit (30-8405)
+    pincount: 2
+    pinlabels: [HV_POS, HV_NEG]
+
+  J1772_Port_HV:
+    type: Charge Port
+    pincount: 2
+    pinlabels: [HV_IN, HV_OUT]
+
+cables:
+
+  HV_SDU: {gauge: 4 AWG, colors: [OG, OG], shield: true} 
+  HV_HVJB: {gauge: 4 AWG, colors: [OG, OG], shield: true} 
+  HV_HVJB_BN: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+  HV_HVJB_OG: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+  HV_HVJB_BU: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+  HV_HVJB_GY: {gauge: 10 AWG, colors: [OG, OG], shield: true}
+
+connections:
+  # High Voltage Connections
+  - - Battery_Pack_HV_SDU: [HV_POS, HV_NEG]
+    - HV_SDU: [1, 2]
+    - SDU_HV: [HV_POS, HV_NEG]
+
+  - - Battery_Pack_HV_HVJB: [HV_POS, HV_NEG]
+    - HV_HVJB: [1, 2]
+    - HVJB_HV: [HV_IN_POS, HV_IN_NEG]
+
+  - - HVJB_HV: [HV_OG_POS, HV_OG_NEG]
+    - HV_HVJB_OG: [1, 2]
+    - AC_Compressor_HV: [HV_POS, HV_NEG]
+
+  - - HVJB_HV: [HV_BN_POS, HV_BN_NEG]
+    - HV_HVJB_BN: [1, 2]
+    - CCU_HV: [HV_POS, HV_NEG]
+    
+  - - HVJB_HV: [HV_BU_POS, HV_BU_NEG]
+    - HV_HVJB_BU: [1, 2]
+    - Cabin_Heater_HV: [HV_POS, HV_NEG]
+    
+  - - HVJB_HV: [HV_GY_POS, HV_GY_NEG]
+    - HV_HVJB_GY: [1, 2]
+    - Battery_Heater_HV: [HV_POS, HV_NEG]
+    
