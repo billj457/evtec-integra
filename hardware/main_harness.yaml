@@ -372,7 +372,6 @@ cables:
   Heavy_GND: {gauge: 10 AWG, colors: [BK]}
   
 connections:
-
   # CCU Ground
   - - CCU_LV: [GND]
     - Logic_GND: [1]
