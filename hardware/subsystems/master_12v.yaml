@@ -312,10 +312,10 @@ connectors:
       - CH4_AEM_BMS_10A        # 10A -> AEM BMS Mini Master & Satellites
       - CH5_MISC_SENSORS_10A   # 10A -> Battery Sensors & IVT-S Smart Shunt
       - CH6_REV_LIGHTS_10A     # 10A -> Reverse Lights Relay Feed
-      - CH7_CCU_WAKE_10A       # 10A -> Chrysler Pacifica CCU Logic Wake
-      - CH8_CCU_OBC_WAKE_10A   # 10A -> Pacifica CCU On-Board Charger Wake
-      - CH9_CCU_DCDC_WAKE_10A  # 10A -> Pacifica CCU DC-DC Converter Wake
-      - CH10_SUB_AMP_WAKE_10A  # 10A -> Subwoofer Amp Remote Turn-On
+      - CH7_SUB_AMP_WAKE_10A   # 10A -> Subwoofer Amp Remote Turn-On
+      - CH8_CCU_WAKE_10A       # 10A -> AEM CCU Logic Wake
+      - CH9_CCU_OBC_WAKE_10A   # 10A -> AEM CCU On-Board Charger Wake
+      - CH10_CCU_DCDC_WAKE_10A # 10A -> AEM CCU DC-DC Converter Wake
       - CH11_SPARE_10A         # 10A -> Spare Channel
 
   CONN_SUB_AMP_POWER:
