@@ -1,0 +1,176 @@
+# ==============================================================================
+# EVTEC INTEGRA RESTOMOD - VCU275 CABIN CONTROL & DRIVER INPUT HARNESS
+# Master Brain: AEM VCU275 (Connectors A & B)
+# Vehicle: 1996 JDM Honda Integra DB6 Sedan
+# ==============================================================================
+
+connectors:
+  # --- VCU275 MAIN HEADERS ---
+  VCU275_A:
+    type: Molex GPEC4 103-Pin (34993-9001)
+    pincount: 21
+    pins: [17, 18, 19, 22, 23, 24, 28, 29, 30, 40, 59, 71, 92, 93, 96, 97, 99, 100, 101, 102, 103]
+    pinlabels:
+      - APPS_1            # Pin A17 (Accelerator Pedal Signal 1)
+      - APPS_2            # Pin A18 (Accelerator Pedal Signal 2)
+      - BRAKE_PRESS       # Pin A19 (0-2000 PSI Transducer Signal)
+      - BRAKE_GND         # Pin A22 (Brake Pressure Sensor Ground)
+      - DBW_GND_1         # Pin A23 (Pedal Ground 1)
+      - DBW_GND_2         # Pin A24 (Pedal Ground 2)
+      - BRAKE_5V          # Pin A28 (Brake Pressure 5V Supply)
+      - DBW_5V_1          # Pin A29 (Pedal 5V Supply 1)
+      - DBW_5V_2          # Pin A30 (Pedal 5V Supply 2)
+      - CAN1_H            # Pin A40 (AEMCal PC Tuning - High)
+      - CAN1_L            # Pin A59 (AEMCal PC Tuning - Low)
+      - BRAKE_SW_1        # Pin A71 (OEM Honda Brake Switch Input)
+      - CAN3_H            # Pin A92 (CAN3 High)
+      - CAN3_L            # Pin A93 (CAN3 Low)
+      - CHASSIS_GND       # Pin A96 (Logic Ground)
+      - BATT_PERM_12V     # Pin A97 (Constant +12V)
+      - BATT_GND_1        # Pin A99 (Main Power Ground 1)
+      - MAIN_RELAY_PWR_1  # Pin A100 (Switched +12V Feed 1)
+      - BATT_GND_2        # Pin A101 (Main Power Ground 2)
+      - MAIN_RELAY_PWR_2  # Pin A102 (Switched +12V Feed 2)
+      - BATT_GND_3        # Pin A103 (Main Power Ground 3)
+
+  VCU275_B:
+    type: Molex GPEC4 95-Pin (34992-9001)
+    pincount: 9
+    pins: [1, 12, 17, 18, 19, 31, 32, 42, 59]
+    pinlabels:
+      - SENSOR_PWR_B1     # Pin B1  (5V Supply - Regen Switch)
+      - SENSOR_GND_B12    # Pin B12 (Sensor Ground - Regen Switch)
+      - HEATER_SW_IN      # Pin B17 (OEM Climate Unit Heat Demand)
+      - AC_REQ_IN         # Pin B18 (OEM Climate Unit A/C Button)
+      - BLOWER_FAN_SYNC   # Pin B19 (Blower Fan Interlock Signal)
+      - COOLANT_TEMP      # Pin B31 (Coolant NTC Sensor Input)
+      - AMBIENT_TEMP      # Pin B32 (Passive OEM Air Temp Tap)
+      - REGEN_POT_1       # Pin B42 (4-Position Regen Switch Pos 1)
+      - REGEN_POT_2       # Pin B59 (4-Position Regen Switch Pos 2)
+
+  # --- CABIN DRIVER CONTROL ENDPOINTS ---
+  CONN_APPS:
+    type: 6-Pin DBW Pedal Connector
+    pincount: 6
+    pins: [1, 2, 3, 4, 5, 6]
+    pinlabels: [5V_1, GND_1, APPS_1, 5V_2, GND_2, APPS_2]
+
+  CONN_BRAKE_PRESS:
+    type: Aptiv Metri-Pack 150 (3-Pin)
+    pincount: 3
+    pins: [A, B, C]
+    pinlabels: [GND, SIG, 5V]
+
+  CONN_BRAKE_SW:
+    type: OEM Honda DB6 Brake Switch Connector (2-Pin)
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [+12V_IN, SIG_OUT]
+
+  CONN_CLIMATE_SW:
+    type: JDM OEM HVAC Control Harness Header
+    pincount: 3
+    pins: [1, 2, 3]
+    pinlabels: [HEAT_REQ, AC_REQ, BLOWER_SYNC]
+
+  CONN_REGEN_SW:
+    type: 4-Position Rotary Selector Switch
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [5V_IN, SIG_1, SIG_2, GND]
+
+  CONN_CD5_DASH:
+    type: TE DTM06-12SA (AEM CD-5 Display)
+    pincount: 6
+    pins: [1, 2, 3, 4, 5, 6]
+    pinlabels: [+12V_PWR, GND, CAN2_H, CAN2_L, CAN3_H, CAN3_L]
+
+  CONN_CAN_KEYPAD:
+    type: Deutsch DT06-4S (AEM 8-Button Keypad)
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [+12V_PWR, GND, CAN3_H, CAN3_L]
+
+  CONN_OBD2_TUNING:
+    type: DB9 Female (CAN1 PC Tuning Port)
+    pincount: 3
+    pins: [1, 2, 3]
+    pinlabels: [CAN1_L, CAN1_H, GND]
+
+# ==============================================================================
+# CABLE & WIRE DEFINITIONS
+# ==============================================================================
+cables:
+  C_DBW_PEDAL:
+    category: Sensor Shielded
+    wirecount: 6
+    gauge: 20 AWG
+    colors: [RD, BK, GN, WH, BK, GN]
+
+  C_BRAKE_PRESS:
+    category: Sensor
+    wirecount: 3
+    gauge: 20 AWG
+    colors: [BK, BU, RD]
+
+  C_BRAKE_SW:
+    category: Digital Input
+    wirecount: 2
+    gauge: 20 AWG
+    colors: [RD, WH]
+
+  C_CLIMATE_INPUTS:
+    category: HVAC Logic
+    wirecount: 3
+    gauge: 20 AWG
+    colors: [RD, BU, OG]
+
+  C_REGEN_KNOB:
+    category: Analog Input
+    wirecount: 4
+    gauge: 20 AWG
+    colors: [RD, YE, BK, WH]
+
+  C_CAN1_TUNING:
+    category: Twisted Pair
+    wirecount: 3
+    gauge: 24 AWG
+    colors: [WH, GN, BK]
+
+  C_CAN3_TRUNK:
+    category: Shielded Twisted Trunk
+    wirecount: 4
+    gauge: 22 AWG
+    colors: [RD, BK, WH, BU]
+
+  C_CAN3_KEYPAD:
+    category: Twisted Drop
+    wirecount: 4
+    gauge: 22 AWG
+    colors: [RD, BK, WH, BU]
+
+# ==============================================================================
+# CONNECTIONS & SIGNAL ROUTING
+# ==============================================================================
+connections:
+  # --- Accelerator Pedal (DBW) ---
+  - [VCU275_A: [DBW_5V_1, DBW_GND_1, APPS_1, DBW_5V_2, DBW_GND_2, APPS_2], C_DBW_PEDAL: [1, 2, 3, 4, 5, 6], CONN_APPS: [1, 2, 3, 4, 5, 6]]
+
+  # --- Brake Pressure Transducer ---
+  - [VCU275_A: [BRAKE_GND, BRAKE_PRESS, BRAKE_5V], C_BRAKE_PRESS: [1, 2, 3], CONN_BRAKE_PRESS: [A, B, C]]
+
+  # --- OEM Honda Brake Pedal Switch ---
+  - [VCU275_A: [MAIN_RELAY_PWR_1, BRAKE_SW_1], C_BRAKE_SW: [1, 2], CONN_BRAKE_SW: [1, 2]]
+
+  # --- OEM HVAC / Climate Control Integration ---
+  - [VCU275_B: [HEATER_SW_IN, AC_REQ_IN, BLOWER_FAN_SYNC], C_CLIMATE_INPUTS: [1, 2, 3], CONN_CLIMATE_SW: [1, 2, 3]]
+
+  # --- 4-Position Manual Regen Knob ---
+  - [VCU275_B: [SENSOR_PWR_B1, REGEN_POT_1, REGEN_POT_2, SENSOR_GND_B12], C_REGEN_KNOB: [1, 2, 3, 4], CONN_REGEN_SW: [1, 2, 3, 4]]
+
+  # --- AEMCal PC Tuning Port (CAN1) ---
+  - [VCU275_A: [CAN1_L, CAN1_H, CHASSIS_GND], C_CAN1_TUNING: [1, 2, 3], CONN_OBD2_TUNING: [1, 2, 3]]
+
+  # --- CAN3 Dashboard & Keypad Network ---
+  - [VCU275_A: [MAIN_RELAY_PWR_2, CHASSIS_GND, CAN3_H, CAN3_L], C_CAN3_TRUNK: [1, 2, 3, 4], CONN_CD5_DASH: [1, 2, 5, 6]]
+  - [CONN_CD5_DASH: [1, 2, 5, 6], C_CAN3_KEYPAD: [1, 2, 3, 4], CONN_CAN_KEYPAD: [1, 2, 3, 4]]

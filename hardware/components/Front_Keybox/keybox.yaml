@@ -1,0 +1,46 @@
+# WireViz - Front Under-Dash Blink Marine Keybox Harness
+# 12-Pin Solid-State PDM (Under Dash / Cabin)
+
+connectors:
+  Front_Keybox:
+    type: "Blink Marine Keybox / PDM (12-Pin Deutsch)"
+    pincount: 12
+    pinlabels: [WATER_VALVE, AC_COMP_WAKE, BATT_HTR_WAKE, CABIN_HTR_WAKE, CABIN_HTR_STG1, CABIN_HTR_STG2, HVJB_WAKE, CHILLERPI_LIN, CD5_DASH_GAUGES, IBOOSTER_WAKE, EPS_WAKE, GND]
+    notes: "Front Under-Dash Power Distribution Module (12-Pin Deutsch)"
+
+  POWER_SOURCE:
+    type: "Dummy (Under-Dash Fused Block #2)"
+    pincount: 2
+    pinlabels: [12V_Ch2_60A, Ground_Busbar]
+
+  CABIN_OUTPUTS:
+    type: "Dummy (Cabin Actuators, Wakes and Instrumentation)"
+    pincount: 11
+    pinlabels: [WATER_VALVE, AC_COMP_WAKE, BATT_HTR_WAKE, CABIN_HTR_WAKE, CABIN_HTR_STG1, CABIN_HTR_STG2, HVJB_WAKE, CHILLERPI_LIN, CD5_DASH, IBOOSTER_WAKE, EPS_WAKE]
+
+cables:
+  W_Power:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [RD, BK]
+    notes: "12V Constant Main Power (Red) and Logic Ground Return (Black)"
+
+  W_Outputs:
+    wirecount: 11
+    gauge: "20 AWG"
+    colors: [PK, BU, RD, VT, GN, BU, OG, WH, TN, BK, YE]
+    notes: "20 AWG TXL Switched Power, Wake Triggers, and Logic Feeds"
+
+connections:
+  -
+    - POWER_SOURCE: 1
+    - W_Power: 1
+    - Front_Keybox: 3
+  -
+    - POWER_SOURCE: 2
+    - W_Power: 2
+    - Front_Keybox: 12
+  -
+    - CABIN_OUTPUTS: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    - W_Outputs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    - Front_Keybox: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]

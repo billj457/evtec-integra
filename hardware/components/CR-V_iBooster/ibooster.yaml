@@ -1,0 +1,101 @@
+# WireViz - Honda CR-V Gen 1 iBooster Integrated Standalone Harness
+meta:
+  title: Honda CR-V Gen 1 iBooster Integrated Harness
+  description: Combined 26-Pin ECU and 4-Pin Pedal Travel Sensor Wiring Diagram
+  author: EVTEC Integra Restomod
+
+connectors:
+  iBooster_26P:
+    type: Bosch 26-Pin ECU Header (1928405762)
+    subtype: female
+    pincount: 26
+    pins: [1, 2, 8, 9, 15, 16, 17, 20, 22, 23, 25]
+    pinlabels: [Main_12V_Power, Travel_Sensor_1, Travel_Sensor_3, Main_Ground, Sensor_Ground, Vehicle_CAN_H, ECU_12V_Mem (5A WH), Ign_Wake, Travel_Sensor_2, Travel_Sensor_4, Vehicle_CAN_L]
+
+  iBooster_Pedal_Travel_Sensor:
+    type: Bosch 4-Pin Body Connector (1928405525)
+    subtype: female
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [Sensor_Pin_1, Sensor_Pin_2, Sensor_Pin_3, Sensor_Pin_4]
+
+  POWER_SOURCE:
+    type: Engine Bay Power and Logic Gateway
+    subtype: male
+    pincount: 3
+    pins: [1, 2, 3]
+    pinlabels: [12V_Main_40A_Fuse, Chassis_Ground_12AWG, PDU8_Ch6]
+
+  VEHICLE_CAN:
+    type: Vehicle Network
+    subtype: male
+    pincount: 2
+    pins: [2, 3]
+    pinlabels: [CAN_H, CAN_L]
+
+  YAW_CAN:
+    type: Secondary Yaw Sensor Bus
+    subtype: male
+    pincount: 2
+    pins: [2, 3]
+    pinlabels: [Yaw_CAN_H, Yaw_CAN_L]
+
+cables:
+  W_Heavy:
+    type: High-Power Motor Supply
+    gauge: 12 AWG
+    wirecount: 2
+    colors: [BU, BK]
+    notes: "12V 40A fused main feed (Lt Blue) and heavy motor ground (Black)"
+
+  W_Logic:
+    type: ECU Logic and Ignition Control
+    gauge: 18 AWG
+    wirecount: 1
+    colors: [RD]
+    notes: "PDU-8 Ch6 ignition wake (Red)"
+
+  W_Travel_Sensor:
+    type: Travel Sensor Loopback Jumper
+    gauge: 22 AWG
+    wirecount: 4
+    colors: [BU, YE, TQ, BN]
+    notes: "Teal/Yellow (Pins 1 and 2) and Light Blue/Brown (Pins 3 and 4) twisted pairs"
+
+  W_Vehicle_CAN:
+    type: Vehicle CAN Bus
+    gauge: 24 AWG
+    wirecount: 2
+    colors: [GN, YE]
+    notes: "Green/Yellow twisted pair for Vehicle CAN High (Pin 16) and Low (Pin 25)"
+
+connections:
+  # 1. Main power and ground feed
+  -
+    - POWER_SOURCE: [1, 2]
+    - W_Heavy: [1, 2]
+    - iBooster_26P: [1, 9]
+
+  # 2. Split memory feed from power and ground
+  -
+    - POWER_SOURCE: [1, 2]
+    - W_Heavy: [1, 2]
+    - iBooster_26P: [17, 15]
+
+  # 3. Ignition wake (PDU-8 Ch6)
+  -
+    - POWER_SOURCE: [3]
+    - W_Logic: [1]
+    - iBooster_26P: [20]
+
+  # 4. Travel sensor loopback
+  -
+    - iBooster_26P: [2, 22, 8, 23]
+    - W_Travel_Sensor: [1, 2, 3, 4]
+    - iBooster_Pedal_Travel_Sensor: [1, 2, 3, 4]
+
+  # 5. Vehicle CAN communication 
+  -
+    - VEHICLE_CAN: [2, 3]
+    - W_Vehicle_CAN: [1, 2]
+    - iBooster_26P: [16, 25]

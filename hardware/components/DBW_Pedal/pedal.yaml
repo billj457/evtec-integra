@@ -1,0 +1,37 @@
+# WireViz - Rywire DBW Accelerator Pedal Harness
+# Honda OEM 6-Pin Accelerator Pedal Position Sensor (APPS)
+
+connectors:
+  Rywire_DBW_Pedal:
+    type: "Honda DBW Pedal Sensor (6-Pin OEM)"
+    pincount: 6
+    pinlabels: [APPS1_5V, APPS1_SIG, APPS1_GND, APPS2_5V, APPS2_SIG, APPS2_GND]
+    notes: "Dual Redundant Accelerator Pedal Position Sensor"
+
+  VCU275_APPS:
+    type: "Dummy (AEM VCU275 Connector A)"
+    pincount: 6
+    pinlabels: [DBW_5V_1_A29, APPS_1_A17, DBW_GND_1_A23, DBW_5V_2_A30, APPS_2_A18, DBW_GND_2_A24]
+
+cables:
+  W_APPS1:
+    wirecount: 3
+    gauge: "20 AWG"
+    colors: [PK-WH, GN, BK-GN]
+    notes: "APPS 1 Primary Sensor Circuit (Pink/White, Green, Black/Green)"
+
+  W_APPS2:
+    wirecount: 3
+    gauge: "20 AWG"
+    colors: [WH-GY, BU-OG, WH-BN]
+    notes: "APPS 2 Secondary Sensor Circuit (White/Gray, Blue/Orange, White/Brown)"
+
+connections:
+  -
+    - VCU275_APPS: [1, 2, 3]
+    - W_APPS1: [1, 2, 3]
+    - Rywire_DBW_Pedal: [1, 2, 3]
+  -
+    - VCU275_APPS: [4, 5, 6]
+    - W_APPS2: [1, 2, 3]
+    - Rywire_DBW_Pedal: [4, 5, 6]

@@ -1,0 +1,743 @@
+# ==============================================================================
+# EVTEC INTEGRA RESTOMOD - MASTER 12V POWER DISTRIBUTION ARCHITECTURE
+# Vehicle: 1996 JDM Honda Integra DB6 Sedan
+# Top-Level Power Tree: Engine Bay Hub -> Under Dash Hub -> Rear Trunk Hub
+# ==============================================================================
+
+connectors:
+  BATTERY:
+    type: 12V Battery Connector
+    subtype: male
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [BATTERY_POSITIVE, BATTERY_NEGATIVE]
+
+  FUSED_ENGINE_BAY:
+    type: 4-Way High-Current Fused Distribution Block (200A Main Fuse)
+    pincount: 4
+    pins:
+    pinlabels:
+      - CH1_CABIN_FEED_125A    # 125A Fuse -> Feeds Under Dash Fused Block
+      - CH2_PDU8_FEED_100A     # 100A Fuse -> Feeds Engine Bay PDU-8
+      - CH3_IBOOSTER_40A       # 40A Fuse -> Feeds Bosch iBooster
+      - CH4_OPEN               # Spare High-Current Channel
+
+  PDU8_ENGINE_BAY:
+    type: AEM PDU-8 Power Distribution Unit (8-Channel)
+    pincount: 8
+    pins:
+    pinlabels:
+      - CH1_FAN1_20A           # 20A -> Radiator Fan 1
+      - CH2_SDU_WAKE_10A       # 10A -> Tesla Small Drive Unit (SDU)
+      - CH3_BATT_HEAT_PWM_10A  # 10A -> Tesla Battery Heater PWM Line
+      - CH4_FAN2_20A           # 20A -> Radiator Fan 2
+      - CH5_WATER_PUMPS_20A    # 20A -> Superbottle Coolant Pumps 1 & 2
+      - CH6_COMPONENTS_12V_10A # 10A -> Outlander Inverter, Superbottle, A/C Wake, HVJB, iBooster Wake
+      - CH7_BATT_HEAT_12V_10A  # 10A -> Tesla Battery Heater 12V Feed
+      - CH8_OPEN_20A           # 20A -> Spare Output
+
+  CONN_IBOOSTER_POWER:
+    type: Bosch iBooster Main Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [IBOOSTER_PWR]
+
+  CONN_FAN1_POWER:
+    type: Radiator Fan 1 Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [FAN1_PWR]
+
+  CONN_FAN2_POWER:
+    type: Radiator Fan 2 Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [FAN2_PWR]
+
+  CONN_PUMP1_POWER:
+    type: Coolant Pump 1 Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [PUMP1_PWR]
+
+  CONN_PUMP2_POWER:
+    type: Coolant Pump 2 Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [PUMP2_PWR]
+
+  CONN_BATT_HEATER_POWER:
+    type: Tesla Battery Heater Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [BATT_HEATER_PWR]
+
+  CONN_IBOOSTER_GROUND:
+    type: Bosch iBooster Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [IBOOSTER_GND]
+
+  CONN_FAN1_GROUND:
+    type: Radiator Fan 1 Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [FAN1_GND]
+
+  CONN_FAN2_GROUND:
+    type: Radiator Fan 2 Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [FAN2_GND]
+
+  CONN_PUMP1_GROUND:
+    type: Coolant Pump 1 Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [PUMP1_GND]
+
+  CONN_PUMP2_GROUND:
+    type: Coolant Pump 2 Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [PUMP2_GND]
+
+  CONN_BATT_HEATER_GROUND:
+    type: Tesla Battery Heater Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [BATT_HEATER_GND]
+
+  GROUND_ENGINE_BUS:
+    type: Engine Bay Ground Bus
+    pincount: 8
+    pins:
+    pinlabels: [BATTERY_GND, IBOOSTER_GND, FAN1_GND, FAN2_GND, PUMP1_GND, PUMP2_GND, BATT_HEATER_GND, CABIN_GROUND_FEED]
+
+  CONN_SDU_WAKE:
+    type: Tesla SDU Control Board Enable Pin
+    pincount: 1
+    pins:
+    pinlabels: [+12V_ENABLE]
+
+  CONN_BATT_HEATER_PWM:
+    type: Tesla Model S Battery Heater PWM Input
+    pincount: 1
+    pins:
+    pinlabels: [PWM_SIG]
+
+  CONN_OUTLANDER_INVERTER_12V:
+    type: Outlander Inverter 12V Connector
+    pincount: 1
+    pins:
+    pinlabels: [OUTLANDER_INV]
+
+  CONN_SUPERBOTTLE_12V:
+    type: Tesla Superbottle 12V Connector
+    pincount: 1
+    pins:
+    pinlabels: [SUPERBOTTLE_12V]
+
+  CONN_AC_COMPRESSOR_WAKE:
+    type: A/C Compressor Wake Connector
+    pincount: 1
+    pins:
+    pinlabels: [AC_COMP_WAKE]
+
+  CONN_HVJB_12V:
+    type: HV Junction Box 12V Connector
+    pincount: 1
+    pins:
+    pinlabels: [HVJB_12V]
+
+  CONN_IBOOSTER_WAKE:
+    type: Bosch iBooster Wake Connector
+    pincount: 1
+    pins:
+    pinlabels: [IBOOSTER_WAKE]
+
+  # ----------------------------------------------------------------------------
+  # TIER 2: UNDER DASH CABIN POWER DISTRIBUTION
+  # ----------------------------------------------------------------------------
+  FUSED_UNDER_DASH:
+    type: 4-Way Mid-Current Fused Distribution Block (Fed via 125A Cabin Feed)
+    pincount: 4
+    pins:
+    pinlabels:
+      - CH1_TRUNK_FEED_80A     # 80A Fuse -> Feeds Rear Trunk Fused Block
+      - CH2_EPS_60A            # 60A Fuse -> Electric Power Steering Motor
+      - CH3_FRONT_KEYBOX_60A   # 60A Fuse -> Feeds Front Keybox PDM
+      - CH4_HEAD_UNIT_AMP_20A  # 20A Fuse -> Head Unit & Front Speaker Amp
+
+  PDM_FRONT_KEYBOX:
+    type: Front Keybox PDM (11-Channel Electronic Fuse Box)
+    pincount: 11
+    pins:
+    pinlabels:
+      - CH1_CABIN_HEAT_WAKE    # 10A -> Classic Retrofit Cabin Heater Wake
+      - CH2_CABIN_HEAT_STG1    # 10A -> Classic Retrofit Cabin Heater Stage 1
+      - CH3_CABIN_HEAT_STG2    # 10A -> Classic Retrofit Cabin Heater Stage 2
+      - CH4_CHILLERPI_10A      # 10A -> ChillerPi Thermal Controller
+      - CH5_LIN_GATEWAY_10A    # 10A -> LIN Gateway Module
+      - CH6_CAN_MODULES_10A    # 10A -> CAN Bus Modules Supply
+      - CH7_CD5_DASH_10A       # 10A -> AEM CD-5 Digital Dash & Gauges
+      - CH8_AEM_KEYPAD_10A     # 10A -> AEM 8-Button CAN Keypad
+      - CH9_EPS_WAKE_10A       # 10A -> EPS Controller Ignition Wake
+      - CH10_SPARE_10A         # 10A -> Spare Channel
+      - CH11_SPARE_10A         # 10A -> Spare Channel
+
+  CONN_EPS_POWER:
+    type: Electric Power Steering Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [EPS_PWR]
+
+  CONN_AUDIO_POWER:
+    type: Audio Amplifier Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [AUDIO_PWR]
+
+  CONN_CHILLERPI_POWER:
+    type: ChillerPi Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [CHILLERPI_PWR]
+
+  CONN_LIN_GATEWAY_POWER:
+    type: LIN Gateway Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [LIN_GATEWAY_PWR]
+
+  CONN_CAN_MODULES_POWER:
+    type: CAN Modules Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [CAN_MODULES_PWR]
+
+  CONN_CD5_POWER:
+    type: AEM CD-5 Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [CD5_PWR]
+
+  CONN_AEM_KEYPAD_POWER:
+    type: AEM Keypad Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [AEM_KEYPAD_PWR]
+
+  CONN_EPS_GROUND:
+    type: Electric Power Steering Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [EPS_GND]
+
+  CONN_AUDIO_GROUND:
+    type: Audio Amplifier Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [AUDIO_GND]
+
+  CONN_CHILLERPI_GROUND:
+    type: ChillerPi Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [CHILLERPI_GND]
+
+  CONN_LIN_GATEWAY_GROUND:
+    type: LIN Gateway Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [LIN_GATEWAY_GND]
+
+  CONN_CAN_MODULES_GROUND:
+    type: CAN Modules Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [CAN_MODULES_GND]
+
+  CONN_CD5_GROUND:
+    type: AEM CD-5 Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [CD5_GND]
+
+  CONN_AEM_KEYPAD_GROUND:
+    type: AEM Keypad Ground Connector
+    pincount: 1 
+    pins:
+    pinlabels: [AEM_KEYPAD_GND] 
+
+  GROUND_CABIN_BUS:
+    type: Under-Dash Ground Bus
+    pincount: 9
+    pins:
+    pinlabels: [ENGINE_GROUND_FEED, EPS_GND, AUDIO_GND, CHILLERPI_GND, LIN_GATEWAY_GND, CAN_MODULES_GND, CD5_GND, AEM_KEYPAD_GND, REAR_GROUND_FEED]
+
+  CONN_CABIN_HEATER:
+    type: Classic Retrofit PTC Cabin Heater Control Header
+    pincount: 3
+    pins:
+    pinlabels: [WAKE, STAGE_1, STAGE_2]
+
+  CONN_EPS_WAKE: 
+    type: Honda EPS Ignition Enable Input
+    pincount: 1
+    pins:
+    pinlabels: [IGN_WAKE]
+
+  # ----------------------------------------------------------------------------
+  # TIER 3: REAR TRUNK POWER DISTRIBUTION & HV SAFETY
+  # ----------------------------------------------------------------------------
+  FUSED_REAR_TRUNK:
+    type: 4-Way Rear Fused Distribution Block (Fed via 80A Trunk Feed)
+    pincount: 4
+    pins:
+    pinlabels:
+      - CH1_SUB_AMP_50A        # 50A Fuse -> Rear Subwoofer Amp
+      - CH2_REAR_KEYBOX_40A    # 40A Fuse -> Feeds Rear Keybox PDM
+      - CH3_SPARE              # Open
+      - CH4_SPARE              # Open 
+
+  PDM_REAR_KEYBOX: 
+    type: Rear Keybox PDM (11-Channel Electronic Fuse Box)
+    pincount: 11
+    pins:
+    pinlabels:
+      - CH1_POS_CONTACTOR_10A  # 10A -> TE EV200 Positive Contactor Coil
+      - CH2_NEG_CONTACTOR_10A  # 10A -> TE EV200 Negative Contactor Coil
+      - CH3_PRECHARGE_10A      # 10A -> Precharge Relay Coil
+      - CH4_AEM_BMS_10A        # 10A -> AEM BMS Mini Master & Satellites
+      - CH5_MISC_SENSORS_10A   # 10A -> Battery Sensors & IVT-S Smart Shunt
+      - CH6_REV_LIGHTS_10A     # 10A -> Reverse Lights Relay Feed
+      - CH7_CCU_WAKE_10A       # 10A -> Chrysler Pacifica CCU Logic Wake
+      - CH8_CCU_OBC_WAKE_10A   # 10A -> Pacifica CCU On-Board Charger Wake
+      - CH9_CCU_DCDC_WAKE_10A  # 10A -> Pacifica CCU DC-DC Converter Wake
+      - CH10_SUB_AMP_WAKE_10A  # 10A -> Subwoofer Amp Remote Turn-On
+      - CH11_SPARE_10A         # 10A -> Spare Channel
+
+  CONN_SUB_AMP_POWER:
+    type: Subwoofer Amplifier Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [SUB_AMP_PWR]
+
+  CONN_AEM_BMS_POWER:
+    type: AEM BMS Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [AEM_BMS_PWR]
+
+  CONN_IVTS_SHUNT_POWER:
+    type: IVT-S Smart Shunt Power Connector
+    pincount: 1
+    pins:
+    pinlabels: [IVTS_SHUNT_PWR]
+
+  CONN_SUB_AMP_GROUND:
+    type: Subwoofer Amplifier Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [SUB_AMP_GND]
+
+  CONN_AEM_BMS_GROUND:
+    type: AEM BMS Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [AEM_BMS_GND]
+
+  GROUND_REAR_BUS:
+    type: Rear Trunk Ground Bus
+    pincount: 3
+    pins:
+    pinlabels: [CABIN_GROUND_FEED, SUB_AMP_GND, AEM_BMS_GND]
+
+  CONN_HV_CONTACTORS:
+    type: TE EV200 Contactor Coils Header
+    pincount: 3
+    pins:
+    pinlabels: [POS_COIL, NEG_COIL, PRECHARGE_COIL]
+
+  CONN_CCU_WAKES:
+    type: Chrysler Pacifica CCU Enable Headers
+    pincount: 3
+    pins:
+    pinlabels: [CCU_WAKE, OBC_WAKE, DCDC_WAKE]
+
+  CONN_REVERSE_LIGHTS:
+    type: OEM DB6 Reverse Lights Power Feed
+    pincount: 1
+    pins:
+    pinlabels: [+12V_PWR]
+
+  CONN_SUB_AMP_WAKE:
+    type: Subwoofer Amp Remote Enable Input
+    pincount: 1
+    pins:
+    pinlabels: [REMOTE_ON]
+
+cables:
+  C_BATTERY_FEED:
+    category: Heavy Power Feeder
+    wirecount: 2
+    gauge: 1 AWG
+    colors: [RD, BK]
+
+  C_CABIN_FEED:
+    category: Heavy Power Feeder
+    wirecount: 1
+    gauge: 4 AWG
+    colors: [RD]
+
+  C_TRUNK_FEED:
+    category: Heavy Power Feeder
+    wirecount: 1
+    gauge: 4 AWG
+    colors: [RD]
+
+  C_PDU8_FEED:
+    category: Power Feeder
+    wirecount: 1
+    gauge: 4 AWG
+    colors: [RD]
+
+  C_FRONT_KEYBOX_FEED:
+    category: Power Feeder
+    wirecount: 1
+    gauge: 6 AWG
+    colors: [RD]
+
+  C_REAR_KEYBOX_FEED:
+    category: Power Feeder
+    wirecount: 1
+    gauge: 8 AWG
+    colors: [RD]
+
+  C_IBOOSTER_PWR:
+    category: Heavy Power
+    wirecount: 1
+    gauge: 10 AWG
+    colors: [RD]
+
+  C_RADIATOR_FANS:
+    category: Power
+    wirecount: 2
+    gauge: 12 AWG
+    colors: [RD, RD]
+
+  C_WATER_PUMPS:
+    category: Power
+    wirecount: 2
+    gauge: 14 AWG
+    colors: [RD, RD]
+
+  C_SDU_WAKE:
+    category: Logic Wake
+    wirecount: 1
+    gauge: 18 AWG
+    colors: [RD]
+
+  C_BATT_HEATER:
+    category: Battery Heater Power and PWM
+    wirecount: 2
+    gauge: 18 AWG
+    colors: [YE, RD]
+
+  C_ENGINE_AUX_WAKES:
+    category: Logic Wake
+    wirecount: 5
+    gauge: 18 AWG
+    colors: [OG, YE, BU, GY, VT]
+
+  C_EPS_PWR:
+    category: Heavy Power
+    wirecount: 1
+    gauge: 8 AWG
+    colors: [RD]
+
+  C_AUDIO_FRONT_PWR:
+    category: Power
+    wirecount: 1
+    gauge: 12 AWG
+    colors: [RD]
+
+  C_CABIN_HEAT_CTRL:
+    category: HVAC Power/Logic
+    wirecount: 3
+    gauge: 14 AWG
+    colors: [WH, YE, BU]
+
+  C_FRONT_KEYBOX_BRANCHES:
+    category: Low-Current Logic/Power
+    wirecount: 6
+    gauge: 18 AWG
+    colors: [RD, RD, BU, OG, YE, VT]
+
+  C_SUB_AMP_PWR:
+    category: Heavy Power
+    wirecount: 1
+    gauge: 8 AWG
+    colors: [RD]
+
+  C_HV_SAFETY_COILS:
+    category: HV Interlock / Safety
+    wirecount: 3
+    gauge: 18 AWG
+    colors: [BU, YE, GN]
+
+  C_ENGINE_GROUND:
+    category: Ground Return
+    wirecount: 6
+    gauge: 12 AWG
+    colors: [BK, BK, BK, BK, BK, BK]
+
+  C_ENGINE_TO_CABIN_GROUND:
+    category: Ground Feeder
+    wirecount: 1
+    gauge: 4 AWG
+    colors: [BK]
+
+  C_CABIN_GROUND:
+    category: Ground Return
+    wirecount: 7
+    gauge: 18 AWG
+    colors: [BK, BK, BK, BK, BK, BK, BK]
+
+  C_CABIN_TO_REAR_GROUND:
+    category: Ground Feeder
+    wirecount: 1
+    gauge: 8 AWG
+    colors: [BK]
+
+  C_REAR_GROUND:
+    category: Ground Return
+    wirecount: 2
+    gauge: 18 AWG
+    colors: [BK, BK]
+
+  C_CCU_WAKES:
+    category: Logic Wake
+    wirecount: 3
+    gauge: 18 AWG
+    colors: [OG, YE, BU]
+
+  C_REAR_AUX_POWER:
+    category: Low-Current Power
+    wirecount: 4
+    gauge: 18 AWG
+    colors: [RD, RD, VT, WH]
+
+connections:
+  - - BATTERY: [1]
+    - C_BATTERY_FEED: [1]
+    - FUSED_ENGINE_BAY: [CH1_CABIN_FEED_125A]
+
+  - - BATTERY: [2]
+    - C_BATTERY_FEED: [2]
+    - GROUND_ENGINE_BUS: [1]
+
+  - - FUSED_ENGINE_BAY: [CH1_CABIN_FEED_125A]
+    - C_CABIN_FEED: [1]
+    - FUSED_UNDER_DASH: [CH1_TRUNK_FEED_80A]
+
+  - - FUSED_UNDER_DASH: [CH1_TRUNK_FEED_80A]
+    - C_TRUNK_FEED: [1]
+    - FUSED_REAR_TRUNK: [CH1_SUB_AMP_50A]
+
+  - - FUSED_ENGINE_BAY: [CH2_PDU8_FEED_100A]
+    - C_PDU8_FEED: [1]
+    - PDU8_ENGINE_BAY: [CH1_FAN1_20A]
+
+  - - FUSED_UNDER_DASH: [CH3_FRONT_KEYBOX_60A]
+    - C_FRONT_KEYBOX_FEED: [1]
+    - PDM_FRONT_KEYBOX: [CH1_CABIN_HEAT_WAKE]
+
+  - - FUSED_REAR_TRUNK: [CH2_REAR_KEYBOX_40A]
+    - C_REAR_KEYBOX_FEED: [1]
+    - PDM_REAR_KEYBOX: [CH1_POS_CONTACTOR_10A]
+
+  - - FUSED_ENGINE_BAY: [CH3_IBOOSTER_40A]
+    - C_IBOOSTER_PWR: [1]
+    - CONN_IBOOSTER_POWER: [1]
+
+  - - PDU8_ENGINE_BAY: [CH1_FAN1_20A]
+    - C_RADIATOR_FANS: [1]
+    - CONN_FAN1_POWER: [1]
+
+  - - PDU8_ENGINE_BAY: [CH4_FAN2_20A]
+    - C_RADIATOR_FANS: [2]
+    - CONN_FAN2_POWER: [1]
+
+  - - PDU8_ENGINE_BAY: [CH5_WATER_PUMPS_20A]
+    - C_WATER_PUMPS: [1]
+    - CONN_PUMP1_POWER: [1]
+
+  - - PDU8_ENGINE_BAY: [CH5_WATER_PUMPS_20A]
+    - C_WATER_PUMPS: [2]
+    - CONN_PUMP2_POWER: [1]
+
+  - - PDU8_ENGINE_BAY: [CH2_SDU_WAKE_10A]
+    - C_SDU_WAKE: [1]
+    - CONN_SDU_WAKE: [1]
+
+  - - PDU8_ENGINE_BAY: [CH3_BATT_HEAT_PWM_10A]
+    - C_BATT_HEATER: [1]
+    - CONN_BATT_HEATER_PWM: [1]
+
+  - - PDU8_ENGINE_BAY: [CH7_BATT_HEAT_12V_10A]
+    - C_BATT_HEATER: [2]
+    - CONN_BATT_HEATER_POWER: [1]
+
+  - - GROUND_ENGINE_BUS: [2]
+    - C_ENGINE_GROUND: [1]
+    - CONN_IBOOSTER_GROUND: [1]
+
+  - - GROUND_ENGINE_BUS: [3]
+    - C_ENGINE_GROUND: [2]
+    - CONN_FAN1_GROUND: [1]
+
+  - - GROUND_ENGINE_BUS: [4]
+    - C_ENGINE_GROUND: [3]
+    - CONN_FAN2_GROUND: [1]
+
+  - - GROUND_ENGINE_BUS: [5]
+    - C_ENGINE_GROUND: [4]
+    - CONN_PUMP1_GROUND: [1]
+
+  - - GROUND_ENGINE_BUS: [6]
+    - C_ENGINE_GROUND: [5]
+    - CONN_PUMP2_GROUND: [1]
+
+  - - GROUND_ENGINE_BUS: [7]
+    - C_ENGINE_GROUND: [6]
+    - CONN_BATT_HEATER_GROUND: [1]
+
+  - - GROUND_ENGINE_BUS: [8]
+    - C_ENGINE_TO_CABIN_GROUND: [1]
+    - GROUND_CABIN_BUS: [1]
+
+  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+    - C_ENGINE_AUX_WAKES: [1]
+    - CONN_OUTLANDER_INVERTER_12V: [1]
+
+  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+    - C_ENGINE_AUX_WAKES: [2]
+    - CONN_SUPERBOTTLE_12V: [1]
+
+  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+    - C_ENGINE_AUX_WAKES: [3]
+    - CONN_AC_COMPRESSOR_WAKE: [1]
+
+  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+    - C_ENGINE_AUX_WAKES: [4]
+    - CONN_HVJB_12V: [1]
+
+  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+    - C_ENGINE_AUX_WAKES: [5]
+    - CONN_IBOOSTER_WAKE: [1]
+
+  - - FUSED_UNDER_DASH: [CH2_EPS_60A]
+    - C_EPS_PWR: [1]
+    - CONN_EPS_POWER: [1]
+
+  - - FUSED_UNDER_DASH: [CH4_HEAD_UNIT_AMP_20A]
+    - C_AUDIO_FRONT_PWR: [1]
+    - CONN_AUDIO_POWER: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH1_CABIN_HEAT_WAKE, CH2_CABIN_HEAT_STG1, CH3_CABIN_HEAT_STG2]
+    - C_CABIN_HEAT_CTRL: [1, 2, 3]
+    - CONN_CABIN_HEATER: [1, 2, 3]
+
+  - - PDM_FRONT_KEYBOX: [CH4_CHILLERPI_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [1]
+    - CONN_CHILLERPI_POWER: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH5_LIN_GATEWAY_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [2]
+    - CONN_LIN_GATEWAY_POWER: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH6_CAN_MODULES_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [3]
+    - CONN_CAN_MODULES_POWER: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH7_CD5_DASH_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [4]
+    - CONN_CD5_POWER: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH8_AEM_KEYPAD_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [5]
+    - CONN_AEM_KEYPAD_POWER: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH9_EPS_WAKE_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [6]
+    - CONN_EPS_WAKE: [1]
+
+  - - GROUND_CABIN_BUS: [2]
+    - C_CABIN_GROUND: [1]
+    - CONN_EPS_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [3]
+    - C_CABIN_GROUND: [2]
+    - CONN_AUDIO_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [4]
+    - C_CABIN_GROUND: [3]
+    - CONN_CHILLERPI_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [5]
+    - C_CABIN_GROUND: [4]
+    - CONN_LIN_GATEWAY_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [6]
+    - C_CABIN_GROUND: [5]
+    - CONN_CAN_MODULES_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [7]
+    - C_CABIN_GROUND: [6]
+    - CONN_CD5_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [8]
+    - C_CABIN_GROUND: [7]
+    - CONN_AEM_KEYPAD_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [9]
+    - C_CABIN_TO_REAR_GROUND: [1]
+    - GROUND_REAR_BUS: [1]
+
+  - - FUSED_REAR_TRUNK: [CH1_SUB_AMP_50A]
+    - C_SUB_AMP_PWR: [1]
+    - CONN_SUB_AMP_POWER: [1]
+
+  - - PDM_REAR_KEYBOX: [CH1_POS_CONTACTOR_10A, CH2_NEG_CONTACTOR_10A, CH3_PRECHARGE_10A]
+    - C_HV_SAFETY_COILS: [1, 2, 3]
+    - CONN_HV_CONTACTORS: [1, 2, 3]
+
+  - - PDM_REAR_KEYBOX: [CH7_CCU_WAKE_10A, CH8_CCU_OBC_WAKE_10A, CH9_CCU_DCDC_WAKE_10A]
+    - C_CCU_WAKES: [1, 2, 3]
+    - CONN_CCU_WAKES: [1, 2, 3]
+
+  - - PDM_REAR_KEYBOX: [CH4_AEM_BMS_10A]
+    - C_REAR_AUX_POWER: [1]
+    - CONN_AEM_BMS_POWER: [1]
+
+  - - PDM_REAR_KEYBOX: [CH5_MISC_SENSORS_10A]
+    - C_REAR_AUX_POWER: [2]
+    - CONN_IVTS_SHUNT_POWER: [1]
+
+  - - GROUND_REAR_BUS: [2]
+    - C_REAR_GROUND: [1]
+    - CONN_SUB_AMP_GROUND: [1]
+
+  - - GROUND_REAR_BUS: [3]
+    - C_REAR_GROUND: [2]
+    - CONN_AEM_BMS_GROUND: [1]
+
+  - - PDM_REAR_KEYBOX: [CH6_REV_LIGHTS_10A]
+    - C_REAR_AUX_POWER: [3]
+    - CONN_REVERSE_LIGHTS: [1]
+
+  - - PDM_REAR_KEYBOX: [CH10_SUB_AMP_WAKE_10A]
+    - C_REAR_AUX_POWER: [4]
+    - CONN_SUB_AMP_WAKE: [1]

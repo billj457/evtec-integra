@@ -1,0 +1,46 @@
+# WireViz - AEM 8-Button CAN Keypad Harness
+# Part Number: 30-8400
+
+connectors:
+  Keypad_30_8400:
+    type: "AEM 8-Button CAN Keypad (Amphenol ATM04-4P)"
+    pincount: 4
+    pinlabels: [CAN3_H, CAN3_L, 12V_PWR, GND]
+    notes: "AEM 8-Button CAN Keypad on CAN3 Bus"
+
+  POWER_SOURCE:
+    type: "Dummy (Under-Dash Keybox / Block #2)"
+    pincount: 2
+    pinlabels: [12V_Ch9_Fused, Ground_Busbar]
+
+  CAN3_BUS:
+    type: "Dummy (Management Bus)"
+    pincount: 2
+    pinlabels: [CAN3_H, CAN3_L]
+
+cables:
+  W_Power:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [RD, BK]
+    notes: "Switched 12V Power and Dedicated Isolated Ground"
+
+  W_CAN3:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [YE, GN]
+    notes: "CAN3 Management Bus Twisted Pair"
+
+connections:
+  -
+    - POWER_SOURCE: 1
+    - W_Power: 1
+    - Keypad_30_8400: 3
+  -
+    - POWER_SOURCE: 2
+    - W_Power: 2
+    - Keypad_30_8400: 4
+  -
+    - CAN3_BUS: [1, 2]
+    - W_CAN3: [1, 2]
+    - Keypad_30_8400: [1, 2]

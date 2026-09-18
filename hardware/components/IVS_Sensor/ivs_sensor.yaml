@@ -1,0 +1,46 @@
+# WireViz - Isabellenhuette IVT-S Current Sensor Harness
+# Part Number: IVT-S-1K-U3-I-CAN1-12/24
+
+connectors:
+  IVTS_Shunt:
+    type: "Isabellenhuette IVT-S (4-Pin)"
+    pincount: 4
+    pinlabels: [12V_PWR, GND, CAN3_H, CAN3_L]
+    notes: "High-Voltage Pack Current/Voltage Shunt"
+
+  POWER_SOURCE:
+    type: "Dummy (Rear Keybox / Block #3)"
+    pincount: 2
+    pinlabels: [12V_Ch5_Fused, Ground_Busbar]
+
+  CAN3_BUS:
+    type: "Dummy (Management Bus)"
+    pincount: 2
+    pinlabels: [CAN3_H, CAN3_L]
+
+cables:
+  W_Power:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [RD, BK]
+    notes: "Switched 12V Power and Dedicated Isolated Ground"
+
+  W_CAN3:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [YE, GN]
+    notes: "CAN3 Management Bus Twisted Pair"
+
+connections:
+  -
+    - POWER_SOURCE: 1
+    - W_Power: 1
+    - IVTS_Shunt: 1
+  -
+    - POWER_SOURCE: 2
+    - W_Power: 2
+    - IVTS_Shunt: 2
+  -
+    - CAN3_BUS: [1, 2]
+    - W_CAN3: [1, 2]
+    - IVTS_Shunt: [3, 4]

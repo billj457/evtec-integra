@@ -1,0 +1,210 @@
+# WireViz - Tesla Model 3 Superbottle Consolidated Thermal Harness
+meta:
+  title: Tesla Model 3 Superbottle Consolidated Thermal Harness
+  description: Single 20A PDU-8 12V Feeder for Dual Pumps & 5-Way Valve with Independent VCU PWM & LIN Control
+  author: EVTEC Integra Restomod
+
+connectors:
+  Superbottle_Pump_1:
+    type: Pierburg/Magna 4-Pin Waterproof Connector
+    subtype: female
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [12V_Power, Chassis_Ground, PWM_Speed_Control, Tach_Feedback]
+
+  Superbottle_Pump_2:
+    type: Pierburg/Magna 4-Pin Waterproof Connector
+    subtype: female
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [12V_Power, Chassis_Ground, PWM_Speed_Control, Tach_Feedback]
+
+  Superbottle_Diverter_Valve:
+    type: Tesla 5-Way Coolant Valve 4-Pin Connector
+    subtype: female
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [12V_Power, Chassis_Ground, LIN_Bus_Signal, Status_Feedback]
+
+  Superbottle_Chiller_EXV:
+    type: Tesla EXV 4-Pin Bipolar Stepper Connector
+    subtype: female
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [Coil_B_Plus, Coil_A_Minus, Coil_B_Minus, Coil_A_Plus]
+
+  Superbottle_PT_Sensor:
+    type: Tesla Dual Pressure/Temp Sensor 4-Pin Connector
+    subtype: female
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [Sensor_Ground, Pressure_Signal_A0, Temp_Signal_A1, 5V_VREF_Power]
+
+  POWER_SOURCE_PDU8:
+    type: AEM PDU-8 (20A Channel)
+    subtype: male
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [CH6_A, CH6_B]
+
+  POWER_SOURCE_KEYBOX:
+    type: Blink Marine (10A Channel)
+    subtype: male
+    pincount: 1
+    pins: [1]
+    pinlabels: [CH4]
+
+  CHASSIS_GROUND_BUS:
+    type: Engine Bay Ground Busbar
+    subtype: male
+    pincount: 5
+    pins: [1, 2, 3, 4]
+    pinlabels: [Pump_1_GND, Pump_2_GND, Valve_GND, ChillerPi_GND]
+
+  VCU_SIGNAL_BUS:
+    type: AEM VCU 275 and LIN Gateway
+    subtype: male
+    pincount: 3
+    pins: [1, 2]
+    pinlabels: [Pump_1_LowSide_PWM, Pump_2_LowSide_PWM]
+
+  CHILLERPI_ECU:
+    type: ChillerPi Control Box (12-Pin Deutsch Bulkhead)
+    subtype: male
+    pincount: 12
+    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    pinlabels: [EXV_Phase_A_Plus, EXV_Phase_A_Minus, EXV_Phase_B_Plus, EXV_Phase_B_Minus, PT_5V_VREF, PT_Sensor_GND, PT_Pressure_A0, PT_Temp_A1, 12V_Power, Chassis_Ground, CAN_H, CAN_L]
+
+  CAN_LIN_BUS:
+    type: Vehicle CAN Bus
+    subtype: male
+    pincount: 3
+    pins: [1, 2, 3]
+    pinlabels: [CAN_H, CAN_L, LIN]
+
+cables:
+  W_Superbottle_Power:
+    type: Single 20A Feeder Splitting to Dual Pumps and Diverter Valve
+    gauge: 14 AWG
+    wirecount: 1
+    colors: [RD]
+
+  W_Superbottle_Ground:
+    type: Main Chassis Ground Returns
+    gauge: 14 AWG
+    wirecount: 3
+    colors: [BK, BK, BK]
+
+  W_Pump_Control:
+    type: Pump PWM Control Line
+    gauge: 22 AWG
+    wirecount: 2
+    colors: [BU, YE]
+
+  W_Valve_LIN:
+    type: Diverter Valve LIN Bus Control Line
+    gauge: 22 AWG
+    wirecount: 1
+    colors: [VT]
+
+  W_LIN_Gateway_Harness:
+    type: LIN Gateway Harness
+    gauge: 22 AWG
+    wirecount: 1
+    colors: [VT]
+
+  W_EXV_Stepper:
+    type: EXV Bipolar Stepper Drive Cable
+    gauge: 22 AWG
+    wirecount: 4
+    colors: [BK, WH, BU, OG]
+
+  W_PT_Sensor:
+    type: Low-Pressure PT Sensor Harness
+    gauge: 22 AWG
+    wirecount: 4
+    colors: [PK, PK, BU, OG]
+
+  W_ChillerPi_Harness:
+    type: ChillerPi ECU Power
+    gauge: 20 AWG
+    wirecount: 4
+    colors: [RD, BK, GN, YE]
+
+connections:
+  # 1. Single 20A PDU-8 Channel feeds 12V Power to Pump 1, Pump 2, and Diverter Valve (Pin 1 on each)
+  -
+    - POWER_SOURCE_PDU8: [1]
+    - W_Superbottle_Power: [1]
+    - Superbottle_Pump_1: [1]
+
+  -
+    - POWER_SOURCE_PDU8: [2]
+    - W_Superbottle_Power: [1]
+    - Superbottle_Pump_2: [1]
+
+  -
+    - POWER_SOURCE_PDU8: [1]
+    - W_Superbottle_Power: [1]
+    - Superbottle_Diverter_Valve: [1]
+
+  # 2. Main Chassis Ground Returns to Ground Busbar
+  -
+    - CHASSIS_GROUND_BUS: [1]
+    - W_Superbottle_Ground: [1]
+    - Superbottle_Pump_1: [2]
+
+  -
+    - CHASSIS_GROUND_BUS: [2]
+    - W_Superbottle_Ground: [2]
+    - Superbottle_Pump_2: [2]
+
+  -
+    - CHASSIS_GROUND_BUS: [3]
+    - W_Superbottle_Ground: [3]
+    - Superbottle_Diverter_Valve: [2]
+
+  # 3. Independent VCU Low-Side PWM Control for Pump 1 & Pump 2
+  -
+    - VCU_SIGNAL_BUS: [1]
+    - W_Pump_Control: [1]
+    - Superbottle_Pump_1: [3]
+
+  -
+    - VCU_SIGNAL_BUS: [2]
+    - W_Pump_Control: [2]
+    - Superbottle_Pump_2: [3]
+
+  # 5. Chiller EXV Bipolar Stepper Coils (to ChillerPi Box)
+  -
+    - CHILLERPI_ECU: [1, 2, 3, 4]
+    - W_EXV_Stepper: [1, 2, 3, 4]
+    - Superbottle_Chiller_EXV: [4, 2, 1, 3]
+
+  # 6. Suction Line PT Sensor (to ChillerPi ADS1115 & 5V Buck)
+  -
+    - CHILLERPI_ECU: [5, 6, 7, 8]
+    - W_PT_Sensor: [1, 2, 3, 4]
+    - Superbottle_PT_Sensor: [4, 1, 2, 3]
+
+  # 7. ChillerPi ECU power, ground, and CAN bus
+  -
+    - POWER_SOURCE_KEYBOX: [1]
+    - W_ChillerPi_Harness: [1]
+    - CHILLERPI_ECU: [9]
+
+  -
+    - CHASSIS_GROUND_BUS: [4]
+    - W_ChillerPi_Harness: [2]
+    - CHILLERPI_ECU: [10]
+
+  -
+    - CAN_LIN_BUS: [1, 2]
+    - W_ChillerPi_Harness: [3, 4]
+    - CHILLERPI_ECU: [11, 12]
+    
+  # 7. LIN Gateway signal to valve
+  -
+    - CAN_LIN_BUS: [3]
+    - W_LIN_Gateway_Harness: [1]
+    - Superbottle_Diverter_Valve: [3]

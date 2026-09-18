@@ -1,0 +1,61 @@
+# WireViz - Blink Marine Keybox (12-Pin PDM) Harness
+# Solid-State Power Distribution Module
+
+connectors:
+  Blink_Marine_Keybox:
+    type: "Blink Marine Keybox / PDM (12-Pin Deutsch)"
+    pincount: 12
+    pinlabels: [LOGIC_GND, DCDC_WAKE, BATT_CONSTANT, CAN2_L, CAN2_H, BATT_SWITCHED, OBC_WAKE, NETWORKING, BRAKE_LIGHTS, REVERSE_LIGHTS, TURN_RIGHT, TURN_LEFT]
+    notes: "Solid-State Power Distribution Module (12-Pin Deutsch)"
+
+  POWER_SOURCE:
+    type: "Dummy (12V Fused Power and Ground Node)"
+    pincount: 2
+    pinlabels: [12V_Const_50A, Chassis_GND]
+
+  CAN2_BUS:
+    type: "Dummy (Vehicle Control Bus)"
+    pincount: 2
+    pinlabels: [CAN2_H, CAN2_L]
+
+  KEYBOX_SWITCHED_OUTPUTS:
+    type: "Dummy (Switched Outputs and Wakes)"
+    pincount: 6
+    pinlabels: [DCDC_WAKE, OBC_WAKE, NETWORKING, BRAKE_LIGHTS, REVERSE_LIGHTS, TURN_SIGNALS]
+
+cables:
+  W_Power:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [RD, BK]
+    notes: "12V Constant Logic Power and Common Ground"
+ 
+  W_CAN2:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [YE, GN]
+    notes: "CAN2 Bus Twisted Pair"
+
+  W_Outputs:
+    wirecount: 6
+    gauge: "20 AWG"
+    colors: [BU, PK, RD, VT, WH, BU]
+    notes: "Switched Power Outputs, Lighting Triggers, and Control Wakes"
+
+connections:
+  -
+    - POWER_SOURCE: 1
+    - W_Power: 1
+    - Blink_Marine_Keybox: 3
+  -
+    - POWER_SOURCE: 2
+    - W_Power: 2
+    - Blink_Marine_Keybox: 1
+  -
+    - CAN2_BUS: [1, 2]
+    - W_CAN2: [1, 2]
+    - Blink_Marine_Keybox: [4, 5]
+  -
+    - KEYBOX_SWITCHED_OUTPUTS: [1, 2, 3, 4, 5, 6]
+    - W_Outputs: [1, 2, 3, 4, 5, 6]
+    - Blink_Marine_Keybox: [2, 7, 8, 9, 10, 11]

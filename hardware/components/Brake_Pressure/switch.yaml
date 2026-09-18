@@ -1,0 +1,27 @@
+# WireViz - AEM 2000PSI Brake Pressure Sensor Harness
+# Part Number: 30-2130-2000
+
+connectors:
+  Brake_Pressure_Sensor:
+    type: "AEM 2000PSI Pressure Transducer (3-Pin Packard)"
+    pincount: 3
+    pinlabels: [5V_PWR, SIGNAL, GND]
+    notes: "Front/Rear Hydraulic Brake Line Pressure Sensor"
+
+  VCU275_SENSORS:
+    type: "Dummy (AEM VCU275 Connector A)"
+    pincount: 3
+    pinlabels: [5V_REF_1_A27, BRAKE_PRESS_A03, SENSOR_GND_1_A21]
+
+cables:
+  W_BrakeSensor:
+    wirecount: 3
+    gauge: "20 AWG"
+    colors: [PK-WH, TN-WH, BK-GN]
+    notes: "3-Conductor Sensor Cable (Pink/White, Tan/White, Black/Green)"
+
+connections:
+  -
+    - VCU275_SENSORS: [1, 2, 3]
+    - W_BrakeSensor: [1, 2, 3]
+    - Brake_Pressure_Sensor: [1, 2, 3]

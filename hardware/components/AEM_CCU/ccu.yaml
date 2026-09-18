@@ -1,0 +1,67 @@
+# WireViz - AEM CCU Low Voltage Control Harness
+# Part Number: 30-8405
+
+connectors:
+  AEM_CCU_LV:
+    type: "AEM Combined Charging Unit (30-8405)"
+    pincount: 8
+    pinlabels: [WAKE_PWR, OBC_WAKE, DCDC_WAKE, CAN3_H, CAN3_L, HVIL_IN, HVIL_OUT, GND]
+    notes: "Low Voltage Control Connector (Pins 1H, 3C, 3D, 4A, 4B, 4C, 4D, 4G)"
+
+  KEYBOX_POWER:
+    type: "Dummy (Blink Marine Keybox Power Outputs)"
+    pincount: 4
+    pinlabels: [CCU_WAKE, OBC_WAKE, DCDC_WAKE, GND_Busbar]
+
+  CAN3_BUS:
+    type: "Dummy (Management Bus)"
+    pincount: 2
+    pinlabels: [CAN3_H, CAN3_L]
+
+  HVIL_LOOP:
+    type: "Dummy (High Voltage Interlock Loop)"
+    pincount: 2
+    pinlabels: [HVIL_IN, HVIL_OUT]
+
+cables:
+  W_Wakes:
+    wirecount: 3
+    gauge: "20 AWG"
+    colors: [RD-PK, PK-WH, BU-OG]
+    notes: "Wake_Power (Red/Pink), OBC_Wake (Pink/White), DCDC_Wake (Blue/Orange)"
+
+  W_Ground:
+    wirecount: 1
+    gauge: "20 AWG"
+    colors: [BK]
+    notes: "Logic Ground Return"
+
+  W_CAN3:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [YE, GN]
+    notes: "CrushinAg CAN3 Management Bus Twisted Pair"
+
+  W_HVIL:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [GN-YE, GN-YE]
+    notes: "HVIL Safety Loop Signal Pair"
+
+connections:
+  -
+    - KEYBOX_POWER: [1, 2, 3]
+    - W_Wakes: [1, 2, 3]
+    - AEM_CCU_LV: [1, 2, 3]
+  -
+    - KEYBOX_POWER: 4
+    - W_Ground: 1
+    - AEM_CCU_LV: 8
+  -
+    - CAN3_BUS: [1, 2]
+    - W_CAN3: [1, 2]
+    - AEM_CCU_LV: [4, 5]
+  -
+    - HVIL_LOOP: [1, 2]
+    - W_HVIL: [1, 2]
+    - AEM_CCU_LV: [6, 7]
