@@ -53,6 +53,10 @@ Documenting a 1996 JDM Honda Integra DB6 Sedan EV Restomod
 
 ![IVS sensor](hardware/components/IVS_Sensor/ivs_sensor.png)
 
+### Pacifica battery
+
+![Pacifica battery](hardware/components/Pacifica_Battery/battery.png)
+
 ### Rear keybox
 
 ![Rear keybox](hardware/components/Rear_Keybox/keybox.png)
