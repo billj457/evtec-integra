@@ -32,8 +32,8 @@ connectors:
       - CH3_BATT_HEAT_PWM_10A  # 10A -> Tesla Battery Heater PWM Line
       - CH4_FAN2_20A           # 20A -> Radiator Fan 2
       - CH5_WATER_PUMPS_20A    # 20A -> Superbottle Coolant Pumps 1 & 2
-      - CH6_COMPONENTS_12V_10A # 10A -> Outlander Inverter, Superbottle, A/C Wake, HVJB, iBooster Wake
-      - CH7_BATT_HEAT_12V_10A  # 10A -> Tesla Battery Heater 12V Feed
+      - CH6_BATT_HEAT_12V_10A  # 10A -> Tesla Battery Heater 12V Feed
+      - CH7_COMPONENTS_12V_10A # 10A -> Outlander Inverter, Superbottle, A/C Wake, HVJB, iBooster Wake
       - CH8_OPEN_20A           # 20A -> Spare Output
 
   CONN_IBOOSTER_POWER:
@@ -403,7 +403,7 @@ connectors:
     pinlabels: [PRECHARGE_COIL, POS_COIL, NEG_COIL]
 
   CONN_CCU_WAKES:
-    type: Chrysler Pacifica CCU Enable Headers
+    type: AEM CCU Enable Headers
     pincount: 3
     pins:
     pinlabels: [CCU_WAKE, OBC_WAKE, DCDC_WAKE]
@@ -640,7 +640,7 @@ connections:
     - C_BATT_HEATER: [1]
     - CONN_BATT_HEATER_PWM: [1]
 
-  - - PDU8_ENGINE_BAY: [CH7_BATT_HEAT_12V_10A]
+  - - PDU8_ENGINE_BAY: [CH6_BATT_HEAT_12V_10A]
     - C_BATT_HEATER: [2]
     - CONN_BATT_HEATER_POWER: [1]
 
@@ -676,23 +676,23 @@ connections:
     - C_ENGINE_TO_CABIN_GROUND: [1]
     - GROUND_CABIN_BUS: [1]
 
-  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+  - - PDU8_ENGINE_BAY: [CH7_COMPONENTS_12V_10A]
     - C_ENGINE_AUX_WAKES: [1]
     - CONN_OUTLANDER_INVERTER_12V: [1]
 
-  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+  - - PDU8_ENGINE_BAY: [CH7_COMPONENTS_12V_10A]
     - C_ENGINE_AUX_WAKES: [2]
     - CONN_SUPERBOTTLE_12V: [1]
 
-  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+  - - PDU8_ENGINE_BAY: [CH7_COMPONENTS_12V_10A]
     - C_ENGINE_AUX_WAKES: [3]
     - CONN_AC_COMPRESSOR_WAKE: [1]
 
-  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+  - - PDU8_ENGINE_BAY: [CH7_COMPONENTS_12V_10A]
     - C_ENGINE_AUX_WAKES: [4]
     - CONN_HVJB_12V: [1]
 
-  - - PDU8_ENGINE_BAY: [CH6_COMPONENTS_12V_10A]
+  - - PDU8_ENGINE_BAY: [CH7_COMPONENTS_12V_10A]
     - C_ENGINE_AUX_WAKES: [5]
     - CONN_IBOOSTER_WAKE: [1]
 
