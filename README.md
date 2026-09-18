@@ -67,4 +67,4 @@ Documenting a 1996 JDM Honda Integra DB6 Sedan EV Restomod
 
 ### Tesla Superbottle v2 (ESP32)
 
-![Tesla Superbottle](hardware/components/Tesla_Superbottle/superbottlev2.png)
+![Tesla Superbottle](hardware/components/Tesla_Superbottle/superbottle_v2.png)
