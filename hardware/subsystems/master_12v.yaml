@@ -171,13 +171,13 @@ connectors:
 
   PDM_FRONT_KEYBOX:
     type: Front Keybox PDM (11-Channel Electronic Fuse Box)
-    pincount: 11
+    pincount: 13
     pins:
     pinlabels:
       - CH1_CABIN_HEAT_WAKE    # 10A -> Classic Retrofit Cabin Heater Wake
       - CH2_CABIN_HEAT_STG1    # 10A -> Classic Retrofit Cabin Heater Stage 1
       - CH3_CABIN_HEAT_STG2    # 10A -> Classic Retrofit Cabin Heater Stage 2
-      - CH4_CHILLERPI_10A      # 10A -> ChillerPi Thermal Controller
+      - CH4_THERM_CTRL_10A     # 10A -> Thermal Controller
       - CH5_LIN_GATEWAY_10A    # 10A -> LIN Gateway Module
       - CH6_CAN_MODULES_10A    # 10A -> CAN Bus Modules Supply
       - CH7_CD5_DASH_10A       # 10A -> AEM CD-5 Digital Dash & Gauges
@@ -185,6 +185,8 @@ connectors:
       - CH9_EPS_WAKE_10A       # 10A -> EPS Controller Ignition Wake
       - CH10_SPARE_10A         # 10A -> Spare Channel
       - CH11_SPARE_10A         # 10A -> Spare Channel
+      - CH12_SPARE_10A_PWM     # 10A -> Spare Channel
+      - CH13_SPARE_10A_PWM     # 10A -> Spare Channel
 
   CONN_EPS_POWER:
     type: Electric Power Steering Power Connector
@@ -204,11 +206,11 @@ connectors:
     pins:
     pinlabels: [AUDIO_PWR]
 
-  CONN_CHILLERPI_POWER:
-    type: ChillerPi Power Connector
+  CONN_THERMCTRL_POWER:
+    type: Thermal Controller Power Connector
     pincount: 1
     pins:
-    pinlabels: [CHILLERPI_PWR]
+    pinlabels: [THERMCTRL_PWR]
 
   CONN_LIN_GATEWAY_POWER:
     type: LIN Gateway Power Connector
@@ -246,17 +248,19 @@ connectors:
     pins:
     pinlabels: [VCU275_GND]
 
+
+
   CONN_AUDIO_GROUND:
     type: Audio Amplifier Ground Connector
     pincount: 1
     pins:
     pinlabels: [AUDIO_GND]
 
-  CONN_CHILLERPI_GROUND:
-    type: ChillerPi Ground Connector
+  CONN_THERMCTRL_GROUND:
+    type: Thermal Controller Ground Connector
     pincount: 1
     pins:
-    pinlabels: [CHILLERPI_GND]
+    pinlabels: [THERMCTRL_GND]
 
   CONN_LIN_GATEWAY_GROUND:
     type: LIN Gateway Ground Connector
@@ -286,7 +290,7 @@ connectors:
     type: Under-Dash Ground Bus
     pincount: 10
     pins:
-    pinlabels: [ENGINE_GROUND_FEED, EPS_GND, AUDIO_GND, CHILLERPI_GND, LIN_GATEWAY_GND, CAN_MODULES_GND, CD5_GND, AEM_KEYPAD_GND, VCU275_GND, REAR_GROUND_FEED]
+    pinlabels: [ENGINE_GROUND_FEED, EPS_GND, AUDIO_GND, THERMCTRL_GND, LIN_GATEWAY_GND, CAN_MODULES_GND, CD5_GND, AEM_KEYPAD_GND, VCU275_GND, REAR_GROUND_FEED]
 
   CONN_CABIN_HEATER:
     type: Classic Retrofit PTC Cabin Heater Control Header
@@ -698,9 +702,9 @@ connections:
     - C_CABIN_HEAT_CTRL: [1, 2, 3]
     - CONN_CABIN_HEATER: [1, 2, 3]
 
-  - - PDM_FRONT_KEYBOX: [CH4_CHILLERPI_10A]
+  - - PDM_FRONT_KEYBOX: [CH4_THERM_CTRL_10A]
     - C_FRONT_KEYBOX_BRANCHES: [1]
-    - CONN_CHILLERPI_POWER: [1]
+    - CONN_THERMCTRL_POWER: [1]
 
   - - PDM_FRONT_KEYBOX: [CH5_LIN_GATEWAY_10A]
     - C_FRONT_KEYBOX_BRANCHES: [2]
@@ -732,7 +736,7 @@ connections:
 
   - - GROUND_CABIN_BUS: [4]
     - C_CABIN_GROUND: [3]
-    - CONN_CHILLERPI_GROUND: [1]
+    - CONN_THERMCTRL_GROUND: [1]
 
   - - GROUND_CABIN_BUS: [5]
     - C_CABIN_GROUND: [4]
