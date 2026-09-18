@@ -314,21 +314,23 @@ connectors:
       - CH4_SPARE              # Open 
 
   PDM_REAR_KEYBOX: 
-    type: Rear Keybox PDM (11-Channel Electronic Fuse Box)
-    pincount: 11
+    type: Rear Keybox PDM (13-Channel Electronic Fuse Box)
+    pincount: 13
     pins:
     pinlabels:
-      - CH1_POS_CONTACTOR_10A  # 10A -> TE EV200 Positive Contactor Coil
-      - CH2_NEG_CONTACTOR_10A  # 10A -> TE EV200 Negative Contactor Coil
-      - CH3_PRECHARGE_10A      # 10A -> Precharge Relay Coil
-      - CH4_MISC_SENSORS_10A   # 10A -> Battery Sensors & IVT-S Smart Shunt
-      - CH5_REV_LIGHTS_10A     # 10A -> Reverse Lights Relay Feed
-      - CH6_SUB_AMP_WAKE_10A   # 10A -> Subwoofer Amp Remote Turn-On
-      - CH7_CCU_WAKE_10A       # 10A -> AEM CCU Logic Wake
-      - CH8_CCU_OBC_WAKE_10A   # 10A -> AEM CCU On-Board Charger Wake
-      - CH9_CCU_DCDC_WAKE_10A  # 10A -> AEM CCU DC-DC Converter Wake
+      - CH1_MISC_SENSORS_10A   # 10A -> Battery Sensors & IVT-S Smart Shunt
+      - CH2_REV_LIGHTS_10A     # 10A -> Reverse Lights Relay Feed
+      - CH3_SUB_AMP_WAKE_10A   # 10A -> Subwoofer Amp Remote Turn-On
+      - CH4_CCU_WAKE_10A       # 10A -> AEM CCU Logic Wake
+      - CH5_CCU_OBC_WAKE_10A   # 10A -> AEM CCU On-Board Charger Wake
+      - CH6_CCU_DCDC_WAKE_10A  # 10A -> AEM CCU DC-DC Converter Wake
+      - CH7_SPARE_10A          # 10A -> Spare Channel
+      - CH8_SPARE_10A          # 10A -> Spare Channel
+      - CH9_SPARE_10A          # 10A -> Spare Channel
       - CH10_SPARE_10A         # 10A -> Spare Channel
-      - CH11_SPARE_10A         # 10A -> Spare Channel
+      - CH11_PRECHARGE_10A      # 10A -> Precharge Relay Coil
+      - CH12_POS_CONT_10A_PWM  # 10A -> TE EV200 Positive Contactor PWM Control
+      - CH13_NEG_CONT_10A_PWM  # 10A -> TE EV200 Negative Contactor PWM Control
 
   CONN_SUB_AMP_POWER:
     type: Subwoofer Amplifier Power Connector
@@ -388,7 +390,7 @@ connectors:
     type: TE EV200 Contactor Coils Header
     pincount: 3
     pins:
-    pinlabels: [POS_COIL, NEG_COIL, PRECHARGE_COIL]
+    pinlabels: [PRECHARGE_COIL, POS_COIL, NEG_COIL]
 
   CONN_CCU_WAKES:
     type: Chrysler Pacifica CCU Enable Headers
@@ -598,7 +600,7 @@ connections:
 
   - - FUSED_REAR_TRUNK: [CH2_REAR_KEYBOX_40A]
     - C_REAR_KEYBOX_FEED: [1]
-    - PDM_REAR_KEYBOX: [CH1_POS_CONTACTOR_10A]
+    - PDM_REAR_KEYBOX: [CH1_MISC_SENSORS_10A]
 
   - - FUSED_ENGINE_BAY: [CH3_IBOOSTER_40A]
     - C_IBOOSTER_PWR: [1]
@@ -764,15 +766,15 @@ connections:
     - C_BMS_PWR: [1]
     - CONN_AEM_BMS_POWER: [1]
 
-  - - PDM_REAR_KEYBOX: [CH1_POS_CONTACTOR_10A, CH2_NEG_CONTACTOR_10A, CH3_PRECHARGE_10A]
+  - - PDM_REAR_KEYBOX: [CH11_PRECHARGE_10A, CH12_POS_CONT_10A_PWM, CH13_NEG_CONT_10A_PWM]
     - C_HV_SAFETY_COILS: [1, 2, 3]
     - CONN_HV_CONTACTORS: [1, 2, 3]
 
-  - - PDM_REAR_KEYBOX: [CH7_CCU_WAKE_10A, CH8_CCU_OBC_WAKE_10A, CH9_CCU_DCDC_WAKE_10A]
+  - - PDM_REAR_KEYBOX: [CH4_CCU_WAKE_10A, CH5_CCU_OBC_WAKE_10A, CH6_CCU_DCDC_WAKE_10A]
     - C_CCU_WAKES: [1, 2, 3]
     - CONN_CCU_WAKES: [1, 2, 3]
 
-  - - PDM_REAR_KEYBOX: [CH4_MISC_SENSORS_10A]
+  - - PDM_REAR_KEYBOX: [CH1_MISC_SENSORS_10A]
     - C_REAR_AUX_POWER: [1]
     - CONN_IVTS_SHUNT_POWER: [1]
 
@@ -796,10 +798,10 @@ connections:
     - C_REAR_GROUND: [5]
     - CONN_HV_CONTACTORS_GROUND: [1]
 
-  - - PDM_REAR_KEYBOX: [CH5_REV_LIGHTS_10A]
+  - - PDM_REAR_KEYBOX: [CH2_REV_LIGHTS_10A]
     - C_REAR_AUX_POWER: [2]
     - CONN_REVERSE_LIGHTS: [1]
 
-  - - PDM_REAR_KEYBOX: [CH6_SUB_AMP_WAKE_10A]
+  - - PDM_REAR_KEYBOX: [CH3_SUB_AMP_WAKE_10A]
     - C_REAR_AUX_POWER: [3]
     - CONN_SUB_AMP_WAKE: [1]
