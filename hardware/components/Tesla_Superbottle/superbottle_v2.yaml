@@ -4,48 +4,51 @@ meta:
   author: EVTEC Integra Restomod
 
 connectors:
-  # --- All-In-One Thermal Controller Box (12-Pin Deutsch DT Bulkhead) ---
+  # --- Combined Thermal ECU Connector ---
   ESP32S3_THERMAL_ECU:
-    type: Deutsch DT 12-Pin Bulkhead (Thermal Controller Enclosure)
+    type: Deutsch DT 16-Pin Thermal ECU Connector
     subtype: male
-    pincount: 12
-    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    pincount: 16
+    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     pinlabels:
-      - 12V_POWER         # Pin 1: Switched 12V Feed
-      - CHASSIS_GROUND    # Pin 2: Engine Bay Ground Busbar (Node #1)
-      - CAN3_H            # Pin 3: Vehicle CAN3 High (@ 500 kbps)
-      - CAN3_L            # Pin 4: Vehicle CAN3 Low (@ 500 kbps)
-      - LIN_BUS_OUT       # Pin 5: Native 12V LIN Master Output (To 5-Way Valve)
-      - EXV_COIL_A+       # Pin 6: TMC2209 Stepper Phase A+ (To EXV Pin 4)
-      - EXV_COIL_A-       # Pin 7: TMC2209 Stepper Phase A- (To EXV Pin 2)
-      - EXV_COIL_B+       # Pin 8: TMC2209 Stepper Phase B+ (To EXV Pin 1)
-      - EXV_COIL_B-       # Pin 9: TMC2209 Stepper Phase B- (To EXV Pin 3)
-      - PT_5V_VREF        # Pin 10: 5V Sensor Supply (From VCU Pin A9 SENSOR_PWR)
-      - PT_PRESSURE_A0    # Pin 11: 0.5V-4.5V Pressure Signal (Direct to ADS1115 A0)
-      - PT_TEMP_A1        # Pin 12: NTC Thermistor Signal (To ADS1115 A1 w/ 10k Pullup)
-    notes: "Copperhill ESP32-S3 CAN/LIN Board + TMC2209 Driver + ADS1115 ADC"
+      - CAN3_H
+      - CAN3_L
+      - 5V_POWER
+      - 12V_POWER
+      - CHASSIS_GROUND
+      - VALVE_12V_POWER
+      - VALVE_GROUND
+      - LIN_OUT
+      - 5V_VREF
+      - Sensor_GND
+      - Pressure_A0
+      - Temp_A1
+      - Coil_A+
+      - Coil_A-
+      - Coil_B+
+      - Coil_B-
 
   # --- Superbottle Actuators & Sensors ---
   Superbottle_Pump_1:
-    type: Pierburg/Magna 4-Pin Waterproof Connector
+    type: Deutsch DT 5-Pin Pump 1 Connector
     subtype: female
-    pincount: 4
+    pincount: 5
     pins: [1, 2, 3, 4]
-    pinlabels: [12V_Power, Chassis_Ground, PWM_Speed_Control, Tach_Feedback]
+    pinlabels: [12V_Power, Chassis_Ground, PWM_Speed_Control, Feedback]
 
   Superbottle_Pump_2:
     type: Pierburg/Magna 4-Pin Waterproof Connector
     subtype: female
     pincount: 4
     pins: [1, 2, 3, 4]
-    pinlabels: [12V_Power, Chassis_Ground, PWM_Speed_Control, Tach_Feedback]
+    pinlabels: [12V_Power, Chassis_Ground, PWM_Speed_Control, Feedback]
 
   Superbottle_Diverter_Valve:
     type: Tesla 5-Way Coolant Valve 4-Pin Connector
     subtype: female
-    pincount: 4
-    pins: [1, 2, 3, 4]
-    pinlabels: [12V_Power, Chassis_Ground, LIN_Bus_Signal, Status_Feedback]
+    pincount: 3
+    pins: [1, 2, 3]
+    pinlabels: [12V_Power, Chassis_Ground, LIN_Bus_Signal]
 
   Superbottle_Chiller_EXV:
     type: Tesla EXV 4-Pin Bipolar Stepper Connector
@@ -72,9 +75,9 @@ connectors:
   PWM_VCU_LS:
     type: AEM VCU 275 Pin A10 (PWM)
     subtype: male
-    pincount: 2
-    pins: [1, 2]
-    pinlabels: [PUMP_1_PWM, PUMP_2_PWM]
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [PUMP_1_PWM, PUMP_1_TACH, PUMP_2_PWM, PUMP_2_TACH]
 
   POWER_VCU_5V:
     type: AEM VCU 275 Pin A9
@@ -102,8 +105,7 @@ cables:
     type: Thermal Controller Power Ground and CAN3 Bus Feeder
     gauge: 18 AWG
     wirecount: 5
-    colors: [RD, BK, YE, GN, PK]
-    notes: "RD=12V power, BK=ground, YE/GN tightly twisted for CAN3, PK=VCU 5V sensor supply"
+    colors: [YE, GN, PK, RD, BK]
  
   W_5Way_Valve_Harness:
     type: Tesla 5-Way Valve Harness
@@ -129,80 +131,76 @@ cables:
   W_Pump_1_Harness:
     type: Superbottle Powertrain Pump 1 Harness
     gauge: 16 AWG
-    wirecount: 3
-    colors: [RD, BK, BU]
-    notes: "BU = PWM Speed Control from VCU"
+    wirecount: 4
+    colors: [RD, BK, BU, YE]
 
   W_Pump_2_Harness:
     type: Superbottle Battery Loop Pump 2 Harness
     gauge: 16 AWG
-    wirecount: 3
-    colors: [RD, BK, YE]
-    notes: "YE = PWM Speed Control from VCU"
+    wirecount: 4
+    colors: [RD, BK, BU, YE]
 
 connections:
   # 1. Thermal Controller Node Main Power & CAN3 Network
-  -
-    - POWER_SOURCE_PDU8: 6
-    - W_ECU_Power_CAN: 1
-    - ESP32S3_THERMAL_ECU: 1          # Ch 6: 12V ECU supply; ECU provides sensor 5V reference
+  - - POWER_SOURCE_PDU8: 6
+    - W_ECU_Power_CAN: 4
+    - ESP32S3_THERMAL_ECU: 4          # Ch 6: 12V ECU supply
 
-  - - PWM_VCU_LS: 1
-    - W_Pump_1_Harness: 3
-    - Superbottle_Pump_1: 3           # PWM Speed Control (VCU Pin A10)
+  - - PWM_VCU_LS: [1, 2]
+    - W_Pump_1_Harness: [3, 4]
+    - Superbottle_Pump_1: [3, 4]       # PWM Speed Control and Feedback
 
-  - - PWM_VCU_LS: 2
-    - W_Pump_2_Harness: 3
-    - Superbottle_Pump_2: 3           # PWM Speed Control (VCU Pin A10)
+  - - PWM_VCU_LS: [3, 4]
+    - W_Pump_2_Harness: [3, 4]
+    - Superbottle_Pump_2: [3, 4]     # PWM Speed Control (VCU Pin A10)
 
-  -
-    - CHASSIS_GROUND_BUS: 1
-    - W_ECU_Power_CAN: 2
-    - ESP32S3_THERMAL_ECU: 2          # Chassis Ground Return
-  -
-    - CAN3_BUS: [1, 2]
-    - W_ECU_Power_CAN: [3, 4]
-    - ESP32S3_THERMAL_ECU: [3, 4]    # CAN3_H, CAN3_L
-  -
-    - POWER_VCU_5V: 1
+  - - CHASSIS_GROUND_BUS: 1
     - W_ECU_Power_CAN: 5
-    - ESP32S3_THERMAL_ECU: 10        # VCU 5V sensor supply
+    - ESP32S3_THERMAL_ECU: 5          # Chassis Ground Return
+
+  - - CAN3_BUS: [1, 2]
+    - W_ECU_Power_CAN: [1, 2]
+    - ESP32S3_THERMAL_ECU: [1, 2]     # CAN3_H, CAN3_L
+  
+  - - POWER_VCU_5V: 1
+    - W_ECU_Power_CAN: 3
+    - ESP32S3_THERMAL_ECU: 3          # VCU 5V sensor supply
 
   # 2. Tesla 5-Way Coolant Diverter Valve (Native LIN Master from ESP32-S3)
   -
-    - ESP32S3_THERMAL_ECU: 1
+    - ESP32S3_THERMAL_ECU: 6
     - W_5Way_Valve_Harness: 1
     - Superbottle_Diverter_Valve: 1   # Ch 6: 12V valve motor power
   -
-    - ESP32S3_THERMAL_ECU: 2
+    - ESP32S3_THERMAL_ECU: 7
     - W_5Way_Valve_Harness: 2
     - Superbottle_Diverter_Valve: 2   # Chassis Ground Return
   -
-    - ESP32S3_THERMAL_ECU: 5          # Onboard 12V LIN Master Signal (TJA1021)
+    - ESP32S3_THERMAL_ECU: 8          # LIN output from thermal ECU
     - W_5Way_Valve_Harness: 3
     - Superbottle_Diverter_Valve: 3   # LIN Bus Input
 
   # 3. Tesla Chiller EXV Bipolar Stepper Motor Control
   -
-    - ESP32S3_THERMAL_ECU: [6-9]  # TMC2209 Driver Stepper Outputs
+    - ESP32S3_THERMAL_ECU: [13-16] # TMC2209 Driver Stepper Outputs
     - W_EXV_Stepper_Harness: [1, 2, 3, 4]
     - Superbottle_Chiller_EXV: [1, 2, 3, 4] # Coil_A+, Coil_A-, Coil_B+, Coil_B-
 
   # 4. Tesla Low-Pressure PT Sensor Array (Direct 5V ADS1115 ADC Input)
 
-  - - ESP32S3_THERMAL_ECU: 2        # Sensor ground
+  - - ESP32S3_THERMAL_ECU: 10     # Sensor ground
     - W_PT_Sensor_Harness: 2
     - Superbottle_PT_Sensor: 2           # Chassis ground return
 
-  - - ESP32S3_THERMAL_ECU: 10         # 5V sensor reference from VCU
+  - - ESP32S3_THERMAL_ECU: 9      # 5V sensor reference from VCU
     - W_PT_Sensor_Harness: 1
     - Superbottle_PT_Sensor: 1        # 5V VREF power
 
-  - - ESP32S3_THERMAL_ECU: 11        # ADS1115 A0 pressure input
+  - - ESP32S3_THERMAL_ECU: 11     # ADS1115 A0 pressure input
     - W_PT_Sensor_Harness: 3
     - Superbottle_PT_Sensor: 3        # Pressure signal (0.5V-4.5V)
 
-  - - ESP32S3_THERMAL_ECU: 12        # ADS1115 A1 temperature input
+  - - ESP32S3_THERMAL_ECU: 12     # ADS1115 A1 temperature input
     - W_PT_Sensor_Harness: 4
     - Superbottle_PT_Sensor: 4        # Temperature signal
 
