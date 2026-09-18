@@ -108,11 +108,17 @@ connectors:
     pins:
     pinlabels: [BATT_HEATER_GND]
 
+  CONN_THERMCTRL_GND:
+    type: Thermal Controller Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [THERMCTRL_GND]
+
   GROUND_ENGINE_BUS:
     type: Engine Bay Ground Bus
-    pincount: 8
+    pincount: 9
     pins:
-    pinlabels: [BATTERY_GND, IBOOSTER_GND, FAN1_GND, FAN2_GND, PUMP1_GND, PUMP2_GND, BATT_HEATER_GND, CABIN_GROUND_FEED]
+    pinlabels: [BATTERY_GND, IBOOSTER_GND, FAN1_GND, FAN2_GND, PUMP1_GND, PUMP2_GND, BATT_HEATER_GND, THERMCTRL_GND, CABIN_GROUND_FEED]
 
   CONN_SDU_WAKE:
     type: Tesla SDU Control Board Enable Pin
@@ -531,9 +537,9 @@ cables:
 
   C_ENGINE_GROUND:
     category: Ground Return
-    wirecount: 6
+    wirecount: 7
     gauge: 12 AWG
-    colors: [BK, BK, BK, BK, BK, BK]
+    colors: [BK, BK, BK, BK, BK, BK, BK]
 
   C_ENGINE_TO_CABIN_GROUND:
     category: Ground Feeder
@@ -663,6 +669,10 @@ connections:
     - CONN_BATT_HEATER_GROUND: [1]
 
   - - GROUND_ENGINE_BUS: [8]
+    - C_ENGINE_GROUND: [7]
+    - CONN_THERMCTRL_GND: [1]
+
+  - - GROUND_ENGINE_BUS: [9]
     - C_ENGINE_TO_CABIN_GROUND: [1]
     - GROUND_CABIN_BUS: [1]
 
