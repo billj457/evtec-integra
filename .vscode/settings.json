@@ -1,9 +1,0 @@
-{
-    "chat.tools.terminal.autoApprove": {
-        "/^Get-ChildItem -Path \"hardware\" -Filter \"\\*\\.yaml\" \\| Select-Object -ExpandProperty FullName \\| ForEach-Object \\{ Write-Host \"--- \\$_\"; wireviz \"\\$_\"; if \\(\\$LASTEXITCODE -ne 0\\) \\{ break \\} \\}$/": {
-            "approve": true,
-            "matchCommandLine": true
-        },
-        "wireviz": true
-    }
-}
