@@ -1,0 +1,195 @@
+# ==============================================================================
+# EVTEC INTEGRA RESTOMOD - PACIFICA BATTERY BOX BULKHEAD SUB-HARNESS
+# Vehicle: 1996 JDM Honda Integra DB6 Sedan
+# Battery Enclosure Interface: Dual Molex MX150 Sealed Combined Interfaces
+# ==============================================================================
+
+connectors:
+  # ----------------------------------------------------------------------------
+  # COMBINED BATTERY INTERFACES (CASE WALL AND MATING PLUG)
+  # ----------------------------------------------------------------------------
+  BATTERY_INTERFACE_GREY_C:
+    type: Molex MX150 12-Pin Sealed Battery Interface (Key C Grey)
+    pincount: 12
+    pins: [1, 2, 3, 4, 5, 6, 7]
+    pinlabels:
+      - BMS_PERM_12V      # Pin 1: BMS Mini Master Perm +12V Feed
+      - BMS_GND           # Pin 2: BMS Mini Master Logic Ground
+      - CAN3_H            # Pin 3: Vehicle CAN3 Bus High
+      - CAN3_L            # Pin 4: Vehicle CAN3 Bus Low
+      - VCU_WAKE          # Pin 5: BMS Sleep/Wake Control Output
+      - J1772_PROX        # Pin 6: J1772 Proximity Detection (PP)
+      - J1772_PILOT       # Pin 7: J1772 Control Pilot Signal (CP)
+
+  BATTERY_INTERFACE_BLACK_A:
+    type: Molex MX150 12-Pin Sealed Battery Interface (Key A Black)
+    pincount: 12
+    pins: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    pinlabels: 
+      - COIL_12V_PWR      # Pin 1: Switched +12V Coil Supply (Rear PDM Ch 6)
+      - POS_CONTACTOR_LS  # Pin 2: Positive Contactor Low-Side Trigger
+      - NEG_CONTACTOR_LS  # Pin 3: Negative Contactor Low-Side Trigger
+      - PRECHARGE_LS      # Pin 4: Precharge Relay Low-Side Trigger
+      - LEM_HIGH_SIG      # Pin 5: LEM DHAB S/118 High Range Signal
+      - LEM_LOW_SIG       # Pin 6: LEM DHAB S/118 Low Range Signal
+      - LEM_SENSOR_GND    # Pin 7: LEM Sensor Analog Ground (VCU A23)
+      - LEM_SENSOR_5V     # Pin 8: LEM Sensor +5V Supply (VCU A30)
+      - HVIL_IN           # Pin 9: High Voltage Interlock Loop In
+      - HVIL_OUT          # Pin 10: High Voltage Interlock Loop Out
+
+  # ----------------------------------------------------------------------------
+  # INTERNAL BATTERY PACK COMPONENTS
+  # ----------------------------------------------------------------------------
+  INT_BMS_MINI_MASTER:
+    type: AEM BMS Mini Master Logic Header
+    pincount: 8
+    pins: [1, 2, 3, 4, 7, 8, 9]
+    pinlabels: [BATT_12V, GND, CAN_H, CAN_L, PROX, PILOT, WAKE_OUT]
+
+  INT_PACIFICA_CONTACTORS:
+    type: TE EVC500 Contactors and Precharge Relay Assembly
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [COILS_12V, POS_TRIG, NEG_TRIG, PRECHARGE_TRIG]
+
+  INT_LEM_CURRENT_SENSOR:
+    type: LEM DHAB S/118 Dual-Range Current Sensor
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [HIGH_OUT, LOW_OUT, GND, 5V_SUPPLY]
+
+  INT_HVIL_SAFETY_SWITCHES:
+    type: Pack Cover Microswitch and Manual Service Disconnect (MSD)
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [HVIL_LOOP_IN, HVIL_LOOP_OUT]
+
+  # ----------------------------------------------------------------------------
+  # EXTERNAL VEHICLE DESTINATIONS
+  # ----------------------------------------------------------------------------
+  EXT_REAR_POWER_HUB:
+    type: Rear Trunk Fused Block and Rear Keybox PDM
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [PERM_12V_FUSE, COIL_12V_PDM_CH6]
+
+  EXT_REAR_KEYBOX_PDM:
+    type: Rear Keybox PDM Contactor Control
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [COIL_12V_PWR, POS_CONTACTOR_LS, NEG_CONTACTOR_LS, PRECHARGE_LS]
+
+  EXT_CAN3_TELEMETRY:
+    type: Vehicle CAN3 Network Bus (VCU / CD-5 Dash)
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [CAN3_H, CAN3_L]
+
+  EXT_VCU275_CONTROL:
+    type: AEM VCU275 LEM Sensor Inputs
+    pincount: 4
+    pins: [1, 2, 3, 4]
+    pinlabels: [LEM_HIGH_A11, LEM_LOW_A14, LEM_GND_A23, LEM_5V_A30]
+
+  EXT_J1772_CHARGE_PORT:
+    type: J1772 AC Inlet Port
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [PP_PROXIMITY, CP_PILOT]
+
+  EXT_HVIL_SAFETY_LOOP:
+    type: Vehicle Master HVIL Loop Circuit
+    pincount: 2
+    pins: [1, 2]
+    pinlabels: [HVIL_FROM_VCU, HVIL_TO_SDU]
+
+# ==============================================================================
+# CABLE DEFINITIONS
+# ==============================================================================
+cables:
+  C_INT_BMS_HARNESS:
+    category: Internal BMS Signal
+    wirecount: 7
+    gauge: 20 AWG
+    colors: [RD, BK, WH, BU, OG, YE, GN]
+    length: 0.3 m
+
+  C_INT_CONTACTOR_HARNESS:
+    category: Internal Contactor Control
+    wirecount: 4
+    gauge: 18 AWG
+    colors: [RD, BU, YE, GN]
+    length: 0.25 m
+
+  C_INT_LEM_HARNESS:
+    category: Internal Sensor Shielded
+    wirecount: 4
+    gauge: 20 AWG
+    colors: [OG, YE, BK, RD]
+    length: 0.35 m
+
+  C_INT_HVIL_HARNESS:
+    category: Internal Safety Loop
+    wirecount: 2
+    gauge: 20 AWG
+    colors: [VT, WH]
+    length: 0.4 m
+
+  C_EXT_BMS_COMM:
+    category: Vehicle Communication Trunk
+    wirecount: 7
+    gauge: 20 AWG
+    colors: [RD, BK, WH, BU, OG, YE, GN]
+    length: 1.2 m
+
+  C_EXT_HV_CONTROL:
+    category: Vehicle HV Safety and Logic Trunk
+    wirecount: 10
+    gauge: 18 AWG
+    colors: [RD, BU, YE, GN, OG, YE, BK, RD, VT, WH]
+    length: 1.0 m
+
+# ==============================================================================
+# CONNECTIONS & SIGNAL ROUTING
+# ==============================================================================
+connections:
+  # --- Internal Pack Connections to Combined Battery Interfaces ---
+  - - BATTERY_INTERFACE_GREY_C: [BMS_PERM_12V, BMS_GND, CAN3_H, CAN3_L, VCU_WAKE, J1772_PROX, J1772_PILOT]
+    - C_INT_BMS_HARNESS: [1, 2, 3, 4, 5, 6, 7]
+    - INT_BMS_MINI_MASTER: [BATT_12V, GND, CAN_H, CAN_L, WAKE_OUT, PROX, PILOT]
+
+  - - BATTERY_INTERFACE_BLACK_A: [COIL_12V_PWR, POS_CONTACTOR_LS, NEG_CONTACTOR_LS, PRECHARGE_LS]
+    - C_INT_CONTACTOR_HARNESS: [1, 2, 3, 4]
+    - INT_PACIFICA_CONTACTORS: [COILS_12V, POS_TRIG, NEG_TRIG, PRECHARGE_TRIG]
+
+  - - BATTERY_INTERFACE_BLACK_A: [LEM_HIGH_SIG, LEM_LOW_SIG, LEM_SENSOR_GND, LEM_SENSOR_5V]
+    - C_INT_LEM_HARNESS: [1, 2, 3, 4]
+    - INT_LEM_CURRENT_SENSOR: [HIGH_OUT, LOW_OUT, GND, 5V_SUPPLY]
+
+  - - BATTERY_INTERFACE_BLACK_A: [HVIL_IN, HVIL_OUT]
+    - C_INT_HVIL_HARNESS: [1, 2]
+    - INT_HVIL_SAFETY_SWITCHES: [HVIL_LOOP_IN, HVIL_LOOP_OUT]
+  # --- External Branching to Vehicle Modules ---
+  - - EXT_REAR_POWER_HUB: [PERM_12V_FUSE, COIL_12V_PDM_CH6]
+    - C_EXT_BMS_COMM: [1, 2]
+    - BATTERY_INTERFACE_GREY_C: [BMS_PERM_12V, BMS_GND]
+
+  - - EXT_CAN3_TELEMETRY: [CAN3_H, CAN3_L]
+    - C_EXT_BMS_COMM: [3, 4]
+    - BATTERY_INTERFACE_GREY_C: [CAN3_H, CAN3_L]
+
+  - - EXT_J1772_CHARGE_PORT: [PP_PROXIMITY, CP_PILOT]
+    - C_EXT_BMS_COMM: [6, 7]
+    - BATTERY_INTERFACE_GREY_C: [J1772_PROX, J1772_PILOT]
+
+  - - EXT_REAR_KEYBOX_PDM: [COIL_12V_PWR, POS_CONTACTOR_LS, NEG_CONTACTOR_LS, PRECHARGE_LS]
+    - C_EXT_HV_CONTROL: [1, 2, 3, 4]
+    - BATTERY_INTERFACE_BLACK_A: [COIL_12V_PWR, POS_CONTACTOR_LS, NEG_CONTACTOR_LS, PRECHARGE_LS]
+
+  - - EXT_VCU275_CONTROL: [LEM_HIGH_A11, LEM_LOW_A14, LEM_GND_A23, LEM_5V_A30]
+    - C_EXT_HV_CONTROL: [5, 6, 7, 8]
+    - BATTERY_INTERFACE_BLACK_A: [LEM_HIGH_SIG, LEM_LOW_SIG, LEM_SENSOR_GND, LEM_SENSOR_5V]
+
+  - - EXT_HVIL_SAFETY_LOOP: [HVIL_FROM_VCU, HVIL_TO_SDU]
+    - C_EXT_HV_CONTROL: [9, 10]
+    - BATTERY_INTERFACE_BLACK_A: [HVIL_IN, HVIL_OUT]
