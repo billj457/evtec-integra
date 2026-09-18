@@ -72,7 +72,7 @@ connectors:
     pins: [5, 6]
     pinlabels: [CH5_WATER_PUMPS_20A, CH6_ECU_12V_PWR_10A]
 
-  PWM_VCU_LS:
+  VCU_PUMP_CTRL:
     type: AEM VCU 275 Pin A10 (PWM)
     subtype: male
     pincount: 4
@@ -146,11 +146,11 @@ connections:
     - W_ECU_Power_CAN: 4
     - ESP32S3_THERMAL_ECU: 4          # Ch 6: 12V ECU supply
 
-  - - PWM_VCU_LS: [1, 2]
+  - - VCU_PUMP_CTRL: [1, 2]
     - W_Pump_1_Harness: [3, 4]
     - Superbottle_Pump_1: [3, 4]       # PWM Speed Control and Feedback
 
-  - - PWM_VCU_LS: [3, 4]
+  - - VCU_PUMP_CTRL: [3, 4]
     - W_Pump_2_Harness: [3, 4]
     - Superbottle_Pump_2: [3, 4]     # PWM Speed Control (VCU Pin A10)
 
