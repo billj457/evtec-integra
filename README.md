@@ -61,6 +61,10 @@ Documenting a 1996 JDM Honda Integra DB6 Sedan EV Restomod
 
 ![Rear keybox](hardware/components/Rear_Keybox/keybox.png)
 
+### Thermal ECU
+
+![Thermal ECU](hardware/components/Thermal_ECU/thermctrl.png)
+
 ### Tesla Superbottle v1 (RPi)
 
 ![Tesla Superbottle](hardware/components/Tesla_Superbottle/superbottle.png)

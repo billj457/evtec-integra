@@ -1,0 +1,207 @@
+meta:
+  author: EVTEC Integra Restomod
+  title: All-In-One Thermal Controller Internal Enclosure Harness
+  version: "2.1"
+
+connectors:
+  # ============================================================================
+  # EXTERNAL BULKHEAD PIGTAILS (PORTS 1 - 4)
+  # ============================================================================
+  P1_Power_CAN:
+    type: Deutsch DT
+    subtype: male
+    pincount: 5
+    pinlabels: [CAN3_H, CAN3_L, 12V_SWITCHED, CHASSIS_GND, 5V_SENSOR_PWR]
+    notes: "Port 1: Main Power and CAN3 Feed Pigtail"
+
+  P2_5Way_Valve:
+    type: Deutsch DT
+    subtype: female
+    pincount: 3
+    pinlabels: [12V_VALVE_PWR, VALVE_GND, LIN_SIGNAL]
+    notes: "Port 2: Tesla 5-Way Valve Pigtail"
+
+  P3_PT_Sensor:
+    type: Deutsch DTM
+    subtype: female
+    pincount: 4
+    pinlabels: [5V_VREF, SENSOR_GND, PRESS_SIG, TEMP_SIG]
+    notes: "Port 3: Tesla LP PT Sensor Pigtail"
+
+  P4_EXV_Stepper:
+    type: Deutsch DT
+    subtype: female
+    pincount: 4
+    pinlabels: [COIL_A+, COIL_A-, COIL_B+, COIL_B-]
+    notes: "Port 4: Tesla Chiller EXV Stepper Pigtail"
+
+  # ============================================================================
+  # INTERNAL CONTROLLER BOARDS & BREAKOUTS
+  # ============================================================================
+  ESP32_J5:
+    type: Screw Terminal Block
+    subtype: PCB 3.81mm Pitch
+    pincount: 4
+    pinlabels: [CAN_H, CAN_L, 12V_VIN, GND]
+    notes: "Copperhill ESP32-S3 J5 CAN and Main ECU Power Terminal"
+
+  ESP32_J6:
+    type: Screw Terminal Block
+    subtype: PCB 3.81mm Pitch
+    pincount: 3
+    pinlabels: [12V_VBAT, LIN, GND]
+    notes: "Copperhill ESP32-S3 J6 12V LIN Terminal"
+
+  ESP32_J3_I2C:
+    type: STEMMA QT / Qwiic
+    subtype: female
+    pincount: 4
+    pinlabels: [GND, 3V3, SDA, SCL]
+    notes: "Copperhill ESP32-S3 J3 I2C Expansion Header"
+
+  ESP32_J1_GPIO:
+    type: Header Pins
+    subtype: male 2.54mm (6-Pin Single Row on J1)
+    pincount: 6
+    pinlabels: [GPIO5_STEP, GPIO6_DIR, GPIO7_ENABLE, GPIO15_DIAG, GPIO16_UART, GND_LOGIC]
+    notes: "ESP32-S3 J1 Header Contiguous GPIO Pins to TMC2209 Module"
+
+  TMC2209_Driver:
+    type: Stepper Driver Breakout
+    pincount: 12
+    pinlabels: [VM_12V, GND_POWER, 1A_PHASE_A+, 1B_PHASE_A-, 2A_PHASE_B+, 2B_PHASE_B-, STEP, DIR, ENABLE, DIAG, PDN_UART, GND_LOGIC]
+    notes: "BIGTREETECH TMC2209 V1.3 Module"
+
+  ADS1115_ADC:
+    type: ADC Breakout
+    pincount: 6
+    pinlabels: [VIN_5V, GND, SCL, SDA, A0_PRESS, A1_TEMP]
+    notes: "Adafruit ADS1115 16-Bit ADC Breakout"
+
+cables:
+  W_P1_CAN:
+    gauge: 22 AWG
+    wirecount: 2
+    colors: [WH, BU]
+    notes: "CAN3 High (WH) / Low (BU) twisted pair"
+
+  W_J5_Pwr:
+    gauge: 20 AWG
+    wirecount: 2
+    colors: [RD, BK]
+
+  W_TMC_Pwr:
+    gauge: 20 AWG
+    wirecount: 2
+    colors: [RD, BK]
+
+  W_5Way_Valve:
+    gauge: 20 AWG
+    wirecount: 3
+    colors: [RD, BK, VT]
+    notes: "Port 2 Pigtail (VT = 12V LIN signal directly from J6)"
+
+  W_PT_Sensor:
+    gauge: 22 AWG
+    wirecount: 2
+    colors: [OG, BU]
+    notes: "Port 3 Pigtail (OG = Pressure to ADS A0, BU = Temp to ADS A1)"
+
+  W_PT_Sensor_Pwr_1:
+    gauge: 22 AWG
+    wirecount: 2
+    colors: [PK, BK]
+
+  W_PT_Sensor_Pwr_2:
+    gauge: 22 AWG
+    wirecount: 2
+    colors: [OG, BU]
+
+  W_EXV_Stepper:
+    gauge: 20 AWG
+    wirecount: 4
+    colors: [BN, WH, BU, OG]
+    notes: "Port 4 Pigtail (BN/WH = Phase A, BU/OG = Phase B)"
+
+  W_J1_TMC_Ribbon:
+    gauge: 24 AWG
+    wirecount: 6
+    colors: [YE, GN, GY, PK, VT, BK]
+    notes: "Contiguous 6-pin Dupont ribbon jumper from J1 header to TMC2209"
+
+  W_I2C_Cable:
+    gauge: 28 AWG
+    wirecount: 4
+    colors: [BK, RD, BU, YE]
+    notes: "STEMMA QT 4-pin Cable"
+
+connections:
+  # --- Port 1 Main Feed Inputs and Direct Branches ---
+  -
+    - P1_Power_CAN: [1, 2]
+    - W_P1_CAN: [1, 2]
+    - ESP32_J5: [1, 2]
+  -
+    - P1_Power_CAN: 3
+    - W_J5_Pwr: 1
+    - ESP32_J5: 3
+  -
+    - P1_Power_CAN: 4
+    - W_J5_Pwr: 2
+    - ESP32_J5: 4
+  -
+    - P1_Power_CAN: 5
+    - W_TMC_Pwr: 1
+    - TMC2209_Driver: 1
+  -
+    - P1_Power_CAN: 4
+    - W_TMC_Pwr: 2
+    - TMC2209_Driver: 2
+
+  # --- Port 2 (Tesla 5-Way Valve Output directly from J6) ---
+  -
+    - ESP32_J6: [1, 3, 2]
+    - W_5Way_Valve: [1, 2, 3]
+    - P2_5Way_Valve: [1, 2, 3]
+
+  # --- 5V Sensor Power and Sensor Ground Distribution ---
+  -
+    - P1_Power_CAN: 5
+    - W_PT_Sensor_Pwr_1: 1
+    - ADS1115_ADC: 1
+  -
+    - P1_Power_CAN: 5
+    - W_PT_Sensor_Pwr_2: 1
+    - P3_PT_Sensor: 1
+  -
+    - P1_Power_CAN: 4
+    - W_PT_Sensor_Pwr_1: 2
+    - ADS1115_ADC: 2
+  -
+    - P1_Power_CAN: 4
+    - W_PT_Sensor_Pwr_2: 2
+    - P3_PT_Sensor: 2
+
+  # --- Port 3 (Tesla LP PT Sensor Signals to ADS1115) ---
+  -
+    - P3_PT_Sensor: [3, 4]
+    - W_PT_Sensor: [1, 2]
+    - ADS1115_ADC: [5, 6]
+
+  # --- Port 4 (Tesla Chiller EXV Stepper Outputs from TMC2209) ---
+  -
+    - TMC2209_Driver: [3, 4, 5, 6]
+    - W_EXV_Stepper: [1, 2, 3, 4]
+    - P4_EXV_Stepper: [1, 2, 3, 4]
+
+  # --- J1 Header Pins (6-Pin Ribbon) to TMC2209 Stepper Driver ---
+  -
+    - ESP32_J1_GPIO: [1, 2, 3, 4, 5, 6]
+    - W_J1_TMC_Ribbon: [1, 2, 3, 4, 5, 6]
+    - TMC2209_Driver: [7, 8, 9, 10, 11, 12]
+
+  # --- STEMMA QT I2C Connection from J3 to ADS1115 ---
+  -
+    - ESP32_J3_I2C: [1, 2, 3, 4]
+    - W_I2C_Cable: [1, 2, 3, 4]
+    - ADS1115_ADC: [2, 1, 4, 3]
