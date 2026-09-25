@@ -5,7 +5,7 @@ meta:
 
 connectors:
   # --- Combined Thermal ECU Connector ---
-  ESP32S3_THERMAL_ECU:
+  ESP32S3_Controller:
     type: Deutsch DT 16-Pin Thermal ECU Connector
     subtype: male
     pincount: 16
@@ -144,7 +144,7 @@ connections:
   # 1. Thermal Controller Node Main Power & CAN3 Network
   - - POWER_SOURCE_PDU8: 6
     - W_ECU_Power_CAN: 4
-    - ESP32S3_THERMAL_ECU: 4          # Ch 6: 12V ECU supply
+    - ESP32S3_Controller: 4          # Ch 6: 12V ECU supply
 
   - - VCU_PUMP_CTRL: [1, 2]
     - W_Pump_1_Harness: [3, 4]
@@ -156,51 +156,51 @@ connections:
 
   - - CHASSIS_GROUND_BUS: 1
     - W_ECU_Power_CAN: 5
-    - ESP32S3_THERMAL_ECU: 5          # Chassis Ground Return
+    - ESP32S3_Controller: 5          # Chassis Ground Return
 
   - - CAN3_BUS: [1, 2]
     - W_ECU_Power_CAN: [1, 2]
-    - ESP32S3_THERMAL_ECU: [1, 2]     # CAN3_H, CAN3_L
+    - ESP32S3_Controller: [1, 2]     # CAN3_H, CAN3_L
   
   - - POWER_VCU_5V: 1
     - W_ECU_Power_CAN: 3
-    - ESP32S3_THERMAL_ECU: 3          # VCU 5V sensor supply
+    - ESP32S3_Controller: 3          # VCU 5V sensor supply
 
   # 2. Tesla 5-Way Coolant Diverter Valve (Native LIN Master from ESP32-S3)
   -
-    - ESP32S3_THERMAL_ECU: 6
+    - ESP32S3_Controller: 6
     - W_5Way_Valve_Harness: 1
     - Superbottle_Diverter_Valve: 1   # Ch 6: 12V valve motor power
   -
-    - ESP32S3_THERMAL_ECU: 7
+    - ESP32S3_Controller: 7
     - W_5Way_Valve_Harness: 2
     - Superbottle_Diverter_Valve: 2   # Chassis Ground Return
   -
-    - ESP32S3_THERMAL_ECU: 8          # LIN output from thermal ECU
+    - ESP32S3_Controller: 8          # LIN output from thermal ECU
     - W_5Way_Valve_Harness: 3
     - Superbottle_Diverter_Valve: 3   # LIN Bus Input
 
   # 3. Tesla Chiller EXV Bipolar Stepper Motor Control
   -
-    - ESP32S3_THERMAL_ECU: [13-16] # TMC2209 Driver Stepper Outputs
+    - ESP32S3_Controller: [13-16] # TMC2209 Driver Stepper Outputs
     - W_EXV_Stepper_Harness: [1, 2, 3, 4]
     - Superbottle_Chiller_EXV: [1, 2, 3, 4] # Coil_A+, Coil_A-, Coil_B+, Coil_B-
 
   # 4. Tesla Low-Pressure PT Sensor Array (Direct 5V ADS1115 ADC Input)
 
-  - - ESP32S3_THERMAL_ECU: 10     # Sensor ground
+  - - ESP32S3_Controller: 10     # Sensor ground
     - W_PT_Sensor_Harness: 2
     - Superbottle_PT_Sensor: 2           # Chassis ground return
 
-  - - ESP32S3_THERMAL_ECU: 9      # 5V sensor reference from VCU
+  - - ESP32S3_Controller: 9      # 5V sensor reference from VCU
     - W_PT_Sensor_Harness: 1
     - Superbottle_PT_Sensor: 1        # 5V VREF power
 
-  - - ESP32S3_THERMAL_ECU: 11     # ADS1115 A0 pressure input
+  - - ESP32S3_Controller: 11     # ADS1115 A0 pressure input
     - W_PT_Sensor_Harness: 3
     - Superbottle_PT_Sensor: 3        # Pressure signal (0.5V-4.5V)
 
-  - - ESP32S3_THERMAL_ECU: 12     # ADS1115 A1 temperature input
+  - - ESP32S3_Controller: 12     # ADS1115 A1 temperature input
     - W_PT_Sensor_Harness: 4
     - Superbottle_PT_Sensor: 4        # Temperature signal
 
