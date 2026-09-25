@@ -14,7 +14,7 @@ connectors:
     pinlabels: [CAN3_H, CAN3_L, 12V_SWITCHED, CHASSIS_GND, 5V_SENSOR_PWR]
     notes: "Port 1: Main Power and CAN3 Feed Pigtail"
 
-  P2_5Way_Valve:
+  P2_5Way_Valve: 
     type: Deutsch DT
     subtype: female
     pincount: 3
@@ -49,7 +49,7 @@ connectors:
     type: Screw Terminal Block
     subtype: PCB 3.81mm Pitch
     pincount: 3
-    pinlabels: [12V_VBAT, LIN, GND]
+    pinlabels: [12V_VBAT, GND, LIN]
     notes: "Copperhill ESP32-S3 J6 12V LIN Terminal"
 
   ESP32_J3_I2C:
@@ -115,7 +115,7 @@ cables:
   W_PT_Sensor_Pwr_2:
     gauge: 22 AWG
     wirecount: 2
-    colors: [OG, BU]
+    colors: [PK, BK]
 
   W_EXV_Stepper:
     gauge: 20 AWG
@@ -131,8 +131,8 @@ cables:
 
   W_I2C_Cable:
     gauge: 28 AWG
-    wirecount: 4
-    colors: [BK, RD, BU, YE]
+    wirecount: 2
+    colors: [BU, YE]
     notes: "STEMMA QT 4-pin Cable"
 
 connections:
@@ -150,7 +150,7 @@ connections:
     - W_J5_Pwr: 2
     - ESP32_J5: 4
   -
-    - P1_Power_CAN: 5
+    - P1_Power_CAN: 3
     - W_TMC_Pwr: 1
     - TMC2209_Driver: 1
   -
@@ -160,7 +160,7 @@ connections:
 
   # --- Port 2 (Tesla 5-Way Valve Output directly from J6) ---
   -
-    - ESP32_J6: [1, 3, 2]
+    - ESP32_J6: [1, 2, 3]
     - W_5Way_Valve: [1, 2, 3]
     - P2_5Way_Valve: [1, 2, 3]
 
@@ -202,6 +202,6 @@ connections:
 
   # --- STEMMA QT I2C Connection from J3 to ADS1115 ---
   -
-    - ESP32_J3_I2C: [1, 2, 3, 4]
-    - W_I2C_Cable: [1, 2, 3, 4]
-    - ADS1115_ADC: [2, 1, 4, 3]
+    - ESP32_J3_I2C: [3, 4]
+    - W_I2C_Cable: [1, 2]
+    - ADS1115_ADC: [4, 3]
