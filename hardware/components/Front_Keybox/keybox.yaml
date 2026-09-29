@@ -2,7 +2,7 @@
 # 12-Pin Solid-State PDM (Under Dash / Cabin)
 
 connectors:
-  Front_Keybox:
+  Blink_Marine_Keybox:
     type: "Blink Marine Keybox / PDM (12-Pin Deutsch)"
     pincount: 11
     pinlabels: [12V, GND, CAN2_H, CAN2_L, CABIN_HTR_WAKE, CABIN_HTR_STG1, CABIN_HTR_STG2, AEM_KEYPAD, CD5_DASH_GAUGES, CAN_MODULES, EPS_WAKE]
@@ -12,6 +12,11 @@ connectors:
     type: "Dummy (Under-Dash Fused Block #2)"
     pincount: 2
     pinlabels: [12V_Ch2_60A, Ground_Busbar]
+
+  CAN2_BUS:
+    type: "Dummy (Vehicle Control Bus)"
+    pincount: 2
+    pinlabels: [CAN2_H, CAN2_L]
 
   CABIN_OUTPUTS:
     type: "Dummy (Cabin Actuators, Wakes and Instrumentation)"
@@ -41,16 +46,16 @@ connections:
   -
     - POWER_SOURCE: 1
     - W_Power: 1
-    - Front_Keybox: 1
+    - Blink_Marine_Keybox: 1
   -
     - POWER_SOURCE: 2
     - W_Power: 2
-    - Front_Keybox: 2
+    - Blink_Marine_Keybox: 2
   -
     - CAN2_BUS: [1, 2]
     - W_CAN2: [1, 2]
-    - Front_Keybox: [3, 4]
+    - Blink_Marine_Keybox: [3, 4]
   -
-    - Front_Keybox: [5, 6, 7, 8, 9, 10, 11]
+    - Blink_Marine_Keybox: [5, 6, 7, 8, 9, 10, 11]
     - W_Outputs: [1, 2, 3, 4, 5, 6, 7]
     - CABIN_OUTPUTS: [1, 2, 3, 4, 5, 6, 7]
