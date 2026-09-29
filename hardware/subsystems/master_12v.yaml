@@ -183,12 +183,12 @@ connectors:
       - CH1_CABIN_HEAT_WAKE    # 10A -> Classic Retrofit Cabin Heater Wake
       - CH2_CABIN_HEAT_STG1    # 10A -> Classic Retrofit Cabin Heater Stage 1
       - CH3_CABIN_HEAT_STG2    # 10A -> Classic Retrofit Cabin Heater Stage 2
-      - CH4_THERM_CTRL_10A     # 10A -> Thermal Controller
-      - CH5_LIN_GATEWAY_10A    # 10A -> LIN Gateway Module
+      - CH4_AEM_KEYPAD_10A     # 10A -> AEM 8-Button CAN Keypad
+      - CH5_CD5_DASH_10A       # 10A -> AEM CD-5 Digital Dash & Gauges
       - CH6_CAN_MODULES_10A    # 10A -> CAN Bus Modules Supply
-      - CH7_CD5_DASH_10A       # 10A -> AEM CD-5 Digital Dash & Gauges
-      - CH8_AEM_KEYPAD_10A     # 10A -> AEM 8-Button CAN Keypad
-      - CH9_EPS_WAKE_10A       # 10A -> EPS Controller Ignition Wake
+      - CH7_EPS_WAKE_10A       # 10A -> EPS Controller Ignition Wake
+      - CH8_SPARE_10A         # 10A -> Spare Channel
+      - CH9_SPARE_10A         # 10A -> Spare Channel
       - CH10_SPARE_10A         # 10A -> Spare Channel
       - CH11_SPARE_10A         # 10A -> Spare Channel
       - CH12_SPARE_10A_PWM     # 10A -> Spare Channel
@@ -211,18 +211,6 @@ connectors:
     pincount: 1
     pins:
     pinlabels: [AUDIO_PWR]
-
-  CONN_THERMCTRL_POWER:
-    type: Thermal Controller Power Connector
-    pincount: 1
-    pins:
-    pinlabels: [THERMCTRL_PWR]
-
-  CONN_LIN_GATEWAY_POWER:
-    type: LIN Gateway Power Connector
-    pincount: 1
-    pins:
-    pinlabels: [LIN_GATEWAY_PWR]
 
   CONN_CAN_MODULES_POWER:
     type: CAN Modules Power Connector
@@ -262,18 +250,6 @@ connectors:
     pins:
     pinlabels: [AUDIO_GND]
 
-  CONN_THERMCTRL_GROUND:
-    type: Thermal Controller Ground Connector
-    pincount: 1
-    pins:
-    pinlabels: [THERMCTRL_GND]
-
-  CONN_LIN_GATEWAY_GROUND:
-    type: LIN Gateway Ground Connector
-    pincount: 1
-    pins:
-    pinlabels: [LIN_GATEWAY_GND]
-
   CONN_CAN_MODULES_GROUND:
     type: CAN Modules Ground Connector
     pincount: 1
@@ -294,9 +270,9 @@ connectors:
 
   GROUND_CABIN_BUS:
     type: Under-Dash Ground Bus
-    pincount: 10
+    pincount: 8
     pins:
-    pinlabels: [ENGINE_GROUND_FEED, EPS_GND, AUDIO_GND, THERMCTRL_GND, LIN_GATEWAY_GND, CAN_MODULES_GND, CD5_GND, AEM_KEYPAD_GND, VCU275_GND, REAR_GROUND_FEED]
+    pinlabels: [ENGINE_GROUND_FEED, EPS_GND, AUDIO_GND, CAN_MODULES_GND, CD5_GND, AEM_KEYPAD_GND, VCU275_GND, REAR_GROUND_FEED]
 
   CONN_CABIN_HEATER:
     type: Classic Retrofit PTC Cabin Heater Control Header
@@ -491,7 +467,7 @@ cables:
     category: Logic Wake
     wirecount: 5
     gauge: 18 AWG
-    colors: [OG, YE, BU, GY, VT]
+    colors: [RD]
 
   C_VCU275_12V_CONST:
     category: Low-Current Power
@@ -515,13 +491,13 @@ cables:
     category: HVAC Power/Logic
     wirecount: 3
     gauge: 14 AWG
-    colors: [WH, YE, BU]
+    colors: [RD, YE, BU]
 
   C_FRONT_KEYBOX_BRANCHES:
     category: Low-Current Logic/Power
-    wirecount: 6
+    wirecount: 4
     gauge: 18 AWG
-    colors: [RD, RD, BU, OG, YE, VT]
+    colors: [RD]
 
   C_SUB_AMP_PWR:
     category: Heavy Power
@@ -549,9 +525,9 @@ cables:
 
   C_CABIN_GROUND:
     category: Ground Return
-    wirecount: 8
+    wirecount: 6
     gauge: 18 AWG
-    colors: [BK, BK, BK, BK, BK, BK, BK, BK]
+    colors: [BK, BK, BK, BK, BK, BK]
 
   C_CABIN_TO_REAR_GROUND:
     category: Ground Feeder
@@ -569,13 +545,13 @@ cables:
     category: Logic Wake
     wirecount: 3
     gauge: 18 AWG
-    colors: [OG, YE, BU]
+    colors: [RD, YE, BU]
 
   C_REAR_AUX_POWER:
     category: Low-Current Power
     wirecount: 3
     gauge: 18 AWG
-    colors: [RD, VT, WH]
+    colors: [RD, WH, BU]
 
   C_BMS_PWR:
     category: Low-Current Power
@@ -712,32 +688,24 @@ connections:
     - C_CABIN_HEAT_CTRL: [1, 2, 3]
     - CONN_CABIN_HEATER: [1, 2, 3]
 
-  - - PDM_FRONT_KEYBOX: [CH4_THERM_CTRL_10A]
+  - - PDM_FRONT_KEYBOX: [CH4_AEM_KEYPAD_10A]
     - C_FRONT_KEYBOX_BRANCHES: [1]
-    - CONN_THERMCTRL_POWER: [1]
+    - CONN_AEM_KEYPAD_POWER: [1]
 
-  - - PDM_FRONT_KEYBOX: [CH5_LIN_GATEWAY_10A]
+  - - PDM_FRONT_KEYBOX: [CH5_CD5_DASH_10A]
     - C_FRONT_KEYBOX_BRANCHES: [2]
-    - CONN_LIN_GATEWAY_POWER: [1]
+    - CONN_CD5_POWER: [1]
 
   - - PDM_FRONT_KEYBOX: [CH6_CAN_MODULES_10A]
     - C_FRONT_KEYBOX_BRANCHES: [3]
     - CONN_CAN_MODULES_POWER: [1]
 
-  - - PDM_FRONT_KEYBOX: [CH7_CD5_DASH_10A]
+  - - PDM_FRONT_KEYBOX: [CH7_EPS_WAKE_10A]
     - C_FRONT_KEYBOX_BRANCHES: [4]
-    - CONN_CD5_POWER: [1]
-
-  - - PDM_FRONT_KEYBOX: [CH8_AEM_KEYPAD_10A]
-    - C_FRONT_KEYBOX_BRANCHES: [5]
-    - CONN_AEM_KEYPAD_POWER: [1]
-
-  - - PDM_FRONT_KEYBOX: [CH9_EPS_WAKE_10A]
-    - C_FRONT_KEYBOX_BRANCHES: [6]
     - CONN_EPS_WAKE: [1]
 
   - - GROUND_CABIN_BUS: [2]
-    - C_CABIN_GROUND: [1]
+    - C_CABIN_GROUND: [1] 
     - CONN_EPS_GROUND: [1]
 
   - - GROUND_CABIN_BUS: [3]
@@ -746,29 +714,21 @@ connections:
 
   - - GROUND_CABIN_BUS: [4]
     - C_CABIN_GROUND: [3]
-    - CONN_THERMCTRL_GROUND: [1]
+    - CONN_CAN_MODULES_GROUND: [1]
 
   - - GROUND_CABIN_BUS: [5]
     - C_CABIN_GROUND: [4]
-    - CONN_LIN_GATEWAY_GROUND: [1]
+    - CONN_CD5_GROUND: [1]
 
   - - GROUND_CABIN_BUS: [6]
     - C_CABIN_GROUND: [5]
-    - CONN_CAN_MODULES_GROUND: [1]
+    - CONN_AEM_KEYPAD_GROUND: [1]
 
   - - GROUND_CABIN_BUS: [7]
     - C_CABIN_GROUND: [6]
-    - CONN_CD5_GROUND: [1]
-
-  - - GROUND_CABIN_BUS: [8]
-    - C_CABIN_GROUND: [7]
-    - CONN_AEM_KEYPAD_GROUND: [1]
-
-  - - GROUND_CABIN_BUS: [9]
-    - C_CABIN_GROUND: [8]
     - CONN_VCU275_GROUND: [1]
 
-  - - GROUND_CABIN_BUS: [10]
+  - - GROUND_CABIN_BUS: [8]
     - C_CABIN_TO_REAR_GROUND: [1]
     - GROUND_REAR_BUS: [1]
 
