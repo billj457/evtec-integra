@@ -4,8 +4,8 @@
 connectors:
   Front_Keybox:
     type: "Blink Marine Keybox / PDM (12-Pin Deutsch)"
-    pincount: 9
-    pinlabels: [12V, GND, CABIN_HTR_WAKE, CABIN_HTR_STG1, CABIN_HTR_STG2, AEM_KEYPAD, CD5_DASH_GAUGES, CAN_MODULES, EPS_WAKE]
+    pincount: 11
+    pinlabels: [12V, GND, CAN2_H, CAN2_L, CABIN_HTR_WAKE, CABIN_HTR_STG1, CABIN_HTR_STG2, AEM_KEYPAD, CD5_DASH_GAUGES, CAN_MODULES, EPS_WAKE]
     notes: "Front Under-Dash Power Distribution Module (12-Pin Deutsch)"
 
   POWER_SOURCE:
@@ -24,6 +24,12 @@ cables:
     gauge: "20 AWG"
     colors: [RD, BK]
     notes: "12V Constant Main Power (Red) and Logic Ground Return (Black)"
+ 
+  W_CAN2:
+    wirecount: 2
+    gauge: "20 AWG"
+    colors: [YE, GN]
+    notes: "CAN2 Bus Twisted Pair"
 
   W_Outputs:
     wirecount: 7
@@ -41,6 +47,10 @@ connections:
     - W_Power: 2
     - Front_Keybox: 2
   -
-    - Front_Keybox: [3, 4, 5, 6, 7, 8, 9]
+    - CAN2_BUS: [1, 2]
+    - W_CAN2: [1, 2]
+    - Front_Keybox: [3, 4]
+  -
+    - Front_Keybox: [5, 6, 7, 8, 9, 10, 11]
     - W_Outputs: [1, 2, 3, 4, 5, 6, 7]
     - CABIN_OUTPUTS: [1, 2, 3, 4, 5, 6, 7]
