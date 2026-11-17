@@ -183,12 +183,12 @@ connectors:
       - CH1_CABIN_HEAT_WAKE    # 10A -> Classic Retrofit Cabin Heater Wake
       - CH2_CABIN_HEAT_STG1    # 10A -> Classic Retrofit Cabin Heater Stage 1
       - CH3_CABIN_HEAT_STG2    # 10A -> Classic Retrofit Cabin Heater Stage 2
-      - CH4_AEM_KEYPAD_10A     # 10A -> AEM 8-Button CAN Keypad
-      - CH5_CD5_DASH_10A       # 10A -> AEM CD-5 Digital Dash & Gauges
+      - CH4_AVAS_PWR_10A       # 10A -> AVAS Module Power
+      - CH5_AVAS_LS_10A        # 10A -> AVAS LS Trigger (Speaker Negative)
       - CH6_CAN_MODULES_10A    # 10A -> CAN Bus Modules Supply
       - CH7_EPS_WAKE_10A       # 10A -> EPS Controller Ignition Wake
-      - CH8_SPARE_10A         # 10A -> Spare Channel
-      - CH9_SPARE_10A         # 10A -> Spare Channel
+      - CH8_CD5_DASH_10A       # 10A -> AEM CD-5 Digital Dash & Gauges
+      - CH9_AEM_KEYPAD_10A     # 10A -> AEM 8-Button CAN Keypad
       - CH10_SPARE_10A         # 10A -> Spare Channel
       - CH11_SPARE_10A         # 10A -> Spare Channel
       - CH12_SPARE_10A_PWM     # 10A -> Spare Channel
@@ -230,6 +230,12 @@ connectors:
     pins:
     pinlabels: [AEM_KEYPAD_PWR]
 
+  CONN_AVAS_MODULE:
+    type: AEM AVAS Module Connector
+    pincount: 6
+    pins:
+    pinlabels: [AVAS_PWR, AVAS_GND, AVAS_LS, SPK_POS, SW_LS, SW_GND]
+
   CONN_EPS_GROUND:
     type: Electric Power Steering Ground Connector
     pincount: 1
@@ -268,11 +274,17 @@ connectors:
     pins:
     pinlabels: [AEM_KEYPAD_GND] 
 
+  CONN_AVAS_MODULE_GROUND:
+    type: AEM AVAS Module Ground Connector
+    pincount: 1
+    pins:
+    pinlabels: [AVAS_GND]
+
   GROUND_CABIN_BUS:
     type: Under-Dash Ground Bus
-    pincount: 8
+    pincount: 9
     pins:
-    pinlabels: [ENGINE_GROUND_FEED, EPS_GND, AUDIO_GND, CAN_MODULES_GND, CD5_GND, AEM_KEYPAD_GND, VCU275_GND, REAR_GROUND_FEED]
+    pinlabels: [ENGINE_GROUND_FEED, EPS_GND, AUDIO_GND, CAN_MODULES_GND, CD5_GND, AEM_KEYPAD_GND, VCU275_GND, AVAS_GND, REAR_GROUND_FEED]
 
   CONN_CABIN_HEATER:
     type: Classic Retrofit PTC Cabin Heater Control Header
@@ -495,9 +507,9 @@ cables:
 
   C_FRONT_KEYBOX_BRANCHES:
     category: Low-Current Logic/Power
-    wirecount: 4
+    wirecount: 6
     gauge: 18 AWG
-    colors: [RD]
+    colors: [RD, BK, RD, RD, RD, RD]
 
   C_SUB_AMP_PWR:
     category: Heavy Power
@@ -525,7 +537,7 @@ cables:
 
   C_CABIN_GROUND:
     category: Ground Return
-    wirecount: 6
+    wirecount: 7
     gauge: 18 AWG
     colors: [BK, BK, BK, BK, BK, BK]
 
@@ -688,13 +700,13 @@ connections:
     - C_CABIN_HEAT_CTRL: [1, 2, 3]
     - CONN_CABIN_HEATER: [1, 2, 3]
 
-  - - PDM_FRONT_KEYBOX: [CH4_AEM_KEYPAD_10A]
+  - - PDM_FRONT_KEYBOX: [CH4_AVAS_PWR_10A]
     - C_FRONT_KEYBOX_BRANCHES: [1]
-    - CONN_AEM_KEYPAD_POWER: [1]
+    - CONN_AVAS_MODULE: [1]
 
-  - - PDM_FRONT_KEYBOX: [CH5_CD5_DASH_10A]
+  - - PDM_FRONT_KEYBOX: [CH5_AVAS_LS_10A]
     - C_FRONT_KEYBOX_BRANCHES: [2]
-    - CONN_CD5_POWER: [1]
+    - CONN_AVAS_MODULE: [3]
 
   - - PDM_FRONT_KEYBOX: [CH6_CAN_MODULES_10A]
     - C_FRONT_KEYBOX_BRANCHES: [3]
@@ -703,6 +715,14 @@ connections:
   - - PDM_FRONT_KEYBOX: [CH7_EPS_WAKE_10A]
     - C_FRONT_KEYBOX_BRANCHES: [4]
     - CONN_EPS_WAKE: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH8_CD5_DASH_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [5]
+    - CONN_CD5_POWER: [1]
+
+  - - PDM_FRONT_KEYBOX: [CH9_AEM_KEYPAD_10A]
+    - C_FRONT_KEYBOX_BRANCHES: [6]
+    - CONN_AEM_KEYPAD_POWER: [1]
 
   - - GROUND_CABIN_BUS: [2]
     - C_CABIN_GROUND: [1] 
@@ -729,6 +749,10 @@ connections:
     - CONN_VCU275_GROUND: [1]
 
   - - GROUND_CABIN_BUS: [8]
+    - C_CABIN_GROUND: [7]
+    - CONN_AVAS_MODULE_GROUND: [1]
+
+  - - GROUND_CABIN_BUS: [9]
     - C_CABIN_TO_REAR_GROUND: [1]
     - GROUND_REAR_BUS: [1]
 
