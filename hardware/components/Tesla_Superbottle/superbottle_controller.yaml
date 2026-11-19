@@ -55,8 +55,8 @@ connectors:
   ESP32_J3_I2C:
     type: STEMMA QT / Qwiic
     subtype: female
-    pincount: 2
-    pinlabels: [SDA, SCL]
+    pincount: 3
+    pinlabels: [SDA, SCL, 3.3V]
     notes: "Copperhill ESP32-S3 J3 I2C Expansion Header"
 
   ESP32_J1_GPIO:
@@ -68,9 +68,9 @@ connectors:
 
   TMC2209_Driver:
     type: Stepper Driver Breakout
-    pincount: 12
-    pinlabels: [VM_12V, GND_POWER, 1A_PHASE_A+, 1B_PHASE_A-, 2A_PHASE_B+, 2B_PHASE_B-, STEP, DIR, ENABLE, DIAG, PDN_UART, GND_LOGIC]
-    notes: "BIGTREETECH TMC2209 V1.3 Module"
+    pincount: 13
+    pinlabels: [12V, GND, 3.3V, 1A_PHASE_A+, 1B_PHASE_A-, 2A_PHASE_B+, 2B_PHASE_B-, STEP, DIR, ENABLE, DIAG, PDN_UART, GND_LOGIC]
+    notes: "Adafruit TMC2209 Stepper Motor Driver Breakout"
 
   ADS1115_ADC:
     type: ADC Breakout
@@ -103,8 +103,8 @@ cables:
 
   W_PT_Sensor:
     gauge: 20 AWG
-    wirecount: 4
-    colors: [PK, BK, OG, OGBU]
+    wirecount: 2
+    colors: [OG, OGBU]
     notes: "Port 3 Pigtail (OG = Pressure to ADS A0, BU = Temp to ADS A1)"
 
   W_PT_Sensor_Pwr:
@@ -126,8 +126,8 @@ cables:
 
   W_I2C_Cable:
     gauge: 28 AWG
-    wirecount: 2
-    colors: [BU, YE]
+    wirecount: 3
+    colors: [BU, YE, RD]
     notes: "STEMMA QT 4-pin Cable"
 
 connections:
@@ -152,6 +152,10 @@ connections:
     - P1_Power_CAN: 4
     - W_TMC_Pwr: 2
     - TMC2209_Driver: 2
+  - 
+    - ESP32_J3_I2C: [3]
+    - W_I2C_Cable: 3
+    - TMC2209_Driver: 3
 
   # --- Port 2 (Tesla 5-Way Valve Output directly from J6) ---
   -
@@ -169,23 +173,23 @@ connections:
     - W_PT_Sensor_Pwr: 2
     - ADS1115_ADC: 2
 
-  - - ADS1115_ADC: 1
-    - W_PT_Sensor: 1
+  - - P1_Power_CAN: 5
+    - W_PT_Sensor_Pwr: 1
     - P3_PT_Sensor: 1
 
-  - - ADS1115_ADC: 2
-    - W_PT_Sensor: 2
+  - - P1_Power_CAN: 4
+    - W_PT_Sensor_Pwr: 2
     - P3_PT_Sensor: 2
 
   # --- Port 3 (Tesla LP PT Sensor Signals to ADS1115) ---
   -
     - ADS1115_ADC: [5, 6]
-    - W_PT_Sensor: [3, 4]
+    - W_PT_Sensor: [1, 2]
     - P3_PT_Sensor: [3, 4]
 
   # --- Port 4 (Tesla Chiller EXV Stepper Outputs from TMC2209) ---
   -
-    - TMC2209_Driver: [3, 4, 5, 6]
+    - TMC2209_Driver: [4, 5, 6, 7]
     - W_EXV_Stepper: [1, 2, 3, 4]
     - P4_EXV_Stepper: [1, 2, 3, 4]
 
@@ -193,7 +197,7 @@ connections:
   -
     - ESP32_J1_GPIO: [1, 2, 3, 4, 5, 6]
     - W_J1_TMC_Ribbon: [1, 2, 3, 4, 5, 6]
-    - TMC2209_Driver: [7, 8, 9, 10, 11, 12]
+    - TMC2209_Driver: [8, 9, 10, 11, 12, 13]
 
   # --- STEMMA QT I2C Connection from J3 to ADS1115 ---
   -
